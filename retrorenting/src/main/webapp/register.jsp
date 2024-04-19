@@ -15,7 +15,7 @@
         <h1>Hello World!</h1>
         <h2>Registro de Usuario</h2>
 
-        <form action="/registrarse" method="post">
+        <form action="RegisterServlet" method="post">
           <div>
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required>

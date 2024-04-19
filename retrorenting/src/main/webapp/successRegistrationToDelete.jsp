@@ -1,6 +1,6 @@
 <%-- 
-    Document   : header
-    Created on : 16 abr. 2024, 9:51:57
+    Document   : successRegistrationToDelete
+    Created on : 19 abr. 2024, 13:06:50
     Author     : 39348
 --%>
 
@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>RetroRentingHome</title>
+        <title>JSP Page</title>
     </head>
     <body>
-        <h1>RetroRenting</h1>
+        <h1>Se ha registrado de manera exitosa</h1>
     </body>
 </html>
