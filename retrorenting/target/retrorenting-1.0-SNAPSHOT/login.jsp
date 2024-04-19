@@ -15,7 +15,7 @@
         <h1>Login</h1>
         <h2>Iniciar Sesión</h2>
 
-        <form action="/login" method="post">
+        <form action="LoginServlet" method="post">
           <div>
             <label for="email">Correo Electrónico:</label>
             <input type="email" id="email" name="email" required>
