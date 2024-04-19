@@ -4,6 +4,7 @@ com\retrorenting\retrorenting\model\Adress.class
 com\retrorenting\retrorenting\controller\RegisterServlet.class
 com\retrorenting\retrorenting\model\User.class
 com\retrorenting\retrorenting\controller\UserProfileServlet.class
+com\retrorenting\retrorenting\controller\UploadPostServlet.class
 com\retrorenting\retrorenting\resources\JakartaEE10Resource.class
 com\retrorenting\retrorenting\configuration\db\DbConnect.class
 com\retrorenting\retrorenting\controller\home.class

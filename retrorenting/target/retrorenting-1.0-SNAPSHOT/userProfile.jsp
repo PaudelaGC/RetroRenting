@@ -24,6 +24,9 @@
           <p><strong>Ciudad:</strong> Ciudad de Ejemplo</p>
           <p><strong>Región:</strong> Región de Ejemplo</p>
           <p><strong>País:</strong> País de Ejemplo</p>
+           <form action="UploadPostServlet" method="get">
+                <button type="submit">Publicar</button>
+           </form>
         </div>
     </body>
 </html>
