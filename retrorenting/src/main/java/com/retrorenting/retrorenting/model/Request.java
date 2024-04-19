@@ -10,4 +10,5 @@ package com.retrorenting.retrorenting.model;
  */
 public class Request {
     
+
 }

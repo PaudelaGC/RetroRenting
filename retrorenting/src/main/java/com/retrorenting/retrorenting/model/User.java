@@ -4,10 +4,14 @@
  */
 package com.retrorenting.retrorenting.model;
 
-/**
- *
- * @author 39348
- */
+
+import com.retrorenting.retrorenting.configuration.db.DbConnect;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import model.Address;
+
 public class User {
-    
+
 }
+

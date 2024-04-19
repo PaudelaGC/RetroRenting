@@ -1,0 +1,8 @@
+# Propiedades de conexión a la base de datos
+jdbc.driver=com.mysql.cj.jdbc.Driver
+jdbc.protocol=jdbc:mysql:
+jdbc.host=localhost
+jdbc.dbname=bd_institucion
+jdbc.user=root
+jdbc.password=123456
+jdbc.options=?autoReconnect=true&useSSL=false
