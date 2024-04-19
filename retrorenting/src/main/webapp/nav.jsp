@@ -25,6 +25,13 @@
                         <button type="submit">Login</button>
                     </form>
                 </li>
+                 
+                <li>
+                    <form action="SearchServlet" method="get">
+                        <input type="text" name="query" placeholder="Search...">
+                        <button type="submit">Search</button>
+                    </form>
+                </li>
             </ul>
         </nav>
     </body>
