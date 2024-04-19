@@ -13,7 +13,6 @@
         
     </head>
     <body>
-        <h1>Retrorenting</h1>
         <jsp:include page="nav.jsp" />
     </body>
 </html>

@@ -16,7 +16,7 @@
         <nav>
             <ul>
                 <li>
-                    <form action="HomeServlet" method="get">
+                    <form action="home" method="get">
                         <button type="submit">Home</button>
                     </form>
                 </li>
