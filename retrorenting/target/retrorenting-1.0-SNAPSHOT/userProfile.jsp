@@ -27,6 +27,9 @@
            <form action="UploadPostServlet" method="get">
                 <button type="submit">Publicar</button>
            </form>
+           <form action="EditProfileServlet" method="get">
+                <button type="submit">Editar Mi Perfil</button>
+           </form>
         </div>
     </body>
 </html>

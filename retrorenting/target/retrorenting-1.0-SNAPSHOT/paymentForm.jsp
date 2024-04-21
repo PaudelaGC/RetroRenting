@@ -14,7 +14,7 @@
     <body>
         <h1>Formulario de Pago</h1>
 
-        <form action="/procesar_pago" method="post">
+        <form action="RequestPaymentProcessServlet" method="post">
           <div>
             <label for="card_number">Número de Tarjeta:</label>
             <input type="text" id="card_number" name="card_number" pattern="[0-9]{16}" title="Debe tener 16 dígitos" required>
@@ -28,6 +28,9 @@
             <input type="text" id="cvv" name="cvv" pattern="[0-9]{3,4}" title="Debe tener 3 o 4 dígitos" required>
           </div>
           <button type="submit">Realizar Petición</button>
+        </form>
+        <form action="ViewPostServlet">
+             <button type="submit">Atrás</button>
         </form>
     </body>
 </html>

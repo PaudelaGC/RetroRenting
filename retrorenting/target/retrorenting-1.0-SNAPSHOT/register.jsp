@@ -58,6 +58,11 @@
           </div>
           <button type="submit">Registrarse</button>
         </form>
+        <form action="LoginServlet" method="get">
+            
+            <button type="submit">Atrás</button>
+            
+        </form>
 
     </body>
 </html>
