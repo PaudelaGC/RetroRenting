@@ -13,23 +13,66 @@
     </head>
     <body>
         <h2>Lista de Peticiones</h2>
-
-    <ul id="lista-peticiones">
-      <li>
-        <span>Petición 1</span>
-        <button>Aceptar</button>
-        <button>Rechazar</button>
-      </li>
-      <li>
-        <span>Petición 2</span>
-        <button>Aceptar</button>
-        <button>Rechazar</button>
-      </li>
-      <li>
-        <span>Petición 3</span>
-        <button>Aceptar</button>
-        <button>Rechazar</button>
-      </li>
-    </ul>
+        <section>
+            <h3>Peticiones Recibidas</h3>
+              <ul id="lista-peticiones">
+              <li>
+                <span>Petición 1</span>
+                <form action="RequestOkServlet" method="get">
+                       <button type="submit">Aceptar</button>
+                </form>
+             
+                 <form action="RequestDeniedServlet" method="get">
+                       <button type="submit">Rechazar</button>
+                </form>
+              </li>
+              <li>
+                <span>Petición 2</span>
+                <form action="RequestOkServlet" method="get">
+                       <button type="submit">Aceptar</button>
+                </form>
+             
+                 <form action="RequestDeniedServlet" method="get">
+                       <button type="submit">Rechazar</button>
+                </form>
+              </li>
+              <li>
+                <span>Petición 3</span>
+                <form action="RequestOkServlet" method="get">
+                       <button type="submit">Aceptar</button>
+                </form>
+             
+                 <form action="RequestDeniedServlet" method="get">
+                       <button type="submit">Rechazar</button>
+                </form>
+              </li>
+            </ul>
+            
+        </section>
+        <section>
+            <h3>Peticiones Enviadas</h3>
+              <ul id="lista-peticiones">
+              <li>
+                <span>Petición 1</span>
+                 <span>Estado: Pendiente</span>
+              </li>
+              <li>
+                <span>Petición 2</span>
+                <span>Estado: Confirmada</span>
+                <form action="PaymentOkServlet">
+                    <button type="submit">Pagar</button>
+                    
+                </form>
+                
+              </li>
+            </ul>
+            
+        </section>
+   
+        
+        
+        <form action="UserProfileServlet" method="get">
+             <button type="submit">Atrás</button>
+        </form>
     </body>
 </html>

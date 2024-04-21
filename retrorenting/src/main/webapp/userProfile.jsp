@@ -24,6 +24,21 @@
           <p><strong>Ciudad:</strong> Ciudad de Ejemplo</p>
           <p><strong>Región:</strong> Región de Ejemplo</p>
           <p><strong>País:</strong> País de Ejemplo</p>
+           <form action="UploadPostServlet" method="get">
+                <button type="submit">Publicar</button>
+           </form>
+           <form action="EditProfileServlet" method="get">
+                <button type="submit">Editar Mi Perfil</button>
+           </form>
+           <form action="RequestManagerServlet" method="get">
+                <button type="submit">Ver Peticiones</button>
+           </form>
+            <form action="SignOutServlet" method="get">
+                <button type="submit">CERRAR SESION</button>
+            </form>
+            <form action="DeletedAccountServlet" method="post">
+                <button type="submit">ELIMINAR CUENTA</button>
+            </form>
         </div>
     </body>
 </html>

@@ -15,7 +15,7 @@
         <h1>Editar Perfil</h1>
          <h2>Editar Perfil</h2>
 
-        <form action="/guardar_edicion_perfil" method="post">
+        <form action="SaveProfileEditedServlet" method="post">
             <div>
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" value="Juan" required>

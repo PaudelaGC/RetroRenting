@@ -17,8 +17,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author 39348
  */
-@WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
-public class RegisterServlet extends HttpServlet {
+@WebServlet(name = "ViewPostServlet", urlPatterns = {"/ViewPostServlet"})
+public class ViewPostServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,8 +34,8 @@ public class RegisterServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
-            dispatcher.forward(request, response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("viewPost.jsp");
+           dispatcher.forward(request, response);
         }
     }
 
@@ -65,11 +65,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("successRegistrationToDelete.jsp");
-        //Aqui vamos a colocar la funcionalidad de conectar a la base de datos y hacer el registro del usuario
-        
-       
-        
+        processRequest(request, response);
     }
 
     /**
