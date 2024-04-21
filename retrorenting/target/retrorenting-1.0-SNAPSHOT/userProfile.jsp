@@ -33,10 +33,10 @@
            <form action="RequestManagerServlet" method="get">
                 <button type="submit">Ver Peticiones</button>
            </form>
-            <form action="home" method="get">
+            <form action="SignOutServlet" method="get">
                 <button type="submit">CERRAR SESION</button>
             </form>
-            <form action="DeletedAccountServlet" method="get">
+            <form action="DeletedAccountServlet" method="post">
                 <button type="submit">ELIMINAR CUENTA</button>
             </form>
         </div>
