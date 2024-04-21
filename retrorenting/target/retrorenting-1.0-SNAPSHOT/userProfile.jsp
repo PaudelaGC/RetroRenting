@@ -30,6 +30,15 @@
            <form action="EditProfileServlet" method="get">
                 <button type="submit">Editar Mi Perfil</button>
            </form>
+           <form action="RequestManagerServlet" method="get">
+                <button type="submit">Ver Peticiones</button>
+           </form>
+            <form action="home" method="get">
+                <button type="submit">CERRAR SESION</button>
+            </form>
+            <form action="DeletedAccountServlet" method="get">
+                <button type="submit">ELIMINAR CUENTA</button>
+            </form>
         </div>
     </body>
 </html>
