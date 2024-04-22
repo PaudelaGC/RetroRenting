@@ -8,6 +8,6 @@ package model.persist;
  *
  * @author Mati
  */
-public class RequestDao {
+public class RequestsDao {
     
 }

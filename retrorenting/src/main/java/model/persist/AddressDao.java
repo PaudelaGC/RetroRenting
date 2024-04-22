@@ -2,6 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
+/*
+*
+* Author Nestor
+*/
 package model.persist;
 
 import com.retrorenting.retrorenting.configuration.db.DbConnect;
@@ -33,7 +38,7 @@ public class AddressDao {
         );
     }
 
-    public List<Address> listarAddresses() {
+    public List<Address> listAddresses() {
         List<Address> result = new ArrayList<>();
         String query = "SELECT * FROM addresses;";
         try (Connection conn = dbConnect.getConnection();
@@ -48,7 +53,7 @@ public class AddressDao {
         return result;
     }
 
-    public Address buscarAddress(int id) {
+    public Address searchAddress(int id) {
         Address result = null;
         String query = "SELECT * FROM addresses WHERE id = ?;";
         try (Connection conn = dbConnect.getConnection();
@@ -65,7 +70,7 @@ public class AddressDao {
         return result;
     }
 
-    public boolean agregarAddress(Address address) {
+    public boolean addAddress(Address address) {
         boolean result = false;
         String query = "INSERT INTO addresses (street, number, block, door, floor, postal_code, city, state, country) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try (Connection conn = dbConnect.getConnection();
@@ -86,7 +91,7 @@ public class AddressDao {
         return result;
     }
 
-    public boolean modificarAddress(Address address) {
+    public boolean editAddress(Address address) {
         boolean result = false;
         String query = "UPDATE addresses SET street = ?, number = ?, block = ?, door = ?, floor = ?, postal_code = ?, city = ?, state = ?, country = ? WHERE id = ?;";
         try (Connection conn = dbConnect.getConnection();
@@ -104,11 +109,10 @@ public class AddressDao {
             result = st.executeUpdate() > 0;
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-        return result;
+        }return result;
     }
 
-    public boolean eliminarAddress(int id) {
+    public boolean deleteAddress(int id) {
         boolean result = false;
         String query = "DELETE FROM addresses WHERE id = ?;";
         try (Connection conn = dbConnect.getConnection();
@@ -117,8 +121,7 @@ public class AddressDao {
             result = st.executeUpdate() > 0;
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-        return result;
-    }
+        } return result;
+    }                                                                       
 }
 
