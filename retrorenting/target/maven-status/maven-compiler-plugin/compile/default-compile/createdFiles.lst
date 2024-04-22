@@ -1,0 +1,10 @@
+com\retrorenting\retrorenting\configuration\JakartaRestConfiguration.class
+com\retrorenting\retrorenting\model\Adress.class
+com\retrorenting\retrorenting\controllers\LoginServlet.class
+com\retrorenting\retrorenting\model\User.class
+com\retrorenting\retrorenting\resources\JakartaEE10Resource.class
+com\retrorenting\retrorenting\configuration\db\DbConnect.class
+com\retrorenting\retrorenting\controllers\TokenService.class
+com\retrorenting\retrorenting\configuration\db\Sql.class
+com\retrorenting\retrorenting\model\Post.class
+com\retrorenting\retrorenting\model\Request.class
