@@ -18,16 +18,16 @@ public class User {
     private String mail;
     private String password;
     private Date birthdate;
-    private Address Address;
+    private Address address;
 
-    public User(int id, String name, String surname, String mail, String password, Date birthdate, Address Address) {
+    public User(int id, String name, String surname, String mail, String password, Date birthdate, Address address) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.mail = mail;
         this.password = password;
         this.birthdate = birthdate;
-        this.Address = Address;
+        this.address = address;
     }
 
 
@@ -83,11 +83,11 @@ public class User {
     }
 
     public Address getAddress() {
-        return Address;
+        return address;
     }
 
-    public void setAddress(Address Address) {
-        this.Address = Address;
+    public void setAddress(Address address) {
+        this.address = address;
     }
     
     
