@@ -28,8 +28,8 @@ public class UsersDao {
             rs.getString("surname"),
             rs.getString("mail"),
             rs.getString("password"),
-            rs.getDate("birthdate")
-//                rs.getInt("idAddress")
+            rs.getDate("birthdate"),
+            rs.getInt("idAddress")
         );
     }
     
@@ -65,6 +65,31 @@ public class UsersDao {
         return result;
     }
     
+        public boolean addUser(User user) {
+        boolean result = false;
+        String query = "INSERT INTO users (name, surname, mail, password, birthdate, idAddress) VALUES (?, ?, ?, ?, ?, ?    );";
+        try(Connection conn = dbConnect.getConnection();
+                
+                // insert de address user.adress
+//            addredao dao.add(user.getAddress())    
+                
+                // idaddress -> user
+                
+                // insert de user
+            
+            PreparedStatement st = conn.prepareStatement(query)) {
+            st.setString(1, user.getName());
+            st.setString(2, user.getSurname());
+            st.setString(3, user.getMail());
+            st.setString(4, user.getPassword());
+            st.setDate(5, user.getBirthdate());
+            st.setString(6, user.getidAddress());
+            result = st.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } return result;          
+    }
+    
     public boolean editUser (User user){
         boolean result = false;
         String query = "UPDATE users SET name = ?, surname = ?, mail = ?, password = ?, birthdate = ?, idAddress = id  WHERE id = ?;";
@@ -75,7 +100,7 @@ public class UsersDao {
             st.setString(3, user.getMail());
             st.setString(4, user.getPassword());
             st.setDate(5, user.getBirthdate());
-//            st.setString(6, user.getidAddress());
+            st.setString(6, user.getidAddress());
             result = st.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();

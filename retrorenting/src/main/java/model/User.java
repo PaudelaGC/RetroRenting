@@ -20,16 +20,16 @@ public class User {
     private Date birthdate;
     private Address Address;
 
-
-    
-    public User(int id, String name, String surname, String mail, String password, Date birthdate) {
+    public User(int id, String name, String surname, String mail, String password, Date birthdate, Address Address) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.mail = mail;
         this.password = password;
         this.birthdate = birthdate;
+        this.Address = Address;
     }
+
 
     public User() {
     }
@@ -81,6 +81,15 @@ public class User {
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
+
+    public Address getAddress() {
+        return Address;
+    }
+
+    public void setAddress(Address Address) {
+        this.Address = Address;
+    }
+    
     
     
 
