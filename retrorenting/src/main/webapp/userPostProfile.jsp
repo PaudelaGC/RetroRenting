@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="nav.jsp" />
         <h2>Perfil de Usuario QUE ALQUILA</h2>
 
         <div>

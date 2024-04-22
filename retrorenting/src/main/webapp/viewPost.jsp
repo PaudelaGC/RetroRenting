@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="nav.jsp" />
         <h1>Titulo de publicacion</h1>
         <div>
             <h2>Título de la Publicación</h2>

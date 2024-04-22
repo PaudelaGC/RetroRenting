@@ -1,6 +1,6 @@
 <%-- 
-    Document   : successRegistrationToDelete
-    Created on : 19 abr. 2024, 13:06:50
+    Document   : uploadPostOk
+    Created on : 22 abr. 2024, 10:17:58
     Author     : 39348
 --%>
 
@@ -13,9 +13,9 @@
     </head>
     <body>
         <jsp:include page="nav.jsp" />
-        <h1>Se ha registrado de manera exitosa</h1>
-        <form action="UserProfileServlet" method="get">
-                <button type="submit">Ver Mi Perfil</button>
+        <h1>La Publicacion se subio correctamente</h1>
+         <form action="UserProfileServlet" method="get">
+                <button type="submit">Volver</button>
         </form>
     </body>
 </html>

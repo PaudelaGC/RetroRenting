@@ -12,7 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <jsp:include page="nav.jsp" />
+       
         <h2>Registro de Usuario</h2>
 
         <form action="RegisterServlet" method="post">

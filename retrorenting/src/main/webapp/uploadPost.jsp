@@ -12,8 +12,9 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="nav.jsp" />
         <h1>Subir Publicacion</h1>
-        <form action="UploadPost" method="post">
+        <form action="UploadPostOkServlet" method="post">
         <div>
           <label for="titulo">Título:</label>
           <input type="text" id="titulo" name="titulo" placeholder="Ingrese el título" required>

@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="nav.jsp" />
         <h1>Formulario de Pago</h1>
 
         <form action="RequestPaymentProcessServlet" method="post">

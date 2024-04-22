@@ -12,6 +12,7 @@
         <title>Edit Profile</title>
     </head>
     <body>
+        <jsp:include page="nav.jsp" />
         <h1>Editar Perfil</h1>
          <h2>Editar Perfil</h2>
 

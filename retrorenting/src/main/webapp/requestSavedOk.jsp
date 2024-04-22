@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="nav.jsp" />
         <h1>SU peticion fue enviada con éxito</h1>
         <form action="home" method="get">
                 <button type="submit">Volver</button>

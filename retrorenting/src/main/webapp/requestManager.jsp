@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="nav.jsp" />
         <h2>Lista de Peticiones</h2>
         <section>
             <h3>Peticiones Recibidas</h3>

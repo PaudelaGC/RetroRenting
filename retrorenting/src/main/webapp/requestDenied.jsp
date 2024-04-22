@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="nav.jsp" />
        <h1>La peticion id Fue Rechazada</h1>
          <form action="RequestManagerServlet" method="get">
                 <button type="submit">Volver</button>

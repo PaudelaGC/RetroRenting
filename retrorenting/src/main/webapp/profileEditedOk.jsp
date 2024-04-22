@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="nav.jsp" />
         <h1>El perfil se edito correctamente</h1>
             <form action="UserProfileServlet" method="get">
                 <button type="submit">Volver</button>
