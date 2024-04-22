@@ -5,13 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
+        <jsp:include page="header.jsp" />   
         <jsp:include page="nav.jsp" />
 
         <h2>Registro de Usuario</h2>
@@ -38,9 +32,16 @@
                 <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
             </div>
             <div>
-                <label for="direccion">Dirección:</label>
-                <textarea id="direccion" name="direccion" required></textarea>
-            </div>
+        <label for="direccion">Dirección:</label>
+        <div>
+        <input type="text" id="calle" name="calle" placeholder="Calle" required>
+        <input type="text" id="numero" name="numero" placeholder="Número" required>
+        <input type="text" id="bloque" name="bloque" placeholder="Bloque">
+        <input type="text" id="puerta" name="puerta" placeholder="Puerta">
+        <input type="text" id="piso" name="piso" placeholder="Piso">
+    </div>
+      </div>
+
             <div>
                 <label for="codigo_postal">Código Postal:</label>
                 <input type="text" id="codigo_postal" name="codigo_postal" required>
@@ -50,8 +51,8 @@
                 <input type="text" id="ciudad" name="ciudad" required>
             </div>
             <div>
-                <label for="region">Región:</label>
-                <input type="text" id="region" name="region">
+                <label for="region">Estado:</label>
+                <input type="text" id="estado" name="estado">
             </div>
             <div>
                 <label for="pais">País:</label>
