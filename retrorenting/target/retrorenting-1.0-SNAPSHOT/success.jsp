@@ -9,7 +9,7 @@
 <%@ page import="java.util.Date" %>
 
 <%
-    String token = request.getHeader("Authorization");
+    String token = response.getHeader("Authorization");
     if (token != null && token.startsWith("Bearer ")) {
         try {
             String jwtToken = token.substring(7);
@@ -28,10 +28,10 @@
 </html>
 <%
         } catch (Exception e) {
-            response.getWriter().write("Error");
+            response.getWriter().write("An error ocurred while loading this page.");
         }
     } else {
-            response.getWriter().write("Nope");
+            response.getWriter().write("Authorization error: no token recieved.");
     }
 %>
 
