@@ -46,5 +46,6 @@
           </div>
           <button type="submit">Guardar Cambios</button>
         </form>
+         <jsp:include page="footer.jsp" />
     </body>
 </html>

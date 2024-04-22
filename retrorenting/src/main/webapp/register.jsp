@@ -64,6 +64,7 @@
             <button type="submit">Atrás</button>
             
         </form>
+         <jsp:include page="footer.jsp" />
 
     </body>
 </html>

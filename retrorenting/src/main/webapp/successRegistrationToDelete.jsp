@@ -17,5 +17,6 @@
         <form action="UserProfileServlet" method="get">
                 <button type="submit">Ver Mi Perfil</button>
         </form>
+         <jsp:include page="footer.jsp" />
     </body>
 </html>

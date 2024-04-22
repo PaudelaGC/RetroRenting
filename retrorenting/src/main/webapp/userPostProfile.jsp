@@ -28,6 +28,8 @@
            <form action="ViewPostServlet" method="get">
                 <button type="submit">Volver</button>
            </form>
+          
         </div>
+          <jsp:include page="footer.jsp" />
     </body>
 </html>

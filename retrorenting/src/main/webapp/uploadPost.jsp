@@ -45,6 +45,7 @@
         </div>
         <button type="submit">Subir Publicación</button>
       </form>
+       <jsp:include page="footer.jsp" />
 
     </body>
 </html>

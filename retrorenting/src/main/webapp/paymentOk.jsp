@@ -17,5 +17,6 @@
             <form action="RequestManagerServlet" method="get">
                 <button type="submit">Volver</button>
             </form>
+              <jsp:include page="footer.jsp" />
     </body>
 </html>

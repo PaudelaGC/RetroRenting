@@ -35,6 +35,7 @@
                 <button type="submit">Registrarse</button>
               </div>
             </form>
-        
+          <jsp:include page="footer.jsp" />
     </body>
+    
 </html>

@@ -5,13 +5,11 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+ <footer>
+    <p>&copy; 2024 Tienda Virtual. Todos los derechos reservados.</p>
+    <ul>
+        <li><a href="https://www.instagram.com/tiendavirtual" target="_blank">Instagram</a></li>
+        <li><a href="https://www.facebook.com/tiendavirtual" target="_blank">Facebook</a></li>
+        <li><a href="https://www.tiktok.com/@tiendavirtual" target="_blank">TikTok</a></li>
+    </ul>
+</footer>

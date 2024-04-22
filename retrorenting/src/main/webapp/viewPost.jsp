@@ -29,5 +29,6 @@
             <%--<input type="hidden" name="publicacion_id" value="id_de_la_publicacion">--%>
             <button type="submit">Solicitar</button>
         </form>
+          <jsp:include page="footer.jsp" />
     </body>
 </html>

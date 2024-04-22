@@ -5,14 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>RetroRentingHome</title>
-    </head>
-    <body>
-        <h1>RetroRenting</h1>
         <nav>
             <ul>
                 <li>
@@ -34,5 +26,3 @@
                 </li>
             </ul>
         </nav>
-    </body>
-</html>
