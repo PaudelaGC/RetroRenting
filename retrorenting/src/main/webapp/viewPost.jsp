@@ -12,13 +12,7 @@
     String token = response.getHeader("Authorization");
     boolean expired = false;
 %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
+        <jsp:include page="header.jsp" />
         <jsp:include page="nav.jsp" />
         <h1>Titulo de publicacion</h1>
         <div>
