@@ -12,22 +12,29 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="nav.jsp" />
         <h1>Login</h1>
         <h2>Iniciar Sesión</h2>
 
-        <form action="/login" method="post">
-          <div>
-            <label for="email">Correo Electrónico:</label>
-            <input type="email" id="email" name="email" required>
-          </div>
-          <div>
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" required>
-          </div>
-          <div>
-            <button type="submit">Ingresar</button>
-            <button type="button" >Registrarse</button>
-          </div>
-        </form>
+            <form action="UserProfileServlet" method="post">
+              <div>
+                <label for="email">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" required>
+              </div>
+              <div>
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+              </div>
+              <div>
+                <button type="submit">Ingresar</button>
+              </div>
+            </form>
+
+            <form action="RegisterServlet" method="get">
+              <div>
+                <button type="submit">Registrarse</button>
+              </div>
+            </form>
+        
     </body>
 </html>
