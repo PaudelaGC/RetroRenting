@@ -53,7 +53,13 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            // Obtener el objeto RequestDispatcher
+    RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+    dispatcher.forward(request, response);
+          
+        }
     }
 
     /**
@@ -67,7 +73,19 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String email = "email";
+        String password = "password";
+        if (true) {
+            TokenService tokenService = new TokenService();
+            String token = tokenService.createToken(email);
+
+            response.addHeader("Authorization", "Bearer " + token);
+            response.getWriter().write(token);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            response.getWriter().write(email);
+        }
     }
 
     /**
