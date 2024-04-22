@@ -12,10 +12,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <jsp:include page="nav.jsp" />
+       
         <h2>Registro de Usuario</h2>
 
-        <form action="/registrarse" method="post">
+        <form action="RegisterServlet" method="post">
           <div>
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required>
@@ -58,6 +59,12 @@
           </div>
           <button type="submit">Registrarse</button>
         </form>
+        <form action="LoginServlet" method="get">
+            
+            <button type="submit">Atrás</button>
+            
+        </form>
+         <jsp:include page="footer.jsp" />
 
     </body>
 </html>

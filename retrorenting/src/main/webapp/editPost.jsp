@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="nav.jsp" />
         <h2>Editar Publicación</h2>
 
         <form action="/guardar_edicion" method="post">
@@ -45,5 +46,6 @@
           </div>
           <button type="submit">Guardar Cambios</button>
         </form>
+         <jsp:include page="footer.jsp" />
     </body>
 </html>

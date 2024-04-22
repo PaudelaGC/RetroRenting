@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="nav.jsp" />
         <h2>Publicación</h2>
 
         <div>
@@ -24,6 +25,6 @@
         </div>
 
 
-
+          <jsp:include page="footer.jsp" />
     </body>
 </html>

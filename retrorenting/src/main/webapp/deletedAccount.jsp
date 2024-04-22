@@ -1,6 +1,6 @@
 <%-- 
-    Document   : footer
-    Created on : 16 abr. 2024, 9:52:25
+    Document   : deletedAccount
+    Created on : 21 abr. 2024, 10:15:17
     Author     : 39348
 --%>
 
@@ -12,6 +12,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Tu cuenta fue eliminada correctamente</h1>
+        <form action="home" method="get">
+            <button type="submit">Home</button>
+        </form>
     </body>
 </html>
