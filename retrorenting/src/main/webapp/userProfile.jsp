@@ -5,36 +5,55 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-        <jsp:include page="header.jsp" />
-        <jsp:include page="nav.jsp" />
-        <h2>Perfil de Usuario</h2>
+<jsp:include page="header.jsp" />
+<jsp:include page="nav.jsp" />
 
-        <div>
-          <p><strong>Nombre:</strong> Juan</p>
-          <p><strong>Apellido:</strong> Pérez</p>
-          <p><strong>Correo Electrónico:</strong> juan@example.com</p>
-          <p><strong>Fecha de Nacimiento:</strong> 10 de Enero de 1990</p>
-          <p><strong>Dirección:</strong> Calle Principal, 123, Escalera B, Piso 2, Puerta 4</p>
-          <p><strong>Código Postal:</strong> 12345</p>
-          <p><strong>Ciudad:</strong> Ciudad de Ejemplo</p>
-          <p><strong>Región:</strong> Región de Ejemplo</p>
-          <p><strong>País:</strong> País de Ejemplo</p>
-           <form action="UploadPostServlet" method="get">
-                <button type="submit">Publicar</button>
-           </form>
-           <form action="EditProfileServlet" method="get">
-                <button type="submit">Editar Mi Perfil</button>
-           </form>
-           <form action="RequestManagerServlet" method="get">
-                <button type="submit">Ver Peticiones</button>
-           </form>
-            <form action="SignOutServlet" method="get">
-                <button type="submit">CERRAR SESION</button>
+<div class="container mt-5">
+  <h2 class="mb-4">Perfil de Usuario</h2>
+
+  <div class="card">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="css/images/messi.jpeg" class="img-fluid" alt="Imagen de perfil">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <p class="card-text"><strong>Nombre:</strong> Lionel</p>
+          <p class="card-text"><strong>Apellido:</strong> Messi</p>
+          <p class="card-text"><strong>Correo Electrónico:</strong> juan@example.com</p>
+          <p class="card-text"><strong>Fecha de Nacimiento:</strong> 10 de Enero de 1990</p>
+          <p class="card-text"><strong>Dirección:</strong> Calle Principal, 123, Escalera B, Piso 2, Puerta 4</p>
+          <p class="card-text"><strong>Código Postal:</strong> 12345</p>
+          <p class="card-text"><strong>Ciudad:</strong> Ciudad de Ejemplo</p>
+          <p class="card-text"><strong>Región:</strong> Región de Ejemplo</p>
+          <p class="card-text"><strong>País:</strong> País de Ejemplo</p>
+
+          <div class="mt-4">
+            <form action="UploadPostServlet" method="get">
+              <button type="submit" class="btn btn-primary me-3">Publicar</button>
             </form>
-            <form action="DeletedAccountServlet" method="post">
-                <button type="submit">ELIMINAR CUENTA</button>
+            <form action="EditProfileServlet" method="get">
+              <button type="submit" class="btn btn-secondary me-3">Editar Mi Perfil</button>
             </form>
+            <form action="RequestManagerServlet" method="get">
+              <button type="submit" class="btn btn-info me-3">Ver Peticiones</button>
+            </form>
+          </div>
         </div>
-         <jsp:include page="footer.jsp" />
-    </body>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <form action="SignOutServlet" method="get">
+      <button type="submit" class="btn btn-danger me-3">CERRAR SESION</button>
+    </form>
+    <form action="DeletedAccountServlet" method="post">
+      <button type="submit" class="btn btn-danger">ELIMINAR CUENTA</button>
+    </form>
+  </div>
+</div>
+
+<jsp:include page="footer.jsp" />
+</body>
 </html>
