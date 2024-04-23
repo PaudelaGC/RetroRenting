@@ -6,13 +6,11 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%@ page import="io.jsonwebtoken.Claims, io.jsonwebtoken.Jwts" %>
+<%@ page import="io.jsonwebtoken.Claims, io.jsonwebtoken.Jwts, io.jsonwebtoken.ExpiredJwtException" %>
 <%@ page import="java.util.Date" %>
 <%
     String token = response.getHeader("Authorization");
-    if(token != null){
-    session.setAttribute("token", token.substring(7));
-    }
+    boolean expired = false;
 %>
 <nav>
     <ul>
@@ -32,14 +30,24 @@
             %>
             <form action="UserProfileServlet" method="get">
                 <%
-        } catch (Exception e) {
-            response.getWriter().write("An error ocurred while loading this page.");
-        }
-    } else {
+                    } catch (ExpiredJwtException expiredEx) {
+                    expired = true;
                 %>
                 <form action="LoginServlet" method="get">
-                    <% }%>
-                    <button type="submit">Login</button>
+                    <%
+                    } catch (Exception e) {
+                        response.getWriter().write("An error ocurred while loading this page.");
+                    }
+                } else {%>
+                <form action="LoginServlet" method="get">
+                    <% } %>
+                    <button type="submit">
+                        <% if (token != null && token.startsWith("Bearer ") && !expired) { %>
+                        Perfil
+                        <% } else{ %>
+                        Log in/Sign up
+                        <% } %>
+                    </button>
                 </form>
         </li>
 

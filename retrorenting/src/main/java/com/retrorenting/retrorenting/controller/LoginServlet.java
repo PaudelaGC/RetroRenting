@@ -34,9 +34,9 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             // Obtener el objeto RequestDispatcher
-    RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-    dispatcher.forward(request, response);
-          
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+            dispatcher.forward(request, response);
+
         }
     }
 
@@ -52,13 +52,16 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             // Obtener el objeto RequestDispatcher
-    RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-    dispatcher.forward(request, response);
-          
+            String user = request.getParameter("usuario_id");
+            String post = request.getParameter("publicacion_id");
+            request.setAttribute("usuario_id", user);
+            request.setAttribute("publicacion_id", post);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+            dispatcher.forward(request, response);
+
         }
     }
 
@@ -75,14 +78,25 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String email = "email";
         String password = "password";
+        String user = request.getParameter("usuario_id");
+        String post = request.getParameter("publicacion_id");
+        System.out.println("Printeo user"+user);
+        System.out.println("Printeo post"+post);
         if (true) {
             TokenService tokenService = new TokenService();
             String token = tokenService.createToken(email);
-
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
-            dispatcher.forward(request, response);
+            if (user != null && post == null) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("userPostProfile.jsp");
+                dispatcher.forward(request, response);
+            } else if (post != null && user == null) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("paymentForm.jsp");
+                dispatcher.forward(request, response);
+            } else {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+                dispatcher.forward(request, response);
+            }
         } else {
             response.getWriter().write(email);
         }

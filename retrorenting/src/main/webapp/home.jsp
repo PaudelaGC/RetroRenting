@@ -8,9 +8,6 @@
          pageEncoding="UTF-8"%>
 <%@ page import="io.jsonwebtoken.Claims, io.jsonwebtoken.Jwts" %>
 <%@ page import="java.util.Date" %>
-<%
-    String token = response.getHeader("Authorization");
-%>
 <!DOCTYPE html>
 <html>
     <head>
