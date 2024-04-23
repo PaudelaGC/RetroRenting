@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpSession;
  * @author 39348
  */
 @WebServlet(name = "home", urlPatterns = {"/home"})
-public class home extends HttpServlet {
+public class HomeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

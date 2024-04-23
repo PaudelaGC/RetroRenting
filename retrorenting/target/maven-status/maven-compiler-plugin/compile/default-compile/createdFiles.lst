@@ -14,7 +14,6 @@ com\retrorenting\retrorenting\controller\UploadPostServlet.class
 com\retrorenting\retrorenting\controller\RequestManagerServlet.class
 com\retrorenting\retrorenting\controller\RequestOkServlet.class
 com\retrorenting\retrorenting\configuration\db\DbConnect.class
-com\retrorenting\retrorenting\controller\home.class
 com\retrorenting\retrorenting\configuration\db\Sql.class
 model\persist\UserDao.class
 model\User.class
@@ -25,6 +24,7 @@ com\retrorenting\retrorenting\controller\PaymentOkServlet.class
 model\persist\AddressDao.class
 model\Post.class
 model\Request.class
+com\retrorenting\retrorenting\controller\HomeServlet.class
 com\retrorenting\retrorenting\controller\EditProfileServlet.class
 model\persist\BillingHistoryDao.class
 com\retrorenting\retrorenting\resources\JakartaEE10Resource.class

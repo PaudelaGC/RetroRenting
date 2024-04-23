@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Tu cuenta fue eliminada correctamente</h1>
-        <form action="home" method="get">
+        <form action="HomeServlet" method="get">
             <button type="submit">Home</button>
         </form>
     </body>
