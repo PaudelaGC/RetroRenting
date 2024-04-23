@@ -70,8 +70,8 @@ public class AddressDao {
         return result;
     }
 
-    public boolean addAddress(Address address) {
-        boolean result = false;
+    public int addAddress(Address address) {
+        int id = 0;
         String query = "INSERT INTO addresses (street, number, block, door, floor, postal_code, city, state, country) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try (Connection conn = dbConnect.getConnection();
              PreparedStatement st = conn.prepareStatement(query)) {
@@ -84,11 +84,18 @@ public class AddressDao {
             st.setString(7, address.getCity());
             st.setString(8, address.getState());
             st.setString(9, address.getCountry());
-            result = st.executeUpdate() > 0;
+            int affectedRows = st.executeUpdate();
+            if (affectedRows > 0) {
+                try (ResultSet rs = st.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        id = rs.getInt(1); // Obtiene el primer campo de la clave generada, que debería ser el ID.
+                    }
+                }
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-        return result;
+            id = 0; // Resetear a 0 en caso de error.
+        } return id; // Devolver el ID generado o 0 si hubo error.
     }
 
     public boolean editAddress(Address address) {
