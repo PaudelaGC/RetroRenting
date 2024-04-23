@@ -1,15 +1,16 @@
-<%-- 
-    Document   : footer
-    Created on : 16 abr. 2024, 9:52:25
-    Author     : 39348
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
- <footer>
-    <p>&copy; 2024 Tienda Virtual. Todos los derechos reservados.</p>
-    <ul>
-        <li><a href="https://www.instagram.com/tiendavirtual" target="_blank">Instagram</a></li>
-        <li><a href="https://www.facebook.com/tiendavirtual" target="_blank">Facebook</a></li>
-        <li><a href="https://www.tiktok.com/@tiendavirtual" target="_blank">TikTok</a></li>
-    </ul>
+<footer class="bg-dark text-light p-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p>&copy; 2024 Tienda Virtual. Todos los derechos reservados.</p>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-unstyled d-flex justify-content-end">
+                    <li class="me-3"><a href="https://www.instagram.com/tiendavirtual" target="_blank" class="text-light"><i class="fab fa-instagram"></i></a></li>
+                    <li class="me-3"><a href="https://www.facebook.com/tiendavirtual" target="_blank" class="text-light"><i class="fab fa-facebook"></i></a></li>
+                    <li><a href="https://www.tiktok.com/@tiendavirtual" target="_blank" class="text-light"><i class="fab fa-tiktok"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </footer>
