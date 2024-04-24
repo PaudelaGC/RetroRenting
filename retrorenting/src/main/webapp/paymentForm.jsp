@@ -30,7 +30,7 @@
           </div>
           <button type="submit">Realizar Petición</button>
         </form>
-        <form action="ViewPostServlet">
+        <form action="ViewPostServlet" method="get">
              <button type="submit">Atrás</button>
         </form>
           <jsp:include page="footer.jsp" />
