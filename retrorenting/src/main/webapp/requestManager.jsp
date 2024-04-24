@@ -5,70 +5,72 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-        <jsp:include page="header.jsp" />
-        <jsp:include page="nav.jsp" />
-        <h2>Lista de Peticiones</h2>
-        <section>
-            <h3>Peticiones Recibidas</h3>
-              <ul id="lista-peticiones">
-              <li>
-                <span>Petición 1</span>
-                <form action="RequestOkServlet" method="get">
-                       <button type="submit">Aceptar</button>
-                </form>
-             
-                 <form action="RequestDeniedServlet" method="get">
-                       <button type="submit">Rechazar</button>
-                </form>
-              </li>
-              <li>
-                <span>Petición 2</span>
-                <form action="RequestOkServlet" method="get">
-                       <button type="submit">Aceptar</button>
-                </form>
-             
-                 <form action="RequestDeniedServlet" method="get">
-                       <button type="submit">Rechazar</button>
-                </form>
-              </li>
-              <li>
-                <span>Petición 3</span>
-                <form action="RequestOkServlet" method="get">
-                       <button type="submit">Aceptar</button>
-                </form>
-             
-                 <form action="RequestDeniedServlet" method="get">
-                       <button type="submit">Rechazar</button>
-                </form>
-              </li>
-            </ul>
-            
-        </section>
-        <section>
-            <h3>Peticiones Enviadas</h3>
-              <ul id="lista-peticiones">
-              <li>
-                <span>Petición 1</span>
-                 <span>Estado: Pendiente</span>
-              </li>
-              <li>
-                <span>Petición 2</span>
-                <span>Estado: Confirmada</span>
-                <form action="PaymentOkServlet">
-                    <button type="submit">Pagar</button>
-                    
-                </form>
-                
-              </li>
-            </ul>
-            
-        </section>
-   
-        
-        
-        <form action="UserProfileServlet" method="get">
-             <button type="submit">Atrás</button>
-        </form>
-         <jsp:include page="footer.jsp" />
+            <jsp:include page="header.jsp" />
+            <jsp:include page="nav.jsp" />
+           <div class="container mt-4">
+               <h2>Lista de Peticiones</h2>
+               <section>
+                   <h3>Peticiones Recibidas</h3>
+                   <ul class="list-group mb-4">
+                       <li class="list-group-item d-flex justify-content-between align-items-center">
+                           Petición 1
+                           <div>
+                               <form action="RequestOkServlet" method="get" class="d-inline">
+                                   <button type="submit" class="btn btn-success btn-sm">Aceptar</button>
+                               </form>
+                               <form action="RequestDeniedServlet" method="get" class="d-inline">
+                                   <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
+                               </form>
+                           </div>
+                       </li>
+                       <li class="list-group-item d-flex justify-content-between align-items-center">
+                           Petición 2
+                           <div>
+                               <form action="RequestOkServlet" method="get" class="d-inline">
+                                   <button type="submit" class="btn btn-success btn-sm">Aceptar</button>
+                               </form>
+                               <form action="RequestDeniedServlet" method="get" class="d-inline">
+                                   <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
+                               </form>
+                           </div>
+                       </li>
+                       <li class="list-group-item d-flex justify-content-between align-items-center">
+                           Petición 3
+                           <div>
+                               <form action="RequestOkServlet" method="get" class="d-inline">
+                                   <button type="submit" class="btn btn-success btn-sm">Aceptar</button>
+                               </form>
+                               <form action="RequestDeniedServlet" method="get" class="d-inline">
+                                   <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
+                               </form>
+                           </div>
+                       </li>
+                   </ul>
+               </section>
+               <section>
+                   <h3>Peticiones Enviadas</h3>
+                   <ul class="list-group">
+                       <li class="list-group-item d-flex justify-content-between align-items-center" >
+                           Petición 1 - <span class="fw-bold">Estado: Pendiente</span>
+                           <form action="PaymentOkServlet">
+                               <button type="submit" class="btn btn-primary btn-sm" style="visibility: hidden;">Pagar</button>
+                           </form>
+                       </li>
+                       <li class="list-group-item d-flex justify-content-between align-items-center">
+                           Petición 2 - <span class="fw-bold">Estado: Confirmada</span>
+                           <form action="PaymentOkServlet">
+                               <button type="submit" class="btn btn-primary btn-sm">Pagar</button>
+                           </form>
+                       </li>
+                   </ul>
+               </section>
+
+               <div class="mt-4">
+                   <form action="UserProfileServlet" method="get">
+                       <button type="submit" class="btn btn-secondary">Atrás</button>
+                   </form>
+               </div>
+           </div>
+           <jsp:include page="footer.jsp" />
     </body>
 </html>
