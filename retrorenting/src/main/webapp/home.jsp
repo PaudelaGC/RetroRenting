@@ -8,9 +8,6 @@
          pageEncoding="UTF-8"%>
 <%@ page import="io.jsonwebtoken.Claims, io.jsonwebtoken.Jwts" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="com.retrorenting.retrorenting.configuration.db.DbConnect" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.SQLException" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,21 +17,6 @@
     </head>
     <body>
         <jsp:include page="nav.jsp" />
-        <% 
-        try {
-            Connection connection = DbConnect.getConnection();
-            if (connection != null) {
-                // Si la conexión se establece correctamente, ciérrala inmediatamente
-                connection.close();
-                out.println("Connected to the database successfully!");
-            } else {
-                out.println("Failed to connect to the database.");
-            }
-        } catch (SQLException ex) {
-            // Maneja cualquier excepción que ocurra durante la conexión a la base de datos
-            out.println("Error connecting to the database: " + ex.getMessage());
-        }
-    %>
         <div>
             <h2>Publicaciones</h2>
             <%--Este div como el resto los traeremos desde la base de datos --%>
