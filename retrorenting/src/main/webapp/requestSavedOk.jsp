@@ -8,7 +8,7 @@
         <jsp:include page="header.jsp" />
         <jsp:include page="nav.jsp" />
         <h1>SU peticion fue enviada con éxito</h1>
-        <form action="home" method="get">
+        <form action="HomeServlet" method="get">
                 <button type="submit">Volver</button>
         </form>
          <jsp:include page="footer.jsp" />
