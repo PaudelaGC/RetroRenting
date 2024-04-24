@@ -7,48 +7,48 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
         <jsp:include page="header.jsp" />
         <jsp:include page="nav.jsp" />
-        <h1>Editar Perfil</h1>
-         <h2>Editar Perfil</h2>
-
-        <form action="SaveProfileEditedServlet" method="post">
-            <div>
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" value="Juan" required>
-            </div>
-            <div>
-                <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido" value="Pérez" required>
-            </div>
-            <div>
-                <label for="email">Correo Electrónico:</label>
-                <input type="email" id="email" name="email" value="juan@example.com" required>
-            </div>
-            <div>
-                <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="1990-01-10" required>
-            </div>
-            <div>
-                <label for="direccion">Dirección:</label>
-                <input type="text" id="direccion" name="direccion" value="Calle Principal, 123, Escalera B, Piso 2, Puerta 4" required>
-            </div>
-            <div>
-                <label for="codigo_postal">Código Postal:</label>
-                <input type="text" id="codigo_postal" name="codigo_postal" value="12345" required>
-            </div>
-            <div>
-                <label for="ciudad">Ciudad:</label>
-                <input type="text" id="ciudad" name="ciudad" value="Ciudad de Ejemplo" required>
-            </div>
-            <div>
-                <label for="region">Región:</label>
-                <input type="text" id="region" name="region" value="Región de Ejemplo">
-            </div>
-            <div>
-                <label for="pais">País:</label>
-                <input type="text" id="pais" name="pais" value="País de Ejemplo" required>
-            </div>
-            <button type="submit">Guardar Cambios</button>
-        </form>
+        <div class="container mt-4">
+            <h1>Editar Perfil</h1>
+            <form action="SaveProfileEditedServlet" method="post">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" value="Juan" required>
+                </div>
+                <div class="mb-3">
+                    <label for="apellido" class="form-label">Apellido:</label>
+                    <input type="text" class="form-control" id="apellido" name="apellido" value="Pérez" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico:</label>
+                    <input type="email" class="form-control" id="email" name="email" value="juan@example.com" required>
+                </div>
+                <div class="mb-3">
+                    <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento:</label>
+                    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="1990-01-10" required>
+                </div>
+                <div class="mb-3">
+                    <label for="direccion" class="form-label">Dirección:</label>
+                    <input type="text" class="form-control" id="direccion" name="direccion" value="Calle Principal, 123, Escalera B, Piso 2, Puerta 4" required>
+                </div>
+                <div class="mb-3">
+                    <label for="codigo_postal" class="form-label">Código Postal:</label>
+                    <input type="text" class="form-control" id="codigo_postal" name="codigo_postal" value="12345" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ciudad" class="form-label">Ciudad:</label>
+                    <input type="text" class="form-control" id="ciudad" name="ciudad" value="Ciudad de Ejemplo" required>
+                </div>
+                <div class="mb-3">
+                    <label for="region" class="form-label">Región:</label>
+                    <input type="text" class="form-control" id="region" name="region" value="Región de Ejemplo">
+                </div>
+                <div class="mb-3">
+                    <label for="pais" class="form-label">País:</label>
+                    <input type="text" class="form-control" id="pais" name="pais" value="País de Ejemplo" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </form>
+        </div>
         <jsp:include page="footer.jsp" />
     </body>
 </html>
