@@ -51,7 +51,7 @@ public class RequestsDao {
                 Request request = new Request();
                 request.setId(rs.getInt("id"));
                 request.setStatus(statusDao.findStatusById(rs.getInt("idStatus")));
-                request.setUser(userDao.findUserById(rs.getInt("idUser")));
+    //            request.setUser(userDao.findUserById(rs.getInt("idUser")));
                 request.setPost(postDao.findPostById(rs.getInt("idPost")));
                 request.setResquestDate(rs.getDate("requestDate"));
                 requests.add(request);
@@ -74,7 +74,7 @@ public class RequestsDao {
                 request = new Request();
                 request.setId(rs.getInt("id"));
                 request.setStatus(statusDao.findStatusById(rs.getInt("idStatus")));
-                request.setUser(userDao.findUserById(rs.getInt("idUser")));
+      //          request.setUser(userDao.findUserById(rs.getInt("idUser")));
                 request.setPost(postDao.findPostById(rs.getInt("idPost")));
                 request.setResquestDate(rs.getDate("requestDate"));
             }

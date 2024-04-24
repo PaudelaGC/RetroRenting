@@ -1,8 +1,9 @@
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\model\persist\PostsDao.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\controller\DeletedAccountServlet.java
-C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\model\persist\UserDao.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\model\Post.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\configuration\JakartaRestConfiguration.java
+C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\model\persist\UsersDao.java
+C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\model\persist\RequestsDao.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\controller\SignOutServlet.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\controller\EditProfileServlet.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\controller\RegisterServlet.java
@@ -10,11 +11,12 @@ C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\model\
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\controller\SaveProfileEditedServlet.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\controller\PaymentOkServlet.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\controller\RequestPaymentProcessServlet.java
-C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\model\persist\RequestDao.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\controller\RequestManagerServlet.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\controller\LoginServlet.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\controller\UploadPostServlet.java
+C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\model\persist\ModelView.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\controller\UserProfileServlet.java
+C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\model\Status.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\configuration\db\DbConnect.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\model\User.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\controller\UploadPostOkServlet.java
@@ -22,6 +24,7 @@ C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\re
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\model\Request.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\configuration\db\Sql.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\resources\JakartaEE10Resource.java
+C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\model\BillingHistory.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\model\persist\StatusDao.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\controller\ViewProfileUserServlet.java
 C:\Users\Mati\RetroRentingProject\RetroRenting\retrorenting\src\main\java\com\retrorenting\retrorenting\controller\PaymentFormServlet.java

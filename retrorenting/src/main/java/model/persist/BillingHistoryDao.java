@@ -17,7 +17,7 @@ public class BillingHistoryDao {
     private BillingHistory fromResultSet(ResultSet rs) throws SQLException {
         RequestsDao requestDao = new RequestsDao();
         int requestId = rs.getInt("idRequest");
-        Request request = requestDao.searchRequest(requestId);
+        Request request = requestDao.findRequestById(requestId);
         return new BillingHistory(
             rs.getInt("id"),
             request,

@@ -17,7 +17,6 @@
     }
 %>
 <nav>
-    <p><%= profile %></p>
     <ul>
         <li>
             <form action="HomeServlet" method="get">
