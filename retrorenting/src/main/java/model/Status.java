@@ -20,19 +20,19 @@ public class Status {
     public Status(){
     }
     
-    public int getId(int id){
+    public int getId(){
         return id;
     }
-    
-    public void setId(){
+
+    public void setId(int id){
         this.id = id;
     }
-    
-    public String getName(String name){
+
+    public String getName(){
         return name;
     }
-    
-    public void setName(){
+
+    public void setName(String name){
         this.name = name;
     }
 }
