@@ -6,7 +6,6 @@ package com.retrorenting.retrorenting.controller;
 
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -31,13 +30,6 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            // Obtener el objeto RequestDispatcher
-            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-            dispatcher.forward(request, response);
-
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -52,17 +44,12 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            // Obtener el objeto RequestDispatcher
             String user = request.getParameter("usuario_id");
             String post = request.getParameter("publicacion_id");
             request.setAttribute("usuario_id", user);
             request.setAttribute("publicacion_id", post);
             RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
             dispatcher.forward(request, response);
-
-        }
     }
 
     /**
@@ -80,17 +67,15 @@ public class LoginServlet extends HttpServlet {
         String password = "password";
         String user = request.getParameter("usuario_id");
         String post = request.getParameter("publicacion_id");
-        System.out.println("Printeo user"+user);
-        System.out.println("Printeo post"+post);
-        if (true) {
+        if (true) {/*correct login*/
             TokenService tokenService = new TokenService();
             String token = tokenService.createToken(email);
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
-            if (user != null && post == null) {
+            if (user.length() != 0) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("userPostProfile.jsp");
                 dispatcher.forward(request, response);
-            } else if (post != null && user == null) {
+            } else if (post.length() != 0) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("paymentForm.jsp");
                 dispatcher.forward(request, response);
             } else {
@@ -98,7 +83,7 @@ public class LoginServlet extends HttpServlet {
                 dispatcher.forward(request, response);
             }
         } else {
-            response.getWriter().write(email);
+            //Invalid login
         }
     }
 

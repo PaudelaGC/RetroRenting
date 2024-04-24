@@ -11,8 +11,13 @@
 <%
     String token = response.getHeader("Authorization");
     boolean expired = false;
+    String profile = (String) request.getAttribute("profile");
+    if(profile == null){
+    profile = "";
+    }
 %>
 <nav>
+    <p><%= profile %></p>
     <ul>
         <li>
             <form action="HomeServlet" method="get">
@@ -27,35 +32,43 @@
                         String jwtToken = token.substring(7);
                         Claims claims = Jwts.parser().setSigningKey("83ykdhjflkdlDH338JDLHD23Djk$32234").parseClaimsJws(jwtToken).getBody();
                         String userId = claims.getSubject();
+                        if(profile.equals("self")){
             %>
-            <form action="UserProfileServlet" method="get">
+            <form action="EditProfileServlet" method="get">
                 <%
-                    } catch (ExpiredJwtException expiredEx) {
-                    expired = true;
+           }
                 %>
-                <form action="LoginServlet" method="get">
+                <form action="UserProfileServlet" method="get">
+                    <input type="hidden" name="profile" value="self">
                     <%
-                    } catch (Exception e) {
-                        response.getWriter().write("An error ocurred while loading this page.");
-                    }
-                } else {%>
-                <form action="LoginServlet" method="get">
-                    <% } %>
-                    <button type="submit">
-                        <% if (token != null && token.startsWith("Bearer ") && !expired) { %>
-                        Perfil
-                        <% } else{ %>
-                        Log in/Sign up
-                        <% } %>
-                    </button>
-                </form>
-        </li>
+                        } catch (ExpiredJwtException expiredEx) {
+                        expired = true;
+                    %>
+                    <form action="LoginServlet" method="get">
+                        <%
+                        } catch (Exception e) {
+                            response.getWriter().write("An error ocurred while loading this page.");
+                        }
+                    } else {%>
+                        <form action="LoginServlet" method="get">
+                            <% } %>
+                            <button type="submit">
+                                <% if (profile.equals("self")) { %>
+                                Opciones
+                                <% }else if(token != null && token.startsWith("Bearer ") && !expired){ %>
+                                Perfil
+                                <% } else{ %>
+                                Log in/Sign up
+                                <% } %>
+                            </button>
+                        </form>
+                        </li>
 
-        <li>
-            <form action="SearchServlet" method="get">
-                <input type="text" name="query" placeholder="Search...">
-                <button type="submit">Search</button>
-            </form>
-        </li>
-    </ul>
-</nav>
+                        <li>
+                            <form action="SearchServlet" method="get">
+                                <input type="text" name="query" placeholder="Search...">
+                                <button type="submit">Search</button>
+                            </form>
+                        </li>
+                        </ul>
+                            </nav>

@@ -37,7 +37,7 @@ public class SignOutServlet extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("deletedAccount.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("logout.jsp");
         dispatcher.forward(request, response);
     }
 

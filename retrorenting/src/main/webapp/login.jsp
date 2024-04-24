@@ -8,6 +8,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+<!DOCTYPE html>
+<html>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
@@ -36,6 +38,8 @@
 
         <form action="RegisterServlet" method="get">
             <div>
+                <input type="hidden" name="publicacion_id" value="${publicacion_id}">
+                <input type="hidden" name="usuario_id" value="${usuario_id}">
                 <button type="submit">Registrarse</button>
             </div>
         </form>

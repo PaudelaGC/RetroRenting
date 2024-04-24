@@ -6,7 +6,6 @@ package com.retrorenting.retrorenting.controller;
 
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -32,15 +31,6 @@ public class ViewPostServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        String token = (String) session.getAttribute("token");
-        if (token != null) {
-            response.addHeader("Authorization", "Bearer " + token);
-            response.getWriter().write(token);
-        }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("viewPost.jsp");
-        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -55,7 +45,14 @@ public class ViewPostServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        String token = (String) session.getAttribute("token");
+        if (token != null) {
+            response.addHeader("Authorization", "Bearer " + token);
+            response.getWriter().write(token);
+        }
+        RequestDispatcher dispatcher = request.getRequestDispatcher("viewPost.jsp");
+        dispatcher.forward(request, response);
     }
 
     /**
