@@ -15,40 +15,40 @@ import model.Request;
 public class BillingHistory {
     private int id;
     private Request request;
-    private Date requestDate;
+    private Date billingDate;
 
-    public BillingHistory(int id, Request request, Date requestDate){
+    public BillingHistory(int id, Request request, Date billingDate){
         this.id = id;
         this.request = request;
-        this.requestDate = requestDate;
+        this.billingDate = billingDate;
     }
     
     public BillingHistory(){
     
     }
     
-    public int getId(int id){
+    public int getId(){
         return id;
     }
     
-    public void setId(){
+    public void setId(int id){
         this.id = id;
     }
     
-    public Request getRequest(Request request){
+    public Request getRequest(){
         return request;
     }
     
-    public void setRequest(){
+    public void setRequest(Request request){
         this.request = request;
     }
     
-    public Date getDate(Date requestDate){
-        return requestDate;
+    public Date getBillingDate(){
+        return billingDate;
     }
     
-    public void setDate(){
-        this.requestDate = requestDate;
+    public void setBillingDate(Date billingDate){
+        this.billingDate = billingDate;
     }
     
 }
