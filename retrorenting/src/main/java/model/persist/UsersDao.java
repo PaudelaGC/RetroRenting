@@ -7,28 +7,61 @@ import java.util.List;
 import model.Address;
 import model.User;
 
-public class UsersDao {
-    private final DbConnect dbConnect;
-    
-    public UsersDao() {
-        dbConnect = new DbConnect();
-    }
-    public Integer loginUser(String email, String password) {
-    Integer userId = null;
-    String query = "SELECT id FROM users WHERE mail = ? AND password = ?;";
-    try (Connection conn = dbConnect.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(query)) {
-        stmt.setString(1, email);
-        stmt.setString(2, password);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            userId = rs.getInt("id");
+    public class UsersDao {
+        private final DbConnect dbConnect;
+
+        public UsersDao() {
+            dbConnect = new DbConnect();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        public Integer loginUser(String email, String password) {
+        Integer userId = null;
+        String query = "SELECT id FROM users WHERE mail = ? AND password = ?;";
+        try (Connection conn = dbConnect.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, email);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                userId = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userId;
     }
-    return userId;
-}
+
+    public User getUserById(int userId) {
+    String query = "SELECT u.*, a.* FROM users u INNER JOIN address a ON u.idAddress = a.id WHERE u.id = ?;";
+    User user = null;
+        try (Connection conn = dbConnect.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, userId); // Set the user ID
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setName(rs.getString("name"));
+                    user.setSurname(rs.getString("surname"));
+                    user.setMail(rs.getString("mail"));
+                    user.setPassword(rs.getString("password"));
+                    user.setBirthdate(rs.getDate("birthdate"));
+
+                    Address address = new Address();
+                    address.setId(rs.getInt("idAddress"));
+                    address.setStreet(rs.getString("street"));
+                    address.setCity(rs.getString("city"));
+                    address.setState(rs.getString("state"));
+                    address.setCountry(rs.getString("country"));
+                    address.setPostalCode(rs.getString("postalCode"));
+
+                    user.setAddress(address);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return user;
+    }
 
 
     public List<User> listUsers() {
