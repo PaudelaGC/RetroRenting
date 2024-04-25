@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.persist.UsersDao;
 
 /**
  *
@@ -18,6 +19,14 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
+
+    private UsersDao userDao;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        userDao = new UsersDao();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,12 +53,12 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String user = request.getParameter("usuario_id");
-            String post = request.getParameter("publicacion_id");
-            request.setAttribute("usuario_id", user);
-            request.setAttribute("publicacion_id", post);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-            dispatcher.forward(request, response);
+        String user = request.getParameter("usuario_id");
+        String post = request.getParameter("publicacion_id");
+        request.setAttribute("usuario_id", user);
+        request.setAttribute("publicacion_id", post);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+        dispatcher.forward(request, response);
     }
 
     /**
@@ -63,13 +72,20 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = "email";
-        String password = "password";
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        Integer id = userDao.loginUser(email, password);
+        String userId = "";
+        if (id == null) {
+            userId = "null";
+        } else {
+            userId = Integer.toString(id);
+        }
         String user = request.getParameter("usuario_id");
         String post = request.getParameter("publicacion_id");
-        if (true) {/*correct login*/
+        if (!userId.equals("null")) {
             TokenService tokenService = new TokenService();
-            String token = tokenService.createToken(email);
+            String token = tokenService.createToken(userId);
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
             if (user.length() != 0) {
@@ -83,7 +99,9 @@ public class LoginServlet extends HttpServlet {
                 dispatcher.forward(request, response);
             }
         } else {
-            //Invalid login
+            request.setAttribute("denied", "denied");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+            dispatcher.forward(request, response);
         }
     }
 

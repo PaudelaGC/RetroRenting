@@ -1,0 +1,15 @@
+# Funciones DAO
+
+# Listar Posts
+SELECT u.name, u.surname, p.title, p.description, p.image, p.price, p.duration, p.available FROM retrorenting.posts p
+JOIN retrorenting.users u ON idUser = u.id;
+
+# Listar Info usuario
+SELECT u.name, u.surname, u.mail, a.city, a.country FROM retrorenting.users u
+JOIN retrorenting.adresses a ON u.idAddress = a.id;
+
+# Listar rentingsRequests (pulir)
+SELECT r.*, s.*, u.*, p.* FROM retrorenting.requests r
+JOIN retrorenting.status s ON r.idStatus = s.id
+JOIN retrorenting.users u ON r.idUser = u.id
+JOIN retrorenting.posts p ON r.idPost = p.id;

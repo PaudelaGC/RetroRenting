@@ -7,6 +7,10 @@ package com.retrorenting.retrorenting.controller;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import com.retrorenting.retrorenting.configuration.db.DbConnect;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -53,6 +57,19 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
+            Connection connection = DbConnect.getConnection();
+            if (connection != null) {
+                // Si la conexión se establece correctamente, ciérrala inmediatamente
+                connection.close();
+                System.out.println("Connected to the database successfully!");
+            } else {
+                System.out.println("Failed to connect to the database.");
+            }
+        } catch (SQLException ex) {
+            // Maneja cualquier excepción que ocurra durante la conexión a la base de datos
+            System.out.println("Error connecting to the database: " + ex.getMessage());
+        }
         HttpSession session = request.getSession();
         String token = (String) session.getAttribute("token");
         if (token != null) {
