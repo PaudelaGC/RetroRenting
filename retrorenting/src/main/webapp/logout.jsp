@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Has cerrado tu sessión correctamente</h1>
-        <form action="HomeServlet" method="get">
+        <form action="home" method="get">
             <button type="submit">Home</button>
         </form>
     </body>

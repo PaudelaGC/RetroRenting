@@ -13,6 +13,23 @@ public class UsersDao {
     public UsersDao() {
         dbConnect = new DbConnect();
     }
+    public Integer loginUser(String email, String password) {
+    Integer userId = null;
+    String query = "SELECT id FROM users WHERE mail = ? AND password = ?;";
+    try (Connection conn = dbConnect.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+        stmt.setString(1, email);
+        stmt.setString(2, password);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            userId = rs.getInt("id");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return userId;
+}
+
 
     public List<User> listUsers() {
         List<User> users = new ArrayList<>();

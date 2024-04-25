@@ -5,6 +5,12 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String denied = (String) request.getAttribute("denied");
+    if(denied == null){
+    denied = "null";
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -33,6 +39,9 @@
                 <input type="hidden" name="publicacion_id" value="${publicacion_id}">
                 <input type="hidden" name="usuario_id" value="${usuario_id}">
                 <button type="submit">Ingresar</button>
+                <% if(!denied.equals("null")){ %>
+               <p><span style="color: red;">Login credentials invalid</span></p>
+                <% } %>
             </div>
         </form>
 
