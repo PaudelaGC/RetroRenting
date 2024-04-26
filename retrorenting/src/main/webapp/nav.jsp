@@ -22,7 +22,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <form class="form-inline" action="home" method="get">
+                <form class="form-inline" action="HomeServlet" method="get">
                     <button class="btn btn-link nav-link" type="submit"><i class="fas fa-home"></i> Home</button>
                 </form>
             </li>
