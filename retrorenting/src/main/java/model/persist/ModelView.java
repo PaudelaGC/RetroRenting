@@ -25,7 +25,7 @@ public class ModelView {
     // Listar posts con detalles del usuario
     public List<Post> listPostsByUser(int userId) {
         List<Post> posts = new ArrayList<>();
-        String query = "SELECT p.*, u.id AS userId, u.name, u.surname, u.mail FROM retrorenting.posts p JOIN retrorenting.users u ON p.idUser = u.id WHERE u.id = ?;";
+        String query = "SELECT p.*, u.id AS userId, u.name, u.surname, u.email FROM retrorenting.posts p JOIN retrorenting.users u ON p.idUser = u.id WHERE u.id = ?;";
         try (Connection conn = dbConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, userId); // Establecer el ID del usuario
@@ -35,7 +35,7 @@ public class ModelView {
                     user.setId(rs.getInt("userId"));
                     user.setName(rs.getString("name"));
                     user.setSurname(rs.getString("surname"));
-                    user.setMail(rs.getString("mail"));
+                    user.setEmail(rs.getString("email"));
 
                     Post post = new Post();
                     post.setId(rs.getInt("id"));

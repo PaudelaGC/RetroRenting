@@ -11,6 +11,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import model.Address;
+import model.User;
+import model.persist.UsersDao;
+import model.persist.AddressDao;
 
 /**
  *
@@ -18,6 +26,9 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
 public class RegisterServlet extends HttpServlet {
+
+    UsersDao userDao = new UsersDao();
+    AddressDao addressDao = new AddressDao();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -63,13 +74,50 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = "email";
-        String password = "password";
+        String nombre = request.getParameter("nombre");
+        String apellido = request.getParameter("apellido");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String fechaNacimientoStr = request.getParameter("fecha_nacimiento");
+        String calle = request.getParameter("calle");
+        String numero = request.getParameter("numero");
+        String bloque = request.getParameter("bloque");
+        String puerta = request.getParameter("puerta");
+        String piso = request.getParameter("piso");
+        String codigoPostal = request.getParameter("codigo_postal");
+        String ciudad = request.getParameter("ciudad");
+        String estado = request.getParameter("estado");
+        String pais = request.getParameter("pais");
+        Integer existingUser = userDao.searchUserByEmail(email);
+        System.out.println(existingUser);
+        boolean wrongRegister = false;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaNacimiento = null;
+        try {
+            fechaNacimiento = dateFormat.parse(fechaNacimientoStr);
+        } catch (ParseException e) {
+            e.printStackTrace(); // Manejar el error en caso de que la fecha no se pueda analizar correctamente
+        }
+        java.sql.Date sqlDate = new java.sql.Date(fechaNacimiento.getTime());
+        if (existingUser != -1) {
+            request.setAttribute("emailError", "El correo electrónico ya está en uso");
+            wrongRegister = true;
+        } else if (!isValidPassword(password)) {
+            request.setAttribute("passwordError", "La contaseña debe contener una mayúscula, una minúscula, un número, un carácter especial y mínimo 8 carácteres");
+            wrongRegister = true;
+        } else if (!isUserOver18(fechaNacimiento)) {
+            request.setAttribute("dateError", "Debes ser mayor de 18 años para crear una cuenta");
+            wrongRegister = true;
+        }
         String user = request.getParameter("usuario_id");
         String post = request.getParameter("publicacion_id");
-        if (true) {/*correct signup*/
+        if (!wrongRegister) {
+            User newUser = new User(nombre, apellido, email, password, sqlDate);
+            userDao.addUser(newUser);
+            Address newAddress = new Address(existingUser, calle, numero, bloque, puerta, piso, codigoPostal, ciudad, estado, pais);
+            addressDao.addAddress(newAddress);
             TokenService tokenService = new TokenService();
-            String token = tokenService.createToken(email);
+            String token = tokenService.createToken(Integer.toString(newUser.getId()));
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
             if (user.length() != 0) {
@@ -83,8 +131,26 @@ public class RegisterServlet extends HttpServlet {
                 dispatcher.forward(request, response);
             }
         } else {
-            //Invalid sign up
+            RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
+            dispatcher.forward(request, response);
         }
+    }
+
+    private boolean isValidPassword(String password) {
+        return password.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=])(?=\\S+$).{8,}$");
+    }
+
+    private boolean isUserOver18(Date fechaNacimiento) {
+        // Obtener la fecha actual
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+
+        // Restar 18 años a la fecha actual
+        cal.add(Calendar.YEAR, -18);
+        Date dateMinus18Years = cal.getTime();
+
+        // Comparar la fecha de nacimiento con la fecha hace 18 años
+        return fechaNacimiento.before(dateMinus18Years);
     }
 
     /**

@@ -1,23 +1,24 @@
 package model.persist;
 
-import com.retrorenting.retrorenting.configuration.db.DbConnect; 
+import com.retrorenting.retrorenting.configuration.db.DbConnect;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import model.Address;
 import model.User;
 
-    public class UsersDao {
-        private final DbConnect dbConnect;
+public class UsersDao {
 
-        public UsersDao() {
-            dbConnect = new DbConnect();
-        }
-        public Integer loginUser(String email, String password) {
+    private final DbConnect dbConnect;
+
+    public UsersDao() {
+        dbConnect = new DbConnect();
+    }
+
+    public Integer loginUser(String email, String password) {
         Integer userId = null;
-        String query = "SELECT id FROM users WHERE mail = ? AND password = ?;";
-        try (Connection conn = dbConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        String query = "SELECT id FROM users WHERE email = ? AND password = ?;";
+        try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, email);
             stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
@@ -29,12 +30,28 @@ import model.User;
         }
         return userId;
     }
-
-    public User getUserById(int userId) {
-    String query = "SELECT u.*, a.* FROM users u INNER JOIN address a ON u.idAddress = a.id WHERE u.id = ?;";
-    User user = null;
+    
+    public Integer searchUserByEmail(String email) {
+        String query = "SELECT * FROM users WHERE email = ?";
         try (Connection conn = dbConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, email);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejar la excepción según sea necesario
+        }
+        return -1; // Devolver null si no se encontró ningún usuario con el correo electrónico dado
+    }
+
+    public User getUserById(int userId) {
+        String query = "SELECT u.*, a.* FROM users u INNER JOIN address a ON u.idAddress = a.id WHERE u.id = ?;";
+        User user = null;
+        try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, userId); // Set the user ID
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -42,7 +59,7 @@ import model.User;
                     user.setId(rs.getInt("id"));
                     user.setName(rs.getString("name"));
                     user.setSurname(rs.getString("surname"));
-                    user.setMail(rs.getString("mail"));
+                    user.setEmail(rs.getString("email"));
                     user.setPassword(rs.getString("password"));
                     user.setBirthdate(rs.getDate("birthdate"));
 
@@ -63,19 +80,16 @@ import model.User;
         return user;
     }
 
-
     public List<User> listUsers() {
         List<User> users = new ArrayList<>();
         String query = "SELECT * FROM users;";
-        try (Connection conn = dbConnect.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+        try (Connection conn = dbConnect.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("id"));
                 user.setName(rs.getString("name"));
                 user.setSurname(rs.getString("surname"));
-                user.setMail(rs.getString("mail"));
+                user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
                 user.setBirthdate(rs.getDate("birthdate"));
                 Address address = new Address(); // Crea una nueva instancia de Address
@@ -89,12 +103,10 @@ import model.User;
         return users;
     }
 
-
- public User searchUser(int id) {
+    public User searchUser(int id) {
         User user = null;
         String query = "SELECT * FROM users WHERE id = ?;";
-        try (Connection conn = dbConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -102,7 +114,7 @@ import model.User;
                 user.setId(rs.getInt("id")); // esto es necesario?
                 user.setName(rs.getString("name"));
                 user.setSurname(rs.getString("surname"));
-                user.setMail(rs.getString("mail"));
+                user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
                 user.setBirthdate(rs.getDate("birthdate"));
                 Address address = new Address(); // Crea una nueva instancia de Address
@@ -117,15 +129,14 @@ import model.User;
 
     public boolean addUser(User user) {
         boolean result = false;
-        String query = "INSERT INTO users (name, surname, mail, password, birthdate, idAddress) VALUES (?, ?, ?, ?, ?, ?);";
-        try (Connection conn = dbConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        String query = "INSERT INTO users (name, surname, email, password, birthdate, idAddress) VALUES (?, ?, ?, ?, ?, ?);";
+        try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, user.getName());
             stmt.setString(2, user.getSurname());
-            stmt.setString(3, user.getMail());
+            stmt.setString(3, user.getEmail());
             stmt.setString(4, user.getPassword());
             stmt.setDate(5, new java.sql.Date(user.getBirthdate().getTime()));
-            stmt.setInt(6, user.getAddress().getId()); // Asignar directamente el idAddress
+            stmt.setInt(6, user.getId());
             result = stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -135,12 +146,11 @@ import model.User;
 
     public boolean editUser(User user) {
         boolean result = false;
-        String query = "UPDATE users SET name = ?, surname = ?, mail = ?, password = ?, birthdate = ?, idAddress = ? WHERE id = ?;";
-        try (Connection conn = dbConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        String query = "UPDATE users SET name = ?, surname = ?, email = ?, password = ?, birthdate = ?, idAddress = ? WHERE id = ?;";
+        try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, user.getName());
             stmt.setString(2, user.getSurname());
-            stmt.setString(3, user.getMail());
+            stmt.setString(3, user.getEmail());
             stmt.setString(4, user.getPassword());
             stmt.setDate(5, new java.sql.Date(user.getBirthdate().getTime()));
             stmt.setInt(6, user.getAddress().getId()); // Asignar directamente el idAddress
@@ -155,8 +165,7 @@ import model.User;
     public boolean deleteUser(int id) {
         boolean result = false;
         String query = "DELETE FROM users WHERE id = ?;";
-        try (Connection conn = dbConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, id);
             result = stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
