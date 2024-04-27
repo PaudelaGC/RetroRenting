@@ -54,7 +54,7 @@ public class UsersDao {
     }
 
     public User getUserById(int userId) {
-        String query = "SELECT u.*, a.* FROM users u INNER JOIN address a ON u.idAddress = a.id WHERE u.id = ?;";
+        String query = "SELECT u.*, a.* FROM users u INNER JOIN addresses a ON u.idAddress = a.id WHERE u.id = ?;";
         User user = null;
         try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, userId); // Set the user ID
@@ -116,15 +116,13 @@ public class UsersDao {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 user = new User();
-                user.setId(rs.getInt("id")); // esto es necesario?
+                user.setId(rs.getInt("id"));
                 user.setName(rs.getString("name"));
                 user.setSurname(rs.getString("surname"));
                 user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
                 user.setBirthdate(rs.getDate("birthdate"));
-                Address address = new Address(); // Crea una nueva instancia de Address
-                address.setId(rs.getInt("idAddress")); // Asigna solo el ID del Address
-                // user.setAddress(address); // Asigna el objeto Address al usuario
+                user.setIdAddress(rs.getInt("idAddress"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

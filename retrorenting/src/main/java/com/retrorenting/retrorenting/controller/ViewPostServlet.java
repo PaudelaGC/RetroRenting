@@ -12,6 +12,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.persist.PostsDao;
+import model.Post;
+import model.persist.UsersDao;
+import model.User;
 
 /**
  *
@@ -19,6 +23,9 @@ import jakarta.servlet.http.HttpSession;
  */
 @WebServlet(name = "ViewPostServlet", urlPatterns = {"/ViewPostServlet"})
 public class ViewPostServlet extends HttpServlet {
+
+    PostsDao postDao = new PostsDao();
+    UsersDao userDao = new UsersDao();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,6 +52,11 @@ public class ViewPostServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String postId = request.getParameter("postId");
+        Post selectedPost = postDao.findPostById(Integer.parseInt(postId));
+        User userFromPost = userDao.searchUser(selectedPost.getIdUser());
+        request.setAttribute("post", selectedPost);
+        request.setAttribute("user", userFromPost);
         HttpSession session = request.getSession();
         String token = (String) session.getAttribute("token");
         if (token != null) {

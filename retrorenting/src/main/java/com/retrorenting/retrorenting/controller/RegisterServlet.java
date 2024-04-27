@@ -19,10 +19,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import model.Address;
+import model.Post;
 import model.User;
 import model.persist.UsersDao;
 import model.persist.AddressDao;
+import model.persist.PostsDao;
 
 /**
  *
@@ -33,6 +36,7 @@ public class RegisterServlet extends HttpServlet {
 
     UsersDao userDao = new UsersDao();
     AddressDao addressDao = new AddressDao();
+    PostsDao postDao = new PostsDao();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -118,7 +122,7 @@ public class RegisterServlet extends HttpServlet {
         }
         BcryptFunction bcrypt = BcryptFunction.getInstance(Bcrypt.B, 12);
         Hash hash = Password.hash(password)
-                    .with(bcrypt);
+                .with(bcrypt);
         hashedPassword = hash.getResult();
         String user = request.getParameter("usuario_id");
         String post = request.getParameter("publicacion_id");
@@ -138,6 +142,8 @@ public class RegisterServlet extends HttpServlet {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("paymentForm.jsp");
                 dispatcher.forward(request, response);
             } else {
+                List<Post> posts = postDao.listPosts();
+                request.setAttribute("postList", posts);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
                 dispatcher.forward(request, response);
             }

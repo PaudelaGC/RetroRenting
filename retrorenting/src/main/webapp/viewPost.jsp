@@ -14,13 +14,12 @@
 %>
         <jsp:include page="header.jsp" />
         <jsp:include page="nav.jsp" />
-        <h1>Titulo de publicacion</h1>
+        <h1>${post.title}</h1>
         <div>
-            <h2>Título de la Publicación</h2>
-            <p>Descripción de la publicación simulada.</p>
-            <p>Precio: $50</p>
-            <p>Periodo: Mensual</p>
-            <p>Disponibilidad: Si</p>
+            <h2>Usuario: ${user.name} ${user.surname}</h2>
+            <p>${post.description}</p>
+            <p>${post.price}€</p>
+            <p>${post.duration} días</p>
         </div>
         <%
                 if (token != null && token.startsWith("Bearer ")) {
@@ -37,7 +36,7 @@
             %>
             <form action="LoginServlet" method="get">
 
-                <input type="hidden" name="usuario_id" value="id_del_usuario">
+                <input type="hidden" name="usuario_id" value="${user.id}">
                 <%
                 } catch (Exception e) {
                     response.getWriter().write("An error ocurred while loading this page.");
@@ -45,7 +44,7 @@
             } else {%>
                 <form action="LoginServlet" method="get">
 
-                    <input type="hidden" name="usuario_id" value="id_del_usuario">
+                    <input type="hidden" name="usuario_id" value="${user.id}">
                     <% } %>
                     <button type="submit">Ver Perfil del Usuario</button>
                 </form>
@@ -64,7 +63,7 @@
             %>
             <form action="LoginServlet" method="get">
 
-                <input type="hidden" name="publicacion_id" value="id_de_publicacion">
+                <input type="hidden" name="publicacion_id" value="${post.id}">
                 <%
                 } catch (Exception e) {
                     response.getWriter().write("An error ocurred while loading this page.");
@@ -72,7 +71,7 @@
             } else {%>
                 <form action="LoginServlet" method="get">
 
-                    <input type="hidden" name="publicacion_id" value="id_de_publicacion">
+                    <input type="hidden" name="publicacion_id" value="${post.id}">
                     <% } %>
                     <button type="submit">Solicitar</button>
                 </form>

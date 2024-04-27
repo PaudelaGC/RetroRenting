@@ -11,6 +11,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Post;
+import model.persist.PostsDao;
 import model.persist.UsersDao;
 
 /**
@@ -21,11 +24,13 @@ import model.persist.UsersDao;
 public class LoginServlet2 extends HttpServlet {
 
     private UsersDao userDao;
+    private PostsDao postDao;
 
     @Override
     public void init() throws ServletException {
         super.init();
         userDao = new UsersDao();
+        postDao = new PostsDao();
     }
 
     /**
@@ -95,6 +100,8 @@ public class LoginServlet2 extends HttpServlet {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("paymentForm.jsp");
                 dispatcher.forward(request, response);
             } else {
+                List<Post> posts = postDao.listPosts();
+                request.setAttribute("postList", posts);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
                 dispatcher.forward(request, response);
             }

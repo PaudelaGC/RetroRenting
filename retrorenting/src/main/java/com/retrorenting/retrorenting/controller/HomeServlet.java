@@ -8,7 +8,6 @@ import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import com.retrorenting.retrorenting.configuration.db.DbConnect;
 import jakarta.servlet.ServletException;
@@ -17,6 +16,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import model.Post;
+import model.persist.PostsDao;
+
 
 
 /**
@@ -25,6 +28,9 @@ import jakarta.servlet.http.HttpSession;
  */
 @WebServlet(name = "HomeServlet", urlPatterns = {"/HomeServlet"})
 public class HomeServlet extends HttpServlet {
+    
+        PostsDao postDao = new PostsDao();
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,21 +63,10 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            Connection connection = DbConnect.getConnection();
-            if (connection != null) {
-                // Si la conexión se establece correctamente, ciérrala inmediatamente
-                connection.close();
-                System.out.println("Connected to the database successfully!");
-            } else {
-                System.out.println("Failed to connect to the database.");
-            }
-        } catch (SQLException ex) {
-            // Maneja cualquier excepción que ocurra durante la conexión a la base de datos
-            System.out.println("Error connecting to the database: " + ex.getMessage());
-        }
         HttpSession session = request.getSession();
         String token = (String) session.getAttribute("token");
+        List<Post> posts = postDao.listPosts();
+        request.setAttribute("postList", posts);
         if (token != null) {
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModelView {
+
     private DbConnect dbConnect;
 
     public ModelView() {
@@ -26,8 +27,7 @@ public class ModelView {
     public List<Post> listPostsByUser(int userId) {
         List<Post> posts = new ArrayList<>();
         String query = "SELECT p.*, u.id AS userId, u.name, u.surname, u.email FROM retrorenting.posts p JOIN retrorenting.users u ON p.idUser = u.id WHERE u.id = ?;";
-        try (Connection conn = dbConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, userId); // Establecer el ID del usuario
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -39,7 +39,6 @@ public class ModelView {
 
                     Post post = new Post();
                     post.setId(rs.getInt("id"));
-                    post.setUser(user);
                     post.setTitle(rs.getString("title"));
                     post.setDescription(rs.getString("description"));
                     post.setImage(rs.getString("image"));
@@ -57,17 +56,14 @@ public class ModelView {
         }
         return posts;
     }
-    
 
     public List<Post> listAllPostsWithUsers() {
         List<Post> posts = new ArrayList<>();
         // Define la consulta SQL para obtener los datos requeridos de las tablas de posts y users
-        String query = "SELECT p.title, p.description, p.price, p.duration, p.available, p.image, u.name, u.surname " +
-                       "FROM retrorenting.posts p " +
-                       "JOIN retrorenting.users u ON p.idUser = u.id;";
-        try (Connection conn = dbConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
+        String query = "SELECT p.title, p.description, p.price, p.duration, p.available, p.image, u.name, u.surname "
+                + "FROM retrorenting.posts p "
+                + "JOIN retrorenting.users u ON p.idUser = u.id;";
+        try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 // Crea un nuevo objeto Post
                 Post post = new Post();
@@ -83,9 +79,6 @@ public class ModelView {
                 user.setName(rs.getString("name"));
                 user.setSurname(rs.getString("surname"));
 
-                // Asocia el usuario con el post
-                post.setUser(user);
-
                 // Agrega el post a la lista de posts
                 posts.add(post);
             }
@@ -95,6 +88,4 @@ public class ModelView {
         return posts;
     }
 
-
 }
-
