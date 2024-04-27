@@ -4,6 +4,10 @@
  */
 package com.retrorenting.retrorenting.controller;
 
+import com.password4j.BcryptFunction;
+import com.password4j.Hash;
+import com.password4j.Password;
+import com.password4j.types.Bcrypt;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -78,6 +82,7 @@ public class RegisterServlet extends HttpServlet {
         String apellido = request.getParameter("apellido");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String hashedPassword = "";
         String fechaNacimientoStr = request.getParameter("fecha_nacimiento");
         String calle = request.getParameter("calle");
         String numero = request.getParameter("numero");
@@ -102,19 +107,25 @@ public class RegisterServlet extends HttpServlet {
         if (existingUser != -1) {
             request.setAttribute("emailError", "El correo electrónico ya está en uso");
             wrongRegister = true;
-        } else if (!isValidPassword(password)) {
+        }
+        if (!isValidPassword(password)) {
             request.setAttribute("passwordError", "La contaseña debe contener una mayúscula, una minúscula, un número, un carácter especial y mínimo 8 carácteres");
             wrongRegister = true;
-        } else if (!isUserOver18(fechaNacimiento)) {
+        }
+        if (!isUserOver18(fechaNacimiento)) {
             request.setAttribute("dateError", "Debes ser mayor de 18 años para crear una cuenta");
             wrongRegister = true;
         }
+        BcryptFunction bcrypt = BcryptFunction.getInstance(Bcrypt.B, 12);
+        Hash hash = Password.hash(password)
+                    .with(bcrypt);
+        hashedPassword = hash.getResult();
         String user = request.getParameter("usuario_id");
         String post = request.getParameter("publicacion_id");
         if (!wrongRegister) {
             Address newAddress = new Address(existingUser, calle, numero, bloque, puerta, piso, codigoPostal, ciudad, estado, pais);
             idAddress = addressDao.addAddress(newAddress);
-            User newUser = new User(nombre, apellido, email, password, sqlDate, idAddress);
+            User newUser = new User(nombre, apellido, email, hashedPassword, sqlDate, idAddress);
             userDao.addUser(newUser);
             TokenService tokenService = new TokenService();
             String token = tokenService.createToken(Integer.toString(newUser.getId()));

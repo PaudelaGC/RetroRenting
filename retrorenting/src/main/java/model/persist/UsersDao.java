@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Address;
 import model.User;
+import com.password4j.BcryptFunction;
+import com.password4j.Password;
 
 public class UsersDao {
 
@@ -17,24 +19,27 @@ public class UsersDao {
 
     public Integer loginUser(String email, String password) {
         Integer userId = null;
-        String query = "SELECT id FROM users WHERE email = ? AND password = ?;";
+        String query = "SELECT id, password FROM users WHERE email = ?;";
         try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, email);
-            stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                userId = rs.getInt("id");
+                String hashedPassword = rs.getString("password");
+                BcryptFunction bcrypt = BcryptFunction.getInstanceFromHash(hashedPassword);
+                boolean verified = Password.check(password, hashedPassword).with(bcrypt);
+                if (verified) {
+                    userId = rs.getInt("id");
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return userId;
     }
-    
+
     public Integer searchUserByEmail(String email) {
         String query = "SELECT * FROM users WHERE email = ?";
-        try (Connection conn = dbConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, email);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -94,7 +99,7 @@ public class UsersDao {
                 user.setBirthdate(rs.getDate("birthdate"));
                 Address address = new Address(); // Crea una nueva instancia de Address
                 address.setId(rs.getInt("idAddress")); // Asigna solo el ID del Address
-               // user.setAddress(address); // Asigna el objeto Address al usuario
+                // user.setAddress(address); // Asigna el objeto Address al usuario
                 users.add(user);
             }
         } catch (SQLException ex) {
@@ -119,7 +124,7 @@ public class UsersDao {
                 user.setBirthdate(rs.getDate("birthdate"));
                 Address address = new Address(); // Crea una nueva instancia de Address
                 address.setId(rs.getInt("idAddress")); // Asigna solo el ID del Address
-               // user.setAddress(address); // Asigna el objeto Address al usuario
+                // user.setAddress(address); // Asigna el objeto Address al usuario
             }
         } catch (SQLException e) {
             e.printStackTrace();
