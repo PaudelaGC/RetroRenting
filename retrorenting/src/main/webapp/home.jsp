@@ -16,21 +16,28 @@
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                 <c:forEach items="${postList}" var="object">
                     <div class="col">
-                        <div class="card" style="width: 18rem;">
-                            <img src="css/images/retrorentingIcon.jpg" class="card-img-top" alt="...">
+                        <div class="card" style="width: 18rem; ${object.available ? '' : 'filter: grayscale(100%);'}">
+                            <img src="css/images/retrorentingIcon.jpg" class="card-img-top" style="${object.available ? '' : 'filter: grayscale(100%);'}" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">${object.title}</h5>
                                 <p class="card-text">${object.price}€</p>
                                 <p class="card-text">${object.duration} dias</p>
                                 <form action="ViewPostServlet" method="get">
                                     <input type="hidden" name="postId" value="${object.id}">
-                                    <button type="submit" class="btn btn-primary">Ver Publicación</button>
+                                    <!-- Estructura condicional para mostrar el botón o el texto "No disponible" -->
+                                    <c:choose>
+                                        <c:when test="${object.available}">
+                                            <button type="submit" class="btn btn-primary">Ver Publicación</button>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span>No disponible</span>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </c:forEach>
-
             </div>
         </section>
         <%@ include file="footer.jsp" %>
