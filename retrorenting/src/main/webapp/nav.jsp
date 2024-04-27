@@ -41,6 +41,7 @@
                }
                     %>
                     <form class="form-inline" action="UserProfileServlet" method="get">
+                        <input type="hidden" name="userId" value="<%= userId%>">
                         <input type="hidden" name="profile" value="self">
                         <%
                             } catch (ExpiredJwtException expiredEx) {

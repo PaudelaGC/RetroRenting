@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp" />
 <jsp:include page="nav.jsp" />
-
+<% String userId = request.getParameter("userId");%>
 <div class="container mt-5">
   <h2 class="mb-4">Perfil de Usuario</h2>
 
@@ -50,6 +50,7 @@
     </form>
     <form action="DeletedAccountServlet" method="post">
       <button type="submit" class="btn btn-danger">ELIMINAR CUENTA</button>
+      <input type="hidden" name="userId" value="<%= userId %>">
     </form>
   </div>
 </div>

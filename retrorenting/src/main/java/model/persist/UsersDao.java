@@ -68,14 +68,6 @@ public class UsersDao {
                     user.setPassword(rs.getString("password"));
                     user.setBirthdate(rs.getDate("birthdate"));
 
-                    Address address = new Address();
-                    address.setId(rs.getInt("idAddress"));
-                    address.setStreet(rs.getString("street"));
-                    address.setCity(rs.getString("city"));
-                    address.setState(rs.getString("state"));
-                    address.setCountry(rs.getString("country"));
-                    address.setPostalCode(rs.getString("postalCode"));
-
                     //user.setAddress(address);
                 }
             }
