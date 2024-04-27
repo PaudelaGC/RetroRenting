@@ -15,14 +15,14 @@
     profile = "";
     }
 %>      
-   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <form class="form-inline" action="HomeServlet" method="get">
+                <form class="form-inline" action="home" method="get">
                     <button class="btn btn-link nav-link" type="submit"><i class="fas fa-home"></i> Home</button>
                 </form>
             </li>
@@ -35,50 +35,50 @@
                         Claims claims = Jwts.parser().setSigningKey("83ykdhjflkdlDH338JDLHD23Djk$32234").parseClaimsJws(jwtToken).getBody();
                         String userId = claims.getSubject();
                         if(profile.equals("self")){
-            %>
-            <form class="form-inline" action="EditProfileServlet" method="get">
-                <%
-           }
                 %>
-                <form class="form-inline" action="UserProfileServlet" method="get">
-                    <input type="hidden" name="profile" value="self">
+                <form class="form-inline" action="EditProfileServlet" method="get">
                     <%
-                        } catch (ExpiredJwtException expiredEx) {
-                        expired = true;
+               }
                     %>
-                <form class="form-inline" action="LoginServlet" method="get">
+                    <form class="form-inline" action="UserProfileServlet" method="get">
+                        <input type="hidden" name="profile" value="self">
                         <%
-                        } catch (Exception e) {
-                            response.getWriter().write("An error ocurred while loading this page.");
-                        }
-                    } else {%>
-                        <form class="form-inline" action="LoginServlet" method="get">
-                            <% } %>
-                    <button class="btn btn-link nav-link" type="submit"><i class="fas fa-user"></i>
-                                <% if (profile.equals("self")) { %>
-                                Opciones
-                                <% }else if(token != null && token.startsWith("Bearer ") && !expired){ %>
-                                Perfil
-                                <% } else{ %>
-                                Log in/Sign up
+                            } catch (ExpiredJwtException expiredEx) {
+                            expired = true;
+                        %>
+                        <form class="form-inline" action="LoginServlet2" method="get">
+                            <%
+                            } catch (Exception e) {
+                                response.getWriter().write("An error ocurred while loading this page.");
+                            }
+                        } else {%>
+                            <form class="form-inline" action="LoginServlet2" method="get">
                                 <% } %>
-                            </button>
-                        </form>
-            </li>
-            <li class="nav-item">
-                <form class="form-inline" action="SearchServlet" method="get">
-                    <div class="row g-3 align-items-center">
-                        <div class="col-auto">
-                            <input type="text" class="form-control" name="query" placeholder="Search...">
-                        </div>
-                        <div class="col-auto">
-                            <button class="btn btn-primary" type="submit">Search</button>
-                        </div>
-                    </div>
-                </form>
-            </li>
-        </ul>
-    </div>
-</nav>
+                                <button class="btn btn-link nav-link" type="submit"><i class="fas fa-user"></i>
+                                    <% if (profile.equals("self")) { %>
+                                    Opciones
+                                    <% }else if(token != null && token.startsWith("Bearer ") && !expired){ %>
+                                    Perfil
+                                    <% } else{ %>
+                                    Log in/Sign up
+                                    <% } %>
+                                </button>
+                            </form>
+                            </li>
+                            <li class="nav-item">
+                                <form class="form-inline" action="SearchServlet" method="get">
+                                    <div class="row g-3 align-items-center">
+                                        <div class="col-auto">
+                                            <input type="text" class="form-control" name="query" placeholder="Search...">
+                                        </div>
+                                        <div class="col-auto">
+                                            <button class="btn btn-primary" type="submit">Search</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </li>
+                            </ul>
+                            </div>
+                            </nav>
 
-    
+

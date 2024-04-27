@@ -49,7 +49,7 @@ public class UserProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         String profile = request.getParameter("profile");
-        if(profile.equals("self")){
+        if(profile != null && profile.equals("self")){
             request.setAttribute("profile", profile);
         }
         String token = (String) session.getAttribute("token");

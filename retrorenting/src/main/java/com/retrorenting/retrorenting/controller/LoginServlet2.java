@@ -6,31 +6,32 @@ package com.retrorenting.retrorenting.controller;
 
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.SQLException;
-import com.retrorenting.retrorenting.configuration.db.DbConnect;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Post;
 import model.persist.PostsDao;
-
-
+import model.persist.UsersDao;
 
 /**
  *
  * @author 39348
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/HomeServlet"})
-public class HomeServlet extends HttpServlet {
-    
-        PostsDao postDao = new PostsDao();
+@WebServlet(name = "LoginServlet2", urlPatterns = {"/LoginServlet2"})
+public class LoginServlet2 extends HttpServlet {
 
+    private UsersDao userDao;
+    private PostsDao postDao;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        userDao = new UsersDao();
+        postDao = new PostsDao();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,12 +44,6 @@ public class HomeServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
-            dispatcher.include(request, response);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -63,15 +58,11 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String token = (String) session.getAttribute("token");
-        List<Post> posts = postDao.listPosts();
-        request.setAttribute("postList", posts);
-        if (token != null) {
-            response.addHeader("Authorization", "Bearer " + token);
-            response.getWriter().write(token);
-        }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+        String user = request.getParameter("usuario_id");
+        String post = request.getParameter("publicacion_id");
+        request.setAttribute("usuario_id", user);
+        request.setAttribute("publicacion_id", post);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -86,7 +77,39 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        Integer id = userDao.loginUser(email, password);
+        String userId = "";
+        if (id == null) {
+            userId = "null";
+        } else {
+            userId = Integer.toString(id);
+        }
+        String user = request.getParameter("usuario_id");
+        String post = request.getParameter("publicacion_id");
+        if (!userId.equals("null")) {
+            TokenService tokenService = new TokenService();
+            String token = tokenService.createToken(userId);
+            response.addHeader("Authorization", "Bearer " + token);
+            response.getWriter().write(token);
+            if (user.length() != 0) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("userPostProfile.jsp");
+                dispatcher.forward(request, response);
+            } else if (post.length() != 0) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("paymentForm.jsp");
+                dispatcher.forward(request, response);
+            } else {
+                List<Post> posts = postDao.listPosts();
+                request.setAttribute("postList", posts);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+                dispatcher.forward(request, response);
+            }
+        } else {
+            request.setAttribute("denied", "denied");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     /**

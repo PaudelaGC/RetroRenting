@@ -9,11 +9,10 @@
 package model;
 
 import java.util.Date;
-import model.User;
 
 public class Post {
     private int id;
-    private User user;
+    private int idUser;
     private String title;
     private String description;
     private String image;
@@ -24,17 +23,13 @@ public class Post {
     private Date lastReturnDate;
 
     // Constructor con todos los atributos
-    public Post(int id, User user, String title, String description, String image, double price, int duration, boolean available, Date lastRentDate, Date lastReturnDate) {
-        this.id = id;
-        this.user = user;
+    public Post(String title, String description, String image, double price, int duration){
         this.title = title;
         this.description = description;
         this.image = image;
         this.price = price;
         this.duration = duration;
-        this.available = available;
-        this.lastRentDate = lastRentDate;
-        this.lastReturnDate = lastReturnDate;
+        this.available = true;
     }
 
     // Constructor vacío
@@ -49,13 +44,13 @@ public class Post {
     public void setId(int id) {
         this.id = id;
     }
-
-    public User getUser() {
-        return user;
+    
+    public int getIdUser() {
+        return idUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     public String getTitle() {
