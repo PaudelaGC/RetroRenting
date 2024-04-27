@@ -71,7 +71,7 @@ public class UsersDao {
                     address.setCountry(rs.getString("country"));
                     address.setPostalCode(rs.getString("postalCode"));
 
-                    user.setAddress(address);
+                    //user.setAddress(address);
                 }
             }
         } catch (SQLException ex) {
@@ -94,7 +94,7 @@ public class UsersDao {
                 user.setBirthdate(rs.getDate("birthdate"));
                 Address address = new Address(); // Crea una nueva instancia de Address
                 address.setId(rs.getInt("idAddress")); // Asigna solo el ID del Address
-                user.setAddress(address); // Asigna el objeto Address al usuario
+               // user.setAddress(address); // Asigna el objeto Address al usuario
                 users.add(user);
             }
         } catch (SQLException ex) {
@@ -119,7 +119,7 @@ public class UsersDao {
                 user.setBirthdate(rs.getDate("birthdate"));
                 Address address = new Address(); // Crea una nueva instancia de Address
                 address.setId(rs.getInt("idAddress")); // Asigna solo el ID del Address
-                user.setAddress(address); // Asigna el objeto Address al usuario
+               // user.setAddress(address); // Asigna el objeto Address al usuario
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -136,7 +136,7 @@ public class UsersDao {
             stmt.setString(3, user.getEmail());
             stmt.setString(4, user.getPassword());
             stmt.setDate(5, new java.sql.Date(user.getBirthdate().getTime()));
-            stmt.setInt(6, user.getId());
+            stmt.setInt(6, user.getIdAddress());
             result = stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -153,7 +153,7 @@ public class UsersDao {
             stmt.setString(3, user.getEmail());
             stmt.setString(4, user.getPassword());
             stmt.setDate(5, new java.sql.Date(user.getBirthdate().getTime()));
-            stmt.setInt(6, user.getAddress().getId()); // Asignar directamente el idAddress
+            stmt.setInt(6, user.getIdAddress()); // Asignar directamente el idAddress
             stmt.setInt(7, user.getId());
             result = stmt.executeUpdate() > 0;
         } catch (SQLException e) {

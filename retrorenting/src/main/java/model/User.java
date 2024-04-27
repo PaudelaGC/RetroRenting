@@ -18,14 +18,15 @@ public class User {
     private String email;
     private String password;
     private Date birthdate;
-    private Address address;
+    private int idAddress;
 
-    public User(String name, String surname, String email, String password, Date birthdate) {
+    public User(String name, String surname, String email, String password, Date birthdate, int idAddress) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.birthdate = birthdate;
+        this.idAddress = idAddress;
     }
 
 
@@ -80,12 +81,12 @@ public class User {
         this.birthdate = birthdate;
     }
 
-    public Address getAddress() {
-        return address;
+    public int getIdAddress() {
+        return idAddress;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setIdAddress(int idAddress) {
+        this.idAddress = idAddress;
     }
     
     

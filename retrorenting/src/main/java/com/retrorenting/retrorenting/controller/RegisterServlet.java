@@ -89,8 +89,8 @@ public class RegisterServlet extends HttpServlet {
         String estado = request.getParameter("estado");
         String pais = request.getParameter("pais");
         Integer existingUser = userDao.searchUserByEmail(email);
-        System.out.println(existingUser);
         boolean wrongRegister = false;
+        int idAddress = -1;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date fechaNacimiento = null;
         try {
@@ -112,10 +112,10 @@ public class RegisterServlet extends HttpServlet {
         String user = request.getParameter("usuario_id");
         String post = request.getParameter("publicacion_id");
         if (!wrongRegister) {
-            User newUser = new User(nombre, apellido, email, password, sqlDate);
-            userDao.addUser(newUser);
             Address newAddress = new Address(existingUser, calle, numero, bloque, puerta, piso, codigoPostal, ciudad, estado, pais);
-            addressDao.addAddress(newAddress);
+            idAddress = addressDao.addAddress(newAddress);
+            User newUser = new User(nombre, apellido, email, password, sqlDate, idAddress);
+            userDao.addUser(newUser);
             TokenService tokenService = new TokenService();
             String token = tokenService.createToken(Integer.toString(newUser.getId()));
             response.addHeader("Authorization", "Bearer " + token);
