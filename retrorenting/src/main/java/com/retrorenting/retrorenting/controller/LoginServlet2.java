@@ -94,17 +94,18 @@ public class LoginServlet2 extends HttpServlet {
             String token = tokenService.createToken(userId);
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
-            Post selectedPost = postDao.findPostById(Integer.parseInt(postId));
-            request.setAttribute("post", selectedPost);
             if (user.length() != 0) {
+                Post selectedPost = postDao.findPostById(Integer.parseInt(postId));
+                request.setAttribute("post", selectedPost);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("userPostProfile.jsp");
                 dispatcher.forward(request, response);
             } else if (postId.length() != 0) {
+                Post selectedPost = postDao.findPostById(Integer.parseInt(postId));
+                request.setAttribute("post", selectedPost);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("paymentForm.jsp");
                 dispatcher.forward(request, response);
             } else {
                 List<Post> posts = postDao.listPosts();
-                System.out.println(posts.size());
                 request.setAttribute("postsList", posts);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
                 dispatcher.forward(request, response);

@@ -3,10 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
-import java.util.Date;
-import model.User;
-import model.Post;
-import model.Status;
+import java.time.LocalDate;
+import java.sql.Date;
 
 
 /**
@@ -15,17 +13,18 @@ import model.Status;
  */
 public class Request {
     private int id;
-    private Status status;
-    private User user;
-    private Post post;
-    private Date resquestDate;
+    private int idStatus;
+    private int idUser;
+    private int idPost;
+    private Date requestDate;
+    
 
-    public Request(int id, Status status, User user, Post post, Date resquestDate) {
-        this.id = id;
-        this.status = status;
-        this.user = user;
-        this.post = post;
-        this.resquestDate = resquestDate;
+    public Request(int idUser, int idPost) {
+        this.idStatus = 1;
+        this.idUser = idUser;
+        this.idPost = idPost;
+        LocalDate currentDate = LocalDate.now();
+        this.requestDate = Date.valueOf(currentDate);
     }
 
     public Request() {
@@ -39,38 +38,47 @@ public class Request {
         this.id = id;
     }
 
-    public Status getStatus() {
-        return status;
+    public int getIdStatus() {
+        return idStatus;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setIdStatus(int idStatus) {
+        this.idStatus = idStatus;
     }
 
-    public User getUser() {
-        return user;
+    public int getIdUser() {
+        return idUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
-    public Post getPost() {
-        return post;
+    public int getIdPost() {
+        return idPost;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setIdPost(int idPost) {
+        this.idPost = idPost;
     }
 
-    public Date getResquestDate() {
-        return resquestDate;
+    public Date getRequestDate() {
+        return requestDate;
     }
 
-    public void setResquestDate(Date resquestDate) {
-        this.resquestDate = resquestDate;
+    public void setRequestDate(Date requestDate) {
+        this.requestDate = requestDate;
     }
     
-    
+    @Override
+    public String toString() {
+        return "Request{" +
+                "id=" + id +
+                ", idStatus=" + idStatus +
+                ", idUser=" + idUser +
+                ", idPost=" + idPost +
+                ", requestDate=" + requestDate +
+                '}';
+    }
 
 }
