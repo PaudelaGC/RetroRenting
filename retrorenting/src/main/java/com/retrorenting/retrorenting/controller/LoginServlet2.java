@@ -106,7 +106,6 @@ public class LoginServlet2 extends HttpServlet {
                 dispatcher.forward(request, response);
             } else {
                 List<Post> posts = postDao.listPosts();
-                System.out.println(posts.size());
                 request.setAttribute("postsList", posts);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
                 dispatcher.forward(request, response);

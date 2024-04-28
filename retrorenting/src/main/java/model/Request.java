@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
-import java.util.Date;
+import java.time.LocalDate;
+import java.sql.Date;
+
 
 /**
  *
@@ -21,11 +23,8 @@ public class Request {
         this.idStatus = 1;
         this.idUser = idUser;
         this.idPost = idPost;
-        Date today = new Date();
-        today.setHours(0);
-        today.setMinutes(0);
-        today.setSeconds(0);
-        this.requestDate = today;
+        LocalDate currentDate = LocalDate.now();
+        this.requestDate = Date.valueOf(currentDate);
     }
 
     public Request() {
@@ -71,6 +70,15 @@ public class Request {
         this.requestDate = requestDate;
     }
     
-    
+    @Override
+    public String toString() {
+        return "Request{" +
+                "id=" + id +
+                ", idStatus=" + idStatus +
+                ", idUser=" + idUser +
+                ", idPost=" + idPost +
+                ", requestDate=" + requestDate +
+                '}';
+    }
 
 }

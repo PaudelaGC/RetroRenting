@@ -94,8 +94,12 @@ public class PostsDao {
             stmt.setDouble(4, post.getPrice());
             stmt.setInt(5, post.getDuration());
             stmt.setBoolean(6, post.isAvailable());
-            stmt.setDate(7, new java.sql.Date(post.getLastRentDate().getTime()));
-            stmt.setDate(8, post.getLastReturnDate() != null ? new java.sql.Date(post.getLastReturnDate().getTime()) : null);
+            java.util.Date utilDate1 = post.getLastRentDate();
+            java.sql.Date sqlDate1 = new java.sql.Date(utilDate1.getTime());
+            stmt.setDate(7, sqlDate1);
+            java.util.Date utilDate2 = post.getLastReturnDate();
+            java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
+            stmt.setDate(8, sqlDate2);
             stmt.setInt(9, post.getId());
             result = stmt.executeUpdate() > 0;
         } catch (SQLException e) {

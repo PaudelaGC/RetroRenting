@@ -31,7 +31,9 @@ public class RequestsDao {
             stmt.setInt(1, request.getIdStatus());
             stmt.setInt(2, request.getIdUser());
             stmt.setInt(3, request.getIdPost());
-            stmt.setDate(4, new java.sql.Date(request.getRequestDate().getTime()));
+            java.util.Date utilDate = request.getRequestDate();
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            stmt.setDate(4, sqlDate);
             result = stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -72,10 +74,10 @@ public class RequestsDao {
             if (rs.next()) {
                 request = new Request();
                 request.setId(rs.getInt("id"));
-      //          request.setStatus(statusDao.findStatusById(rs.getInt("idStatus")));
-      //          request.setUser(userDao.findUserById(rs.getInt("idUser")));
-      //          request.setPost(postDao.findPostById(rs.getInt("idPost")));
-      //          request.setResquestDate(rs.getDate("requestDate"));
+                request.setIdStatus(rs.getInt("idStatus"));
+                request.setIdUser((rs.getInt("idUser")));
+                request.setIdPost((rs.getInt("idPost")));
+                request.setRequestDate(rs.getDate("requestDate"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -89,10 +91,12 @@ public class RequestsDao {
         String query = "UPDATE requests SET idStatus = ?, idUser = ?, idPost = ?, requestDate = ? WHERE id = ?;";
         try (Connection conn = dbConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-        //    stmt.setInt(1, request.getStatus().getId());
-        //    stmt.setInt(2, request.getUser().getId());
-        //    stmt.setInt(3, request.getPost().getId());
-        //    stmt.setDate(4, new java.sql.Date(request.getResquestDate().getTime()));
+            stmt.setInt(1, request.getIdStatus());
+            stmt.setInt(2, request.getIdUser());
+            stmt.setInt(3, request.getIdPost());
+            java.util.Date utilDate = request.getRequestDate();
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            stmt.setDate(4, sqlDate);
             stmt.setInt(5, request.getId());
             result = stmt.executeUpdate() > 0;
         } catch (SQLException e) {

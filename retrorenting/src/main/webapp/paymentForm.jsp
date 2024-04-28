@@ -35,6 +35,7 @@
     <%
             } catch (ExpiredJwtException expiredEx) {
             expired = true;
+            response.getWriter().write("Your session expired.");
     %>
     <form action="ViewPostServlet" method="get">
         <input type="hidden" name="postId" value="${post.id}">

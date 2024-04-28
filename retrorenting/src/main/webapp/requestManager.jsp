@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="io.jsonwebtoken.Claims, io.jsonwebtoken.Jwts, io.jsonwebtoken.ExpiredJwtException" %>
+<%@ page import="java.util.Date" %>
 <jsp:include page="header.jsp" />
 <jsp:include page="nav.jsp" />
 <div class="container mt-4">
@@ -28,10 +30,14 @@
                         <span class="info">Fecha de la petición:</span> ${request['date']} <!-- Fecha de la petición -->
                     </div>
                     <div>
-                        <form action="RequestOkServlet" method="get" class="d-inline">
+                        <form action="RequestManagerServlet" method="post" class="d-inline">
+                            <input type="hidden" name="accept" value="${request['id']}">
+                            <input type="hidden" name="userId" value="${userId}">
                             <button type="submit" class="btn btn-success btn-sm">Aceptar</button>
                         </form>
-                        <form action="RequestDeniedServlet" method="get" class="d-inline">
+                        <form action="RequestManagerServlet" method="post" class="d-inline">
+                            <input type="hidden" name="deny" value="${request['id']}">
+                            <input type="hidden" name="userId" value="${userId}">
                             <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
                         </form>
                     </div>
@@ -48,14 +54,17 @@
             <c:forEach items="${myRequests}" var="request">
                 <li class="list-group-item d-flex justify-content-between align-items-center" >
                     <span class="info">Título del ítem: ${request['itemTitle']}</span>  <span class="fw-bold">Estado: ${request['status']}</span>
-                    <form action="PaymentOkServlet">
-                        <button type="submit" class="btn btn-primary btn-sm" style="visibility: hidden;">Pagar</button>
+                    <form action="RequestManagerServlet" method="post">
+                        <c:if test = "${request['status'] eq 'Accepted'}">
+                            <input type="hidden" name="pay" value="${request['id']}">
+                            <input type="hidden" name="userId" value="${userId}">
+                            <button type="submit" class="btn btn-primary btn-sm">Pagar</button>
+                        </c:if>
                     </form>
                 </li>
             </c:forEach>
         </ul>
     </section>
-
     <div class="mt-4">
         <form action="UserProfileServlet" method="get">
             <input type="hidden" name="profile" value="self">
