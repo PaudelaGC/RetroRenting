@@ -37,6 +37,7 @@
                         if(profile.equals("self")){
                 %>
                 <form class="form-inline" action="EditProfileServlet" method="get">
+                    <input type="hidden" name="userId" value="<%= userId%>">
                     <%
                }
                     %>
