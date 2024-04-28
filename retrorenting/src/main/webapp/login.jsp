@@ -19,7 +19,7 @@
         <div class="col-md-6">
 
             <h1 class="text-center mb-4">Iniciar Sesión</h1>
-            <form action="LoginServlet" method="post">
+            <form action="LoginServlet2" method="post">
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo Electrónico:</label>
                     <input type="email" class="form-control" id="email" name="email" required>

@@ -80,9 +80,6 @@ public class LoginServlet2 extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         Integer id = userDao.loginUser(email, password);
-
-        List<Post> posts = postDao.listPosts();
-        request.setAttribute("postList", posts);
         String userId = "";
         if (id == null) {
             userId = "null";
@@ -103,6 +100,9 @@ public class LoginServlet2 extends HttpServlet {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("paymentForm.jsp");
                 dispatcher.forward(request, response);
             } else {
+                List<Post> posts = postDao.listPosts();
+                System.out.println(posts.size());
+                request.setAttribute("postsList", posts);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
                 dispatcher.forward(request, response);
             }

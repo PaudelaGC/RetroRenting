@@ -132,7 +132,7 @@ public class RegisterServlet extends HttpServlet {
             User newUser = new User(nombre, apellido, email, hashedPassword, sqlDate, idAddress);
             userDao.addUser(newUser);
             TokenService tokenService = new TokenService();
-            String token = tokenService.createToken(Integer.toString(newUser.getId()));
+            String token = tokenService.createToken(Integer.toString(userDao.searchUserByEmail(email)));
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
             if (user.length() != 0) {
@@ -143,7 +143,7 @@ public class RegisterServlet extends HttpServlet {
                 dispatcher.forward(request, response);
             } else {
                 List<Post> posts = postDao.listPosts();
-                request.setAttribute("postList", posts);
+                request.setAttribute("postsList", posts);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
                 dispatcher.forward(request, response);
             }

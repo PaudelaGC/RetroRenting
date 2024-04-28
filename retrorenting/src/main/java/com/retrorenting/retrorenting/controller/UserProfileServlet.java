@@ -52,7 +52,6 @@ public class UserProfileServlet extends HttpServlet {
         int userId = Integer.parseInt(request.getParameter("userId"));
         if(profile != null && profile.equals("self")){
             request.setAttribute("profile", profile);
-            System.out.print(userId);
             request.setAttribute("userId", userId);
         }
         String token = (String) session.getAttribute("token");

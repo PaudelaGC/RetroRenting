@@ -67,8 +67,7 @@ public class UsersDao {
                     user.setEmail(rs.getString("email"));
                     user.setPassword(rs.getString("password"));
                     user.setBirthdate(rs.getDate("birthdate"));
-
-                    //user.setAddress(address);
+                    user.setIdAddress(rs.getInt("idAddress"));
                 }
             }
         } catch (SQLException ex) {

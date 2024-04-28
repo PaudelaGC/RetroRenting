@@ -63,7 +63,7 @@ public class HomeServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String token = (String) session.getAttribute("token");
         List<Post> posts = postDao.listPosts();
-        request.setAttribute("postList", posts);
+        request.setAttribute("postsList", posts);
         if (token != null) {
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
