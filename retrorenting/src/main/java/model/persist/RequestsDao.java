@@ -23,16 +23,15 @@ public class RequestsDao {
         statusDao = new StatusDao();
     }
 
-    // Añadir un nuevo request
     public boolean addRequest(Request request) {
         boolean result = false;
         String query = "INSERT INTO requests (idStatus, idUser, idPost, requestDate) VALUES (?, ?, ?, ?);";
         try (Connection conn = dbConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, request.getStatus().getId());
-            stmt.setInt(2, request.getUser().getId());
-            stmt.setInt(3, request.getPost().getId());
-            stmt.setDate(4, new java.sql.Date(request.getResquestDate().getTime()));
+            stmt.setInt(1, request.getIdStatus());
+            stmt.setInt(2, request.getIdUser());
+            stmt.setInt(3, request.getIdPost());
+            stmt.setDate(4, new java.sql.Date(request.getRequestDate().getTime()));
             result = stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -50,10 +49,10 @@ public class RequestsDao {
             while (rs.next()) {
                 Request request = new Request();
                 request.setId(rs.getInt("id"));
-                request.setStatus(statusDao.findStatusById(rs.getInt("idStatus")));
-    //            request.setUser(userDao.findUserById(rs.getInt("idUser")));
-                request.setPost(postDao.findPostById(rs.getInt("idPost")));
-                request.setResquestDate(rs.getDate("requestDate"));
+                request.setIdStatus(rs.getInt("idStatus"));
+                request.setIdUser(rs.getInt("idUser"));
+                request.setIdPost(rs.getInt("idPost"));
+                request.setRequestDate(rs.getDate("requestDate"));
                 requests.add(request);
             }
         } catch (SQLException ex) {
@@ -73,10 +72,10 @@ public class RequestsDao {
             if (rs.next()) {
                 request = new Request();
                 request.setId(rs.getInt("id"));
-                request.setStatus(statusDao.findStatusById(rs.getInt("idStatus")));
+      //          request.setStatus(statusDao.findStatusById(rs.getInt("idStatus")));
       //          request.setUser(userDao.findUserById(rs.getInt("idUser")));
-                request.setPost(postDao.findPostById(rs.getInt("idPost")));
-                request.setResquestDate(rs.getDate("requestDate"));
+      //          request.setPost(postDao.findPostById(rs.getInt("idPost")));
+      //          request.setResquestDate(rs.getDate("requestDate"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,10 +89,10 @@ public class RequestsDao {
         String query = "UPDATE requests SET idStatus = ?, idUser = ?, idPost = ?, requestDate = ? WHERE id = ?;";
         try (Connection conn = dbConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, request.getStatus().getId());
-            stmt.setInt(2, request.getUser().getId());
-            stmt.setInt(3, request.getPost().getId());
-            stmt.setDate(4, new java.sql.Date(request.getResquestDate().getTime()));
+        //    stmt.setInt(1, request.getStatus().getId());
+        //    stmt.setInt(2, request.getUser().getId());
+        //    stmt.setInt(3, request.getPost().getId());
+        //    stmt.setDate(4, new java.sql.Date(request.getResquestDate().getTime()));
             stmt.setInt(5, request.getId());
             result = stmt.executeUpdate() > 0;
         } catch (SQLException e) {

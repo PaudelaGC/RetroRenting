@@ -5,74 +5,65 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-            <jsp:include page="header.jsp" />
-            <jsp:include page="nav.jsp" />
-           <div class="container mt-4">
-               <h2>Lista de Peticiones</h2>
-               <section>
-                   <h3>Peticiones Recibidas</h3>
-                   <ul class="list-group mb-4">
-                       <li class="list-group-item d-flex justify-content-between align-items-center">
-                           Petición 1
-                           <div>
-                               <form action="RequestOkServlet" method="get" class="d-inline">
-                                   <button type="submit" class="btn btn-success btn-sm">Aceptar</button>
-                               </form>
-                               <form action="RequestDeniedServlet" method="get" class="d-inline">
-                                   <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
-                               </form>
-                           </div>
-                       </li>
-                       <li class="list-group-item d-flex justify-content-between align-items-center">
-                           Petición 2
-                           <div>
-                               <form action="RequestOkServlet" method="get" class="d-inline">
-                                   <button type="submit" class="btn btn-success btn-sm">Aceptar</button>
-                               </form>
-                               <form action="RequestDeniedServlet" method="get" class="d-inline">
-                                   <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
-                               </form>
-                           </div>
-                       </li>
-                       <li class="list-group-item d-flex justify-content-between align-items-center">
-                           Petición 3
-                           <div>
-                               <form action="RequestOkServlet" method="get" class="d-inline">
-                                   <button type="submit" class="btn btn-success btn-sm">Aceptar</button>
-                               </form>
-                               <form action="RequestDeniedServlet" method="get" class="d-inline">
-                                   <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
-                               </form>
-                           </div>
-                       </li>
-                   </ul>
-               </section>
-               <section>
-                   <h3>Peticiones Enviadas</h3>
-                   <ul class="list-group">
-                       <li class="list-group-item d-flex justify-content-between align-items-center" >
-                           Petición 1 - <span class="fw-bold">Estado: Pendiente</span>
-                           <form action="PaymentOkServlet">
-                               <button type="submit" class="btn btn-primary btn-sm" style="visibility: hidden;">Pagar</button>
-                           </form>
-                       </li>
-                       <li class="list-group-item d-flex justify-content-between align-items-center">
-                           Petición 2 - <span class="fw-bold">Estado: Confirmada</span>
-                           <form action="PaymentOkServlet">
-                               <button type="submit" class="btn btn-primary btn-sm">Pagar</button>
-                           </form>
-                       </li>
-                   </ul>
-               </section>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<jsp:include page="header.jsp" />
+<jsp:include page="nav.jsp" />
+<div class="container mt-4">
+    <h2>Lista de Peticiones</h2>
+    <section>
+        <h3>Peticiones Recibidas</h3>
+        <ul class="list-group mb-4">
+            <c:if test="${othersRequests == null}">
+                <p>No tienes peticiones recibidas por el momento.</p>
+            </c:if>
+            <c:forEach items="${othersRequests}" var="request">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="info">Título del ítem:</span> ${request['itemTitle']} <!-- Título del ítem -->
+                    </div>
+                    <div>
+                        <span class="info">Solicitante:</span> ${request['userRequester']} <!-- Quién lo pide -->
+                    </div>
+                    <div>
+                        <span class="info">Fecha de la petición:</span> ${request['date']} <!-- Fecha de la petición -->
+                    </div>
+                    <div>
+                        <form action="RequestOkServlet" method="get" class="d-inline">
+                            <button type="submit" class="btn btn-success btn-sm">Aceptar</button>
+                        </form>
+                        <form action="RequestDeniedServlet" method="get" class="d-inline">
+                            <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
+                        </form>
+                    </div>
+                </li>
+            </c:forEach>
+        </ul>
+    </section>
+    <section>
+        <h3>Peticiones Enviadas</h3>
+        <ul class="list-group">
+            <c:if test="${myRequests == null}">
+                <p>No tienes peticiones recibidas por el momento.</p>
+            </c:if>
+            <c:forEach items="${myRequests}" var="request">
+                <li class="list-group-item d-flex justify-content-between align-items-center" >
+                    <span class="info">Título del ítem: ${request['itemTitle']}</span>  <span class="fw-bold">Estado: ${request['status']}</span>
+                    <form action="PaymentOkServlet">
+                        <button type="submit" class="btn btn-primary btn-sm" style="visibility: hidden;">Pagar</button>
+                    </form>
+                </li>
+            </c:forEach>
+        </ul>
+    </section>
 
-               <div class="mt-4">
-                   <form action="UserProfileServlet" method="get">
-                               <input type="hidden" name="profile" value="self">
+    <div class="mt-4">
+        <form action="UserProfileServlet" method="get">
+            <input type="hidden" name="profile" value="self">
 
-                       <button type="submit" class="btn btn-secondary">Atrás</button>
-                   </form>
-               </div>
-           </div>
-           <jsp:include page="footer.jsp" />
-    </body>
+            <button type="submit" class="btn btn-secondary">Atrás</button>
+        </form>
+    </div>
+</div>
+<jsp:include page="footer.jsp" />
+</body>
 </html>
