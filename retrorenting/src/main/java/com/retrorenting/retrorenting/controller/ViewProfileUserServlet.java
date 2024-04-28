@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.Post;
+import model.persist.PostsDao;
 
 /**
  *
@@ -20,6 +22,8 @@ import jakarta.servlet.http.HttpSession;
  */
 @WebServlet(name = "ViewProfileUserServlet", urlPatterns = {"/ViewProfileUserServlet"})
 public class ViewProfileUserServlet extends HttpServlet {
+    
+    PostsDao postDao = new PostsDao();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +39,13 @@ public class ViewProfileUserServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         String token = (String) session.getAttribute("token");
+        String postId = request.getParameter("postId");
+        Post selectedPost = postDao.findPostById(Integer.parseInt(postId));
         if (token != null) {
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
         }
+        request.setAttribute("post", selectedPost);
         RequestDispatcher dispatcher = request.getRequestDispatcher("userPostProfile.jsp");
         dispatcher.forward(request, response);
     }

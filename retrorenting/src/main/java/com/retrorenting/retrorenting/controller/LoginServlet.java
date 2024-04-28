@@ -53,10 +53,10 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String user = request.getParameter("usuario_id");
-        String post = request.getParameter("publicacion_id");
-        request.setAttribute("usuario_id", user);
-        request.setAttribute("publicacion_id", post);
+        String user = request.getParameter("userId");
+        String post = request.getParameter("postId");
+        request.setAttribute("userId", user);
+        request.setAttribute("postId", post);
         RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
         dispatcher.forward(request, response);
     }
@@ -81,8 +81,8 @@ public class LoginServlet extends HttpServlet {
         } else {
             userId = Integer.toString(id);
         }
-        String user = request.getParameter("usuario_id");
-        String post = request.getParameter("publicacion_id");
+        String user = request.getParameter("userId");
+        String post = request.getParameter("postId");
         if (!userId.equals("null")) {
             TokenService tokenService = new TokenService();
             String token = tokenService.createToken(userId);

@@ -49,8 +49,10 @@ public class UserProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         String profile = request.getParameter("profile");
+        int userId = Integer.parseInt(request.getParameter("userId"));
         if(profile != null && profile.equals("self")){
             request.setAttribute("profile", profile);
+            request.setAttribute("userId", userId);
         }
         String token = (String) session.getAttribute("token");
         if (token != null) {

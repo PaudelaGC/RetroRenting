@@ -63,10 +63,10 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String user = request.getParameter("usuario_id");
-        String post = request.getParameter("publicacion_id");
-        request.setAttribute("usuario_id", user);
-        request.setAttribute("publicacion_id", post);
+        String user = request.getParameter("userId");
+        String post = request.getParameter("postId");
+        request.setAttribute("userId", user);
+        request.setAttribute("postId", post);
         RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
         dispatcher.forward(request, response);
     }
@@ -82,6 +82,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         String nombre = request.getParameter("nombre");
         String apellido = request.getParameter("apellido");
         String email = request.getParameter("email");
@@ -124,26 +125,28 @@ public class RegisterServlet extends HttpServlet {
         Hash hash = Password.hash(password)
                 .with(bcrypt);
         hashedPassword = hash.getResult();
-        String user = request.getParameter("usuario_id");
-        String post = request.getParameter("publicacion_id");
+        String user = request.getParameter("userId");
+        String postId = request.getParameter("postId");
         if (!wrongRegister) {
             Address newAddress = new Address(existingUser, calle, numero, bloque, puerta, piso, codigoPostal, ciudad, estado, pais);
             idAddress = addressDao.addAddress(newAddress);
             User newUser = new User(nombre, apellido, email, hashedPassword, sqlDate, idAddress);
             userDao.addUser(newUser);
             TokenService tokenService = new TokenService();
-            String token = tokenService.createToken(Integer.toString(newUser.getId()));
+            String token = tokenService.createToken(Integer.toString(userDao.searchUserByEmail(email)));
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
             if (user.length() != 0) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("userPostProfile.jsp");
                 dispatcher.forward(request, response);
-            } else if (post.length() != 0) {
+            } else if (postId.length() != 0) {
+                Post selectedPost = postDao.findPostById(Integer.parseInt(postId));
+                request.setAttribute("post", selectedPost);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("paymentForm.jsp");
                 dispatcher.forward(request, response);
             } else {
                 List<Post> posts = postDao.listPosts();
-                request.setAttribute("postList", posts);
+                request.setAttribute("postsList", posts);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
                 dispatcher.forward(request, response);
             }

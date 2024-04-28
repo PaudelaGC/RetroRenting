@@ -7,9 +7,6 @@ package com.retrorenting.retrorenting.controller;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.SQLException;
-import com.retrorenting.retrorenting.configuration.db.DbConnect;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,17 +17,14 @@ import java.util.List;
 import model.Post;
 import model.persist.PostsDao;
 
-
-
 /**
  *
  * @author 39348
  */
 @WebServlet(name = "HomeServlet", urlPatterns = {"/HomeServlet"})
 public class HomeServlet extends HttpServlet {
-    
-        PostsDao postDao = new PostsDao();
 
+    PostsDao postDao = new PostsDao();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -63,10 +57,12 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
         HttpSession session = request.getSession();
         String token = (String) session.getAttribute("token");
         List<Post> posts = postDao.listPosts();
-        request.setAttribute("postList", posts);
+        request.setAttribute("postsList", posts);
         if (token != null) {
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);

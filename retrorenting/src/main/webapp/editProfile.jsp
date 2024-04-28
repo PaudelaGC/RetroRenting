@@ -20,11 +20,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo Electrónico:</label>
-                    <input type="email" class="form-control" id="email" name="email" value="juan@example.com" required>
+                    <input disabled type="email" class="form-control" id="email" name="email" value="juan@example.com" required>
                 </div>
                 <div class="mb-3">
                     <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento:</label>
-                    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="1990-01-10" required>
+                    <input disabled type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="1990-01-10" required>
                 </div>
                 <div class="mb-3">
                     <label for="direccion" class="form-label">Dirección:</label>

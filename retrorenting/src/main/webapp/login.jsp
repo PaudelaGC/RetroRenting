@@ -19,7 +19,7 @@
         <div class="col-md-6">
 
             <h1 class="text-center mb-4">Iniciar Sesión</h1>
-            <form action="LoginServlet" method="post">
+            <form action="LoginServlet2" method="post">
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo Electrónico:</label>
                     <input type="email" class="form-control" id="email" name="email" required>
@@ -29,8 +29,8 @@
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
                 <div class="text-center">
-                    <input type="hidden" name="publicacion_id" value="${publicacion_id}">
-                    <input type="hidden" name="usuario_id" value="${usuario_id}">
+                    <input type="hidden" name="postId" value="${postId}">
+                    <input type="hidden" name="userId" value="${userId}">
                     <button type="submit" class="btn btn-primary">Ingresar</button>
                     <% if(!denied.equals("null")){ %>
                     <p><span style="color: red;">Login credentials invalid</span></p>
@@ -39,8 +39,8 @@
             </form>
             <form action="RegisterServlet" method="get">
                 <div class="text-center mt-3">
-                    <input type="hidden" name="publicacion_id" value="${publicacion_id}">
-                    <input type="hidden" name="usuario_id" value="${usuario_id}">
+                    <input type="hidden" name="postId" value="${postId}">
+                    <input type="hidden" name="userId" value="${userId}">
                     <button type="submit" class="btn btn-secondary">Registrarse</button>
                 </div>
             </form>

@@ -31,14 +31,9 @@ public class ModelView {
             stmt.setInt(1, userId); // Establecer el ID del usuario
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    User user = new User();
-                    user.setId(rs.getInt("userId"));
-                    user.setName(rs.getString("name"));
-                    user.setSurname(rs.getString("surname"));
-                    user.setEmail(rs.getString("email"));
-
                     Post post = new Post();
                     post.setId(rs.getInt("id"));
+                    post.setIdUser(rs.getInt("idUser"));
                     post.setTitle(rs.getString("title"));
                     post.setDescription(rs.getString("description"));
                     post.setImage(rs.getString("image"));
@@ -47,7 +42,6 @@ public class ModelView {
                     post.setAvailable(rs.getBoolean("available"));
                     post.setLastRentDate(rs.getDate("lastRentDate"));
                     post.setLastReturnDate(rs.getDate("lastReturnDate"));
-
                     posts.add(post);
                 }
             }

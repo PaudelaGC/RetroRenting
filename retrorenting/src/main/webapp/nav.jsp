@@ -37,10 +37,12 @@
                         if(profile.equals("self")){
                 %>
                 <form class="form-inline" action="EditProfileServlet" method="get">
+                    <input type="hidden" name="userId" value="<%= userId%>">
                     <%
                }
                     %>
                     <form class="form-inline" action="UserProfileServlet" method="get">
+                        <input type="hidden" name="userId" value="<%= userId%>">
                         <input type="hidden" name="profile" value="self">
                         <%
                             } catch (ExpiredJwtException expiredEx) {
