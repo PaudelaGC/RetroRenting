@@ -9,7 +9,7 @@
         <jsp:include page="header.jsp" />
         <jsp:include page="nav.jsp" />
         <h1>Se ha registrado de manera exitosa</h1>
-        <form action="UserProfileServlet" method="get">
+        <form class="antesFooter" action="UserProfileServlet" method="get">
                 <button type="submit">Ver Mi Perfil</button>
         </form>
          <jsp:include page="footer.jsp" />

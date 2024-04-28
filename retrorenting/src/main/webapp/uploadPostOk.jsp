@@ -8,7 +8,7 @@
         <jsp:include page="header.jsp" />
         <jsp:include page="nav.jsp" />
         <h1>La Publicacion se subio correctamente</h1>
-         <form action="UserProfileServlet" method="get">
+         <form class="antesFooter" action="UserProfileServlet" method="get">
                 <button type="submit">Volver</button>
         </form>
         <jsp:include page="footer.jsp" />

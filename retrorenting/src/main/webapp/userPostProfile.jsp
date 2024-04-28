@@ -9,7 +9,7 @@
 <jsp:include page="nav.jsp" />
 <h2>Perfil de Usuario QUE ALQUILA</h2>
 
-<div>
+<div  class="antesFooter">
     <p><strong>Nombre:</strong> Ricardo</p>
     <p><strong>Apellido:</strong> Sanchez</p>
     <p><strong>Correo Electrónico:</strong> ricardo@example.com</p>

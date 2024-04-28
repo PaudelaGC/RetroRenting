@@ -23,7 +23,7 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <form class="form-inline" action="home" method="get">
-                    <button class="btn btn-link nav-link" type="submit"><i class="fas fa-home"></i> Home</button>
+                    <button class="btn btn-link nav-link " type="submit"><i class="fas fa-home"></i> Home</button>
                 </form>
             </li>
             <li class="nav-item">

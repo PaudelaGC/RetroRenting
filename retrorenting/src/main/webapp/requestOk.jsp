@@ -8,7 +8,7 @@
         <jsp:include page="header.jsp" />
         <jsp:include page="nav.jsp" />
         <h1>La peticion id Fue aceptada</h1>
-         <form action="RequestManagerServlet" method="get">
+         <form class="antesFooter" action="RequestManagerServlet" method="get">
                 <button type="submit">Volver</button>
          </form>
           <jsp:include page="footer.jsp" />

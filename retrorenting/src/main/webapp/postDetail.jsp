@@ -11,7 +11,7 @@
         <jsp:include page="nav.jsp" />
         <h2>Publicación</h2>
 
-        <div>
+        <div class="antesFooter">
           <h3>Título de la Publicación</h3>
           <img src="imagen.jpg" alt="Imagen de la Publicación" width="200">
           <p>Descripción: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et justo nec nulla vulputate consectetur sit amet non massa.</p>

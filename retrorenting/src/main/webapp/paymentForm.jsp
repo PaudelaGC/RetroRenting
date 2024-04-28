@@ -24,7 +24,7 @@
     </div>
     <button type="submit">Realizar Petición</button>
 </form>
-<form action="ViewPostServlet" method="get">
+<form action="ViewPostServlet" method="get" class="antesFooter">
     <input type="hidden" name="postId" value="${post.id}">
     <button type="submit">Atrás</button>
 </form>
