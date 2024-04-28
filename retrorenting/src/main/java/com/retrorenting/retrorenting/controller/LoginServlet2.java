@@ -58,10 +58,10 @@ public class LoginServlet2 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String user = request.getParameter("usuario_id");
-        String post = request.getParameter("publicacion_id");
-        request.setAttribute("usuario_id", user);
-        request.setAttribute("publicacion_id", post);
+        String user = request.getParameter("userId");
+        String post = request.getParameter("postId");
+        request.setAttribute("userId", user);
+        request.setAttribute("postId", post);
         RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
         dispatcher.forward(request, response);
     }
@@ -77,6 +77,7 @@ public class LoginServlet2 extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         Integer id = userDao.loginUser(email, password);
@@ -86,17 +87,19 @@ public class LoginServlet2 extends HttpServlet {
         } else {
             userId = Integer.toString(id);
         }
-        String user = request.getParameter("usuario_id");
-        String post = request.getParameter("publicacion_id");
+        String user = request.getParameter("userId");
+        String postId = request.getParameter("postId");
         if (!userId.equals("null")) {
             TokenService tokenService = new TokenService();
             String token = tokenService.createToken(userId);
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
+            Post selectedPost = postDao.findPostById(Integer.parseInt(postId));
+            request.setAttribute("post", selectedPost);
             if (user.length() != 0) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("userPostProfile.jsp");
                 dispatcher.forward(request, response);
-            } else if (post.length() != 0) {
+            } else if (postId.length() != 0) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("paymentForm.jsp");
                 dispatcher.forward(request, response);
             } else {

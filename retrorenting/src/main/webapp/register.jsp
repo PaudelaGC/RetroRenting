@@ -93,14 +93,14 @@
             <label for="pais" class="form-label">País:</label>
             <input type="text" class="form-control" id="pais" name="pais" required>
         </div>
-        <input type="hidden" name="publicacion_id" value="${publicacion_id}">
-        <input type="hidden" name="usuario_id" value="${usuario_id}">
+        <input type="hidden" name="postId" value="${postId}">
+        <input type="hidden" name="userId" value="${userId}">
         <button type="submit" class="btn btn-primary">Registrarse</button>
     </form>
 
     <form action="LoginServlet" method="get">
-        <input type="hidden" name="publicacion_id" value="${publicacion_id}">
-        <input type="hidden" name="usuario_id" value="${usuario_id}">
+        <input type="hidden" name="postId" value="${postId}">
+        <input type="hidden" name="userId" value="${userId}">
         <button type="submit" class="btn btn-secondary mt-3">Atrás</button>
     </form>
 </div>

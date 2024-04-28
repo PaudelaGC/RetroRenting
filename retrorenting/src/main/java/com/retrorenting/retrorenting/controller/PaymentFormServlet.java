@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.Post;
+import model.persist.PostsDao;
 
 /**
  *
@@ -19,6 +21,8 @@ import jakarta.servlet.http.HttpSession;
  */
 @WebServlet(name = "PaymentFormServlet", urlPatterns = {"/PaymentFormServlet"})
 public class PaymentFormServlet extends HttpServlet {
+    
+    PostsDao postDao = new PostsDao();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,6 +49,9 @@ public class PaymentFormServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String postId = request.getParameter("postId");
+        Post selectedPost = postDao.findPostById(Integer.parseInt(postId));
+        request.setAttribute("post", selectedPost);
         HttpSession session = request.getSession();
         String token = (String) session.getAttribute("token");
         if (token != null) {
