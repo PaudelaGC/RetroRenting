@@ -116,4 +116,20 @@ public class Post {
     public void setLastReturnDate(Date lastReturnDate) {
         this.lastReturnDate = lastReturnDate;
     }
+    
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", idUser=" + idUser +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", price=" + price +
+                ", duration=" + duration +
+                ", available=" + available +
+                ", lastRentDate=" + lastRentDate +
+                ", lastReturnDate=" + lastReturnDate +
+                '}';
+    }
 }

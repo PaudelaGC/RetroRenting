@@ -68,7 +68,7 @@
     <div class="mt-4">
         <form action="UserProfileServlet" method="get">
             <input type="hidden" name="profile" value="self">
-
+            <input type="hidden" name="userId" value="${userId}">
             <button type="submit" class="btn btn-secondary">Atrás</button>
         </form>
     </div>
