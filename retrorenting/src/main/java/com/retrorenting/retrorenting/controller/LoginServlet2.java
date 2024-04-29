@@ -94,10 +94,7 @@ public class LoginServlet2 extends HttpServlet {
             String token = tokenService.createToken(userId);
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
-<<<<<<< HEAD
-            
-=======
->>>>>>> main
+
             if (user.length() != 0) {
                 Post selectedPost = postDao.findPostById(Integer.parseInt(postId));
                 request.setAttribute("post", selectedPost);

@@ -21,24 +21,6 @@
     }
 %>
 <h1>Formulario de Pago</h1>
-
-<form action="RequestPaymentProcessServlet" method="post">
-    <div>
-        <label for="card_number">Número de Tarjeta:</label>
-        <input type="text" id="card_number" name="card_number" pattern="[0-9]{16}" title="Debe tener 16 dígitos" required>
-    </div>
-    <div>
-        <label for="expiry_date">Fecha de Expiración:</label>
-        <input type="text" id="expiry_date" name="expiry_date" placeholder="MM/YY" pattern="(0[1-9]|1[0-2])\/([0-9]{2})" title="Formato válido: MM/YY" required>
-    </div>
-    <div>
-        <label for="cvv">CVV:</label>
-        <input type="text" id="cvv" name="cvv" pattern="[0-9]{3,4}" title="Debe tener 3 o 4 dígitos" required>
-    </div>
-    <button type="submit">Realizar Petición</button>
-</form>
-<form action="ViewPostServlet" method="get" class="antesFooter">
-
 <%
         if (token != null && token.startsWith("Bearer ")) {
             try {
@@ -48,7 +30,6 @@
                 String userId = claims.getSubject();
 %>
 <form action="RequestManagerServlet" method="post">
-    
     <input type="hidden" name="postId" value="${post.id}">
     <input type="hidden" name="userId" value="<%= userId %>">
     <%
