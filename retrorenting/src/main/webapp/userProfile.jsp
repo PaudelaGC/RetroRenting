@@ -15,6 +15,10 @@
 <% 
                 String userId = request.getParameter("userId");
                 String token = response.getHeader("Authorization");
+                String denied = "";
+                if(request.getParameter("denied") != null){
+                    denied = request.getParameter("denied");
+                }
                 boolean expired = false;
 %>
 <div class="container mt-5">
@@ -77,18 +81,45 @@
                                 <h5 class="card-title">${object.title}</h5>
                                 <p class="card-text">${object.price}€</p>
                                 <p class="card-text">${object.duration} dias</p>
-                                <form action="ViewPostServlet" method="get">
+                                <% 
+                                if (token != null && token.startsWith("Bearer ")) {
+                                    try {
+                                        session.setAttribute("token", token.substring(7));
+                                        String jwtToken = token.substring(7);
+                                        Claims claims = Jwts.parser().setSigningKey("83ykdhjflkdlDH338JDLHD23Djk$32234").parseClaimsJws(jwtToken).getBody();
+                                        String selfUserId = claims.getSubject();
+                                        if(selfUserId.equals(userId)){
+                                %>
+                                <form action="UpdatePostServlet" method="get">
                                     <input type="hidden" name="postId" value="${object.id}">
-                                    <c:choose>
-                                        <c:when test="${object.available}">
-                                            <button type="submit" class="btn btn-primary">Ver Publicación</button>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <span>No disponible</span>
-                                            <p class="card-text">Fecha de devolución: <fmt:formatDate value="${object.lastReturnDate}" pattern="dd-MM-yyyy" /></p>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </form>
+                                    <input type="hidden" name="userId" value="<%= selfUserId %>">
+                                    <button type="submit" class="btn btn-primary">Editar publicación</button>
+                                    <% if(!denied.equals("null")){ %>
+                                    <p><span style="color: red;"><%= denied %></span></p>
+                                        <% } %>
+                                        <%  } else { %>
+                                    <form action="ViewPostServlet" method="get">
+                                        <input type="hidden" name="postId" value="${object.id}">
+                                        <c:choose>
+                                            <c:when test="${object.available}">
+                                                <button type="submit" class="btn btn-primary">Ver publicación</button>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span>No disponible</span>
+                                                <p class="card-text">Fecha de devolución: <fmt:formatDate value="${object.lastReturnDate}" pattern="dd-MM-yyyy" /></p>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </form>
+                                    <%
+                                        }
+                                } catch (ExpiredJwtException expiredEx) {
+                                    expired = true;
+                                    response.getWriter().write("Your session expired.");
+                                } catch (Exception e) {
+                                    response.getWriter().write("An error ocurred while loading this page.");
+                                }
+                            }
+                                    %>
                             </div>
                         </div>
                     </div>
