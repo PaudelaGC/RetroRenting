@@ -54,7 +54,8 @@ public class DeletedAccountServlet extends HttpServlet {
         int userAddress = userDao.getUserById(userId).getIdAddress();
         userDao.deleteUser(userId);
         addressDao.deleteAddress(userAddress);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("deletedAccount.jsp");
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
         dispatcher.forward(request, response);
     }
 
