@@ -75,7 +75,7 @@ public class UpdatePostServlet extends HttpServlet {
         for (Request req : allRequests) {
             if (req.getIdPost() == postId && req.getIdStatus() == 3) {
                 denied = true;
-                request.setAttribute("denied", "You can't modify posts that have been already accepted by you!");
+                request.setAttribute("denied", "denied");
             }
         }
         if (denied) {
@@ -90,7 +90,7 @@ public class UpdatePostServlet extends HttpServlet {
             request.setAttribute("postsList", postsFromUser);
             request.setAttribute("user", userDao.getUserById(userId));
             request.setAttribute("address", address);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("viewProfile.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("userProfile.jsp");
             dispatcher.forward(request, response);
         } else {
             Post postToModify = postDao.findPostById(postId);

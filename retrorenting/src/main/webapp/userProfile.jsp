@@ -15,9 +15,9 @@
 <% 
                 String userId = request.getParameter("userId");
                 String token = response.getHeader("Authorization");
-                String denied = "";
-                if(request.getParameter("denied") != null){
-                    denied = request.getParameter("denied");
+                String denied = (String) request.getAttribute("denied");
+                if(denied == null){
+                denied = "null";
                 }
                 boolean expired = false;
 %>
@@ -72,6 +72,9 @@
         </div>
         <section class="container">
             <h2>Publicaciones</h2>
+            <% if(!denied.equals("null")){ %>
+            <p><span style="color: red;">You can't modify posts that have been already accepted!</span></p>
+            <% } %>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                 <c:forEach items="${postsList}" var="object">
                     <div class="col">
@@ -95,10 +98,7 @@
                                     <input type="hidden" name="userId" value="<%= selfUserId %>">
                                     <button type="submit" class="btn btn-primary">Editar publicación</button>
                                 </form>
-                                <% if(!denied.equals("null")){ %>
-                                <p><span style="color: red;"><%= denied %></span></p>
-                                    <% } %>
-                                    <%  } else { %>
+                                <%  } else { %>
                                 <form action="ViewPostServlet" method="get">
                                     <input type="hidden" name="postId" value="${object.id}">
                                     <c:choose>
@@ -139,11 +139,6 @@
         </form>
     </div>
 </div>
-<script>
-    function submitForm(postId) {
-        document.getElementById('editForm' + postId).submit();
-    }
-</script>
 <jsp:include page="footer.jsp" />
 </body>
 </html>
