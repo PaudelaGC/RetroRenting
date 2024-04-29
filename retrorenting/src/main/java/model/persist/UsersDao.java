@@ -54,10 +54,11 @@ public class UsersDao {
     }
 
     public User getUserById(int userId) {
-        String query = "SELECT u.*, a.* FROM users u INNER JOIN addresses a ON u.idAddress = a.id WHERE u.id = ?;";
+        String query = "SELECT * FROM users WHERE id = ?;";
         User user = null;
-        try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, userId); // Set the user ID
+        try (Connection conn = dbConnect.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, userId);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     user = new User();

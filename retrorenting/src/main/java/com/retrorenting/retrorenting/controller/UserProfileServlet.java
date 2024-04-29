@@ -13,6 +13,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.Address;
+import model.User;
+import model.persist.AddressDao;
+import model.persist.UsersDao;
 
 /**
  *
@@ -48,20 +52,50 @@ public class UserProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+
+        // Obtención del parámetro 'profile' y manejo de la sesión/token
         String profile = request.getParameter("profile");
-        int userId = Integer.parseInt(request.getParameter("userId"));
-        if(profile != null && profile.equals("self")){
+        if (profile != null && profile.equals("self")) {
             request.setAttribute("profile", profile);
-            request.setAttribute("userId", userId);
         }
         String token = (String) session.getAttribute("token");
         if (token != null) {
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("userProfile.jsp");
-        dispatcher.forward(request, response);
-    }
+
+        // Obtención del ID del usuario desde los parámetros o desde el token si es necesario
+        String userIdStr = request.getParameter("userId"); // Obtener el userId como parámetro
+
+        int userId;
+        try {
+            userId = Integer.parseInt(userIdStr);
+        } catch (NumberFormatException e) {
+            response.sendRedirect("login.jsp"); // Redirigir si el ID no es válido
+            return;
+        }
+
+        // Búsqueda del usuario en la base de datos
+        UsersDao userDao = new UsersDao();
+        User user = userDao.getUserById(userId);
+
+        if (user != null) {
+            AddressDao addressDao = new AddressDao();
+            Address address = addressDao.findAddressById(user.getIdAddress()); // Obtén la dirección usando AddressDao
+            
+            request.setAttribute("user", user);
+            request.setAttribute("address", address); // Envía el objeto Address como un atributo separado
+
+        } else {
+            request.setAttribute("errorMessage", "Usuario no encontrado.");
+            response.sendRedirect("login.jsp"); // Redirigir si el usuario no se encuentra
+            return;
+        }
+
+    // Enviar a la página de perfil
+    RequestDispatcher dispatcher = request.getRequestDispatcher("userProfile.jsp");
+    dispatcher.forward(request, response);
+}
 
     /**
      * Handles the HTTP <code>POST</code> method.
