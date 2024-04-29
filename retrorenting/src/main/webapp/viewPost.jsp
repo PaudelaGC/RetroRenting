@@ -29,7 +29,7 @@
                 Claims claims = Jwts.parser().setSigningKey("83ykdhjflkdlDH338JDLHD23Djk$32234").parseClaimsJws(jwtToken).getBody();
                 String userId = claims.getSubject();
 %>
-<form action="ViewProfileUserServlet" method="get">
+<form action="UserProfileServlet" method="get">
     <input type="hidden" name="userId" value="${user.id}">
     <input type="hidden" name="postId" value="${post.id}">
 
