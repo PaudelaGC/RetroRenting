@@ -61,7 +61,7 @@
                                     <% if (profile.equals("self")) { %>
                                     Opciones
                                     <% }else if(token != null && token.startsWith("Bearer ") && !expired){ %>
-                                    Perfil
+                                    Tu perfil
                                     <% } else{ %>
                                     Log in/Sign up
                                     <% } %>

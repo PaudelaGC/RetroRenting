@@ -41,11 +41,12 @@ public class PostsDao {
     // Listar todos los posts
     public List<Post> listPosts() {
         List<Post> posts = new ArrayList<>();
-        String query = "SELECT id, title, image, price, duration, available, idUser, lastRentDate, lastReturnDate FROM posts;";
+        String query = "SELECT id, idUser, title, image, price, duration, available, idUser, lastRentDate, lastReturnDate FROM posts;";
         try (Connection conn = dbConnect.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 Post post = new Post();
                 post.setId(rs.getInt("id"));
+                post.setIdUser(rs.getInt("idUser"));
                 post.setTitle(rs.getString("title"));
                 post.setImage(rs.getString("image"));
                 post.setPrice(rs.getDouble("price"));
