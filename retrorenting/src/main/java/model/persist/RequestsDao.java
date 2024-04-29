@@ -11,6 +11,7 @@ import java.util.List;
 import model.Request;
 
 public class RequestsDao {
+
     private final DbConnect dbConnect;
     private final UsersDao userDao;
     private final PostsDao postDao;
@@ -26,8 +27,7 @@ public class RequestsDao {
     public boolean addRequest(Request request) {
         boolean result = false;
         String query = "INSERT INTO requests (idStatus, idUser, idPost, requestDate) VALUES (?, ?, ?, ?);";
-        try (Connection conn = dbConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, request.getIdStatus());
             stmt.setInt(2, request.getIdUser());
             stmt.setInt(3, request.getIdPost());
@@ -45,9 +45,7 @@ public class RequestsDao {
     public List<Request> listRequests() {
         List<Request> requests = new ArrayList<>();
         String query = "SELECT * FROM requests;";
-        try (Connection conn = dbConnect.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+        try (Connection conn = dbConnect.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 Request request = new Request();
                 request.setId(rs.getInt("id"));
@@ -67,8 +65,7 @@ public class RequestsDao {
     public Request findRequestById(int id) {
         Request request = null;
         String query = "SELECT * FROM requests WHERE id = ?;";
-        try (Connection conn = dbConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -89,8 +86,7 @@ public class RequestsDao {
     public boolean updateRequest(Request request) {
         boolean result = false;
         String query = "UPDATE requests SET idStatus = ?, idUser = ?, idPost = ?, requestDate = ? WHERE id = ?;";
-        try (Connection conn = dbConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, request.getIdStatus());
             stmt.setInt(2, request.getIdUser());
             stmt.setInt(3, request.getIdPost());
@@ -105,12 +101,25 @@ public class RequestsDao {
         return result;
     }
 
+    public boolean updateRequestToDeleted(int id) {
+        boolean result = false;
+        String query = "UPDATE requests SET idStatus = ?, idUser = ? WHERE idUser = ?;";
+        try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, 5);
+            stmt.setInt(2, -1);
+            stmt.setInt(3, id);
+            result = stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     // Eliminar un request
     public boolean deleteRequest(int id) {
         boolean result = false;
         String query = "DELETE FROM requests WHERE id = ?;";
-        try (Connection conn = dbConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, id);
             result = stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
@@ -119,4 +128,3 @@ public class RequestsDao {
         return result;
     }
 }
-

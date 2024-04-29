@@ -6,13 +6,19 @@ package com.retrorenting.retrorenting.controller;
 
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
+import model.Address;
+import model.Post;
+import model.persist.AddressDao;
+import model.persist.PostsDao;
+import model.persist.UsersDao;
 
 /**
  *
@@ -20,6 +26,10 @@ import jakarta.servlet.http.HttpSession;
  */
 @WebServlet(name = "UploadPostServlet", urlPatterns = {"/UploadPostServlet"})
 public class UploadPostServlet extends HttpServlet {
+    
+    PostsDao postDao = new PostsDao();
+    AddressDao addressDao = new AddressDao();
+    UsersDao userDao = new UsersDao();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,6 +49,7 @@ public class UploadPostServlet extends HttpServlet {
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
         }
+        request.setAttribute("userId", Integer.parseInt(request.getParameter("userId")));
         RequestDispatcher dispatcher = request.getRequestDispatcher("uploadPost.jsp");
         dispatcher.forward(request, response);
     }
@@ -69,7 +80,48 @@ public class UploadPostServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        String token = (String) session.getAttribute("token");
+        boolean denied = false;
+        if (token != null) {
+            response.addHeader("Authorization", "Bearer " + token);
+            response.getWriter().write(token);
+        }
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        request.setAttribute("userId", userId);
+        String title = request.getParameter("title");
+        String description = request.getParameter("description");
+        String price = request.getParameter("price");
+        String duration = request.getParameter("duration");
+        if (Double.parseDouble(price) < 1) {
+            denied = true;
+            request.setAttribute("denied1", "El precio debe ser como mínimo 1€!");
+        }
+        if (Integer.parseInt(duration) < 1) {
+            denied = true;
+            request.setAttribute("denied2", "La duración del alquilar debe ser como mínimo 1 dia!");
+        }
+        if (denied) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("uploadPost.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            Post newPost = new Post(userId, title, description, Double.parseDouble(price), Integer.parseInt(duration));
+            postDao.addPost(newPost);
+            Address address = addressDao.findAddressById(userId);
+            List<Post> posts = postDao.listPosts();
+            List<Post> postsFromUser = new ArrayList<>();
+            for(Post post : posts){
+                if(post.getIdUser() == userId){
+                    postsFromUser.add(post);
+                }
+            }
+            request.setAttribute("postsList", postsFromUser);
+            request.setAttribute("user", userDao.getUserById(userId));
+            request.setAttribute("address", address);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("userProfile.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     /**

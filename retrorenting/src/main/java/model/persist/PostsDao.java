@@ -21,16 +21,15 @@ public class PostsDao {
     // Añadir un nuevo post
     public boolean addPost(Post post) {
         boolean result = false;
-        String query = "INSERT INTO posts (idUser, title, description, image, price, duration, available, lastRentDate, lastReturnDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String query = "INSERT INTO posts (idUser, title, description, image, price, duration, available) VALUES (?, ?, ?, ?, ?, ?, ?);";
         try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, post.getIdUser());
             stmt.setString(2, post.getTitle());
             stmt.setString(3, post.getDescription());
             stmt.setString(4, post.getImage());
             stmt.setDouble(5, post.getPrice());
             stmt.setInt(6, post.getDuration());
             stmt.setBoolean(7, post.isAvailable());
-            stmt.setDate(8, new java.sql.Date(post.getLastRentDate().getTime()));
-            stmt.setDate(9, post.getLastReturnDate() != null ? new java.sql.Date(post.getLastReturnDate().getTime()) : null);
             result = stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
             ex.printStackTrace();

@@ -23,10 +23,11 @@ public class Post {
     private Date lastReturnDate;
 
     // Constructor con todos los atributos
-    public Post(String title, String description, String image, double price, int duration){
+    public Post(int idUser, String title, String description, double price, int duration){
+        this.idUser = idUser;
         this.title = title;
         this.description = description;
-        this.image = image;
+        this.image = "default";
         this.price = price;
         this.duration = duration;
         this.available = true;
