@@ -37,6 +37,7 @@
                             <button type="submit" class="btn btn-secondary me-3">Editar Mi Perfil</button>
                         </form>
                         <form action="RequestManagerServlet" method="get">
+                            <input type="hidden" name="userId" value="<%= userId%>">
                             <button type="submit" class="btn btn-info me-3">Ver Peticiones</button>
                         </form>
                     </div>

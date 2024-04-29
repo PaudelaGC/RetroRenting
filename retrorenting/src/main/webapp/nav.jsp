@@ -47,6 +47,7 @@
                         <%
                             } catch (ExpiredJwtException expiredEx) {
                             expired = true;
+                            response.getWriter().write("Your session expired.");
                         %>
                         <form class="form-inline" action="LoginServlet2" method="get">
                             <%

@@ -36,6 +36,7 @@
     <%
             } catch (ExpiredJwtException expiredEx) {
             expired = true;
+            response.getWriter().write("Your session expired.");
     %>
     <form action="LoginServlet" method="get">
         <input type="hidden" name="postId" value="${post.id}">
@@ -64,7 +65,7 @@
 
             <%
             } catch (ExpiredJwtException expiredEx) {
-            expired = true;
+            expired = true;            response.getWriter().write("Your session expired.");
             %>
             <form action="LoginServlet" method="get">
 

@@ -4,75 +4,75 @@
     Author     : 39348
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-            <jsp:include page="header.jsp" />
-            <jsp:include page="nav.jsp" />
-           <div class="container mt-4 antesFooter">
-               <h2>Lista de Peticiones</h2>
-               <section>
-                   <h3>Peticiones Recibidas</h3>
-                   <ul class="list-group mb-4">
-                       <li class="list-group-item d-flex justify-content-between align-items-center">
-                           Petici贸n 1
-                           <div>
-                               <form action="RequestOkServlet" method="get" class="d-inline">
-                                   <button type="submit" class="btn btn-success btn-sm">Aceptar</button>
-                               </form>
-                               <form action="RequestDeniedServlet" method="get" class="d-inline">
-                                   <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
-                               </form>
-                           </div>
-                       </li>
-                       <li class="list-group-item d-flex justify-content-between align-items-center">
-                           Petici贸n 2
-                           <div>
-                               <form action="RequestOkServlet" method="get" class="d-inline">
-                                   <button type="submit" class="btn btn-success btn-sm">Aceptar</button>
-                               </form>
-                               <form action="RequestDeniedServlet" method="get" class="d-inline">
-                                   <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
-                               </form>
-                           </div>
-                       </li>
-                       <li class="list-group-item d-flex justify-content-between align-items-center">
-                           Petici贸n 3
-                           <div>
-                               <form action="RequestOkServlet" method="get" class="d-inline">
-                                   <button type="submit" class="btn btn-success btn-sm">Aceptar</button>
-                               </form>
-                               <form action="RequestDeniedServlet" method="get" class="d-inline">
-                                   <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
-                               </form>
-                           </div>
-                       </li>
-                   </ul>
-               </section>
-               <section>
-                   <h3>Peticiones Enviadas</h3>
-                   <ul class="list-group">
-                       <li class="list-group-item d-flex justify-content-between align-items-center" >
-                           Petici贸n 1 - <span class="fw-bold">Estado: Pendiente</span>
-                           <form action="PaymentOkServlet">
-                               <button type="submit" class="btn btn-primary btn-sm" style="visibility: hidden;">Pagar</button>
-                           </form>
-                       </li>
-                       <li class="list-group-item d-flex justify-content-between align-items-center">
-                           Petici贸n 2 - <span class="fw-bold">Estado: Confirmada</span>
-                           <form action="PaymentOkServlet">
-                               <button type="submit" class="btn btn-primary btn-sm">Pagar</button>
-                           </form>
-                       </li>
-                   </ul>
-               </section>
 
-               <div class="mt-4">
-                   <form action="UserProfileServlet" method="get">
-                               <input type="hidden" name="profile" value="self">
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+        <%@ page import="io.jsonwebtoken.Claims, io.jsonwebtoken.Jwts, io.jsonwebtoken.ExpiredJwtException" %>
+        <%@ page import="java.util.Date" %>
+        <jsp:include page="header.jsp" />
+        <jsp:include page="nav.jsp" />
+        <div class="container mt-4 antesFooter">
+    <h2>Lista de Peticiones</h2>
+    <section>
+        <h3>Peticiones Recibidas</h3>
+        <ul class="list-group mb-4">
+            <c:if test="${othersRequests == null}">
+                <p>No tienes peticiones recibidas por el momento.</p>
+            </c:if>
+            <c:forEach items="${othersRequests}" var="request">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="info">T韙ulo del 韙em:</span> ${request['itemTitle']} <!-- T韙ulo del 韙em -->
+                    </div>
+                    <div>
+                        <span class="info">Solicitante:</span> ${request['userRequester']} <!-- Qui閚 lo pide -->
+                    </div>
+                    <div>
+                        <span class="info">Fecha de la petici髇:</span> ${request['date']} <!-- Fecha de la petici髇 -->
+                    </div>
+                    <div>
+                        <form action="RequestManagerServlet" method="post" class="d-inline">
+                            <input type="hidden" name="accept" value="${request['id']}">
+                            <input type="hidden" name="userId" value="${userId}">
+                            <button type="submit" class="btn btn-success btn-sm">Aceptar</button>
+                        </form>
+                        <form action="RequestManagerServlet" method="post" class="d-inline">
+                            <input type="hidden" name="deny" value="${request['id']}">
+                            <input type="hidden" name="userId" value="${userId}">
+                            <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
+                        </form>
+                    </div>
+                </li>
+            </c:forEach>
+        </ul>
+    </section>
+    <section>
+        <h3>Peticiones Enviadas</h3>
+        <ul class="list-group">
+            <c:if test="${myRequests == null}">
+                <p>No tienes peticiones recibidas por el momento.</p>
+            </c:if>
+            <c:forEach items="${myRequests}" var="request">
+                <li class="list-group-item d-flex justify-content-between align-items-center" >
+                    <span class="info">T韙ulo del 韙em: ${request['itemTitle']}</span>  <span class="fw-bold">Estado: ${request['status']}</span>
+                    <form action="RequestManagerServlet" method="post">
+                        <c:if test = "${request['status'] eq 'Accepted'}">
+                            <input type="hidden" name="pay" value="${request['id']}">
+                            <input type="hidden" name="userId" value="${userId}">
+                            <button type="submit" class="btn btn-primary btn-sm">Pagar</button>
+                        </c:if>
+                    </form>
+                </li>
+            </c:forEach>
+        </ul>
+    </section>
+    <div class="mt-4">
+        <form action="UserProfileServlet" method="get">
+            <input type="hidden" name="profile" value="self">
 
-                       <button type="submit" class="btn btn-secondary">Atr谩s</button>
-                   </form>
-               </div>
-           </div>
-           <jsp:include page="footer.jsp" />
-    </body>
+            <button type="submit" class="btn btn-secondary">Atr醩</button>
+        </form>
+    </div>
+</div>
+<jsp:include page="footer.jsp" />
+</body>
 </html>

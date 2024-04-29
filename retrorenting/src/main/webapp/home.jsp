@@ -25,7 +25,6 @@
                                 <p class="card-text">${object.duration} dias</p>
                                 <form action="ViewPostServlet" method="get">
                                     <input type="hidden" name="postId" value="${object.id}">
-                                    <!-- Estructura condicional para mostrar el botón o el texto "No disponible" -->
                                     <c:choose>
                                         <c:when test="${object.available}">
                                             <button type="submit" class="btn btn-primary">Ver Publicación</button>
