@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `retrorenting` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `retrorenting`;
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
 -- Host: localhost    Database: retrorenting
@@ -34,7 +36,7 @@ CREATE TABLE `addresses` (
   `state` varchar(255) NOT NULL,
   `country` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +45,7 @@ CREATE TABLE `addresses` (
 
 LOCK TABLES `addresses` WRITE;
 /*!40000 ALTER TABLE `addresses` DISABLE KEYS */;
-INSERT INTO `addresses` VALUES (1,'calle caballero','53','','2','4','05037','Barcelona','Spain','Spain'),(2,'Sants estacio','32',NULL,'1','1','03021','Barcelona','Spain','Spain');
+INSERT INTO `addresses` VALUES (1,'calle caballero','53','','2','4','05037','Barcelona','Spain','Spain'),(8,'dfa','12','','','','ad','ad','ad','EspaÃ±a'),(9,'dfa','12','','','','ad','ad','ad','EspaÃ±a'),(10,'dfa','12','','','','ad','ad','ad','EspaÃ±a');
 /*!40000 ALTER TABLE `addresses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +98,7 @@ CREATE TABLE `posts` (
   KEY `POSTS_USERS_FK_idx` (`id`),
   KEY `POSTS_USERS_FK` (`idUser`),
   CONSTRAINT `POSTS_USERS_FK` FOREIGN KEY (`idUser`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +107,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,1,'Vendo Wii y Mario Galaxy','Hola, estoy poniendo mi Wii para alquilar, seran 7 dias y 40€','71gOWJnWXaL._AC_UF894,1000_QL80_.jpg',40,7,0,NULL,NULL);
+INSERT INTO `posts` VALUES (1,1,'Vendo Wii y Mario Galaxy','Hola, estoy poniendo mi Wii para alquilar, seran 7 dias y 40€','71gOWJnWXaL._AC_UF894,1000_QL80_.jpg',40,7,1,NULL,NULL),(33,12,'Post a vender','dfhahkf','adfa',10,7,0,'2024-04-29','2024-05-06'),(34,12,'Ejemplo','dadf','dfad',15,500,1,NULL,NULL),(35,13,'Nuevo item','Este es mi nuevo item','default',135,14,1,NULL,NULL),(36,13,'Nuevo item 2','La version mejorada','default',136,14,1,NULL,NULL);
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,7 +134,7 @@ CREATE TABLE `requests` (
   CONSTRAINT `REQUESTS_POSTS_FK` FOREIGN KEY (`idPost`) REFERENCES `posts` (`id`),
   CONSTRAINT `REQUESTS_STATUS_FK` FOREIGN KEY (`idStatus`) REFERENCES `status` (`id`),
   CONSTRAINT `REQUESTS_USERS_FK` FOREIGN KEY (`idUser`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,7 +143,7 @@ CREATE TABLE `requests` (
 
 LOCK TABLES `requests` WRITE;
 /*!40000 ALTER TABLE `requests` DISABLE KEYS */;
-INSERT INTO `requests` VALUES (1,1,2,1,'2024-04-17');
+INSERT INTO `requests` VALUES (2,1,12,1,'2024-04-29'),(3,2,13,33,'2024-04-29'),(4,4,13,33,'2024-04-29'),(5,1,13,1,'2024-04-29'),(6,5,-1,1,'2024-04-29');
 /*!40000 ALTER TABLE `requests` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,7 +167,7 @@ CREATE TABLE `status` (
 
 LOCK TABLES `status` WRITE;
 /*!40000 ALTER TABLE `status` DISABLE KEYS */;
-INSERT INTO `status` VALUES (1,'Pending'),(2,'Denied'),(3,'Accepted'),(4,'Completed');
+INSERT INTO `status` VALUES (1,'Pending'),(2,'Denied'),(3,'Accepted'),(4,'Completed'),(5,'Deleted');
 /*!40000 ALTER TABLE `status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,14 +182,12 @@ CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `surname` varchar(45) NOT NULL,
-  `mail` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `birthdate` date NOT NULL,
   `idAddress` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `USERS_ADRESSES_FK_idx` (`idAddress`),
-  CONSTRAINT `USERS_ADRESSES_FK` FOREIGN KEY (`idAddress`) REFERENCES `addresses` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,13 +196,9 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Nestor','Tur','nestor.tur.ntf@gmail.com','1234567','2002-08-23',1),(2,'Pau','Guillen','pauguillen@nomesetucorreo.com','7654321','2000-12-21',2);
+INSERT INTO `users` VALUES (-1,'deleted','user','null','null','1999-11-11',-1),(1,'Nestor','Tur','nestor.tur.ntf@gmail.com','1234567','2002-08-23',1),(12,'Pau','GuillÃ©n Carranza','example@gmail.com','$2b$12$KZqnXv9ENhgpyoMY6j9jXef2pSeQetnG29NjUTlRxgZ1dInv7m8ui','1999-11-11',8),(13,'Nestor2','Nestor2','example2@gmail.com','$2b$12$mh7PcE4/7aGEqrKkB66YuuzSmOWQOE8zSipsI.jvp0ySsB0ouP5BC','1999-11-11',9),(14,'NEw','User','newuser@gmail.com','$2b$12$K15rWiUQ/NA.xYjKqmKututC2iedAZKdHl3zLn.voH45MB9CsmVri','1999-11-11',10);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping routines for database 'retrorenting'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -213,4 +209,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-19 11:28:56
+-- Dump completed on 2024-04-29 14:08:36
