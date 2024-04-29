@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<jsp:useBean id="date" class="java.util.Date" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,6 +32,7 @@
                                         </c:when>
                                         <c:otherwise>
                                             <span>No disponible</span>
+                                            <p class="card-text">Fecha de devolución: <fmt:formatDate value="${object.lastReturnDate}" pattern="dd-MM-yyyy" /></p>
                                         </c:otherwise>
                                     </c:choose>
                                 </form>
