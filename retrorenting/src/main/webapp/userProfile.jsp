@@ -94,32 +94,33 @@
                                     <input type="hidden" name="postId" value="${object.id}">
                                     <input type="hidden" name="userId" value="<%= selfUserId %>">
                                     <button type="submit" class="btn btn-primary">Editar publicación</button>
-                                    <% if(!denied.equals("null")){ %>
-                                    <p><span style="color: red;"><%= denied %></span></p>
-                                        <% } %>
-                                        <%  } else { %>
-                                    <form action="ViewPostServlet" method="get">
-                                        <input type="hidden" name="postId" value="${object.id}">
-                                        <c:choose>
-                                            <c:when test="${object.available}">
-                                                <button type="submit" class="btn btn-primary">Ver publicación</button>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <span>No disponible</span>
-                                                <p class="card-text">Fecha de devolución: <fmt:formatDate value="${object.lastReturnDate}" pattern="dd-MM-yyyy" /></p>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </form>
-                                    <%
-                                        }
-                                } catch (ExpiredJwtException expiredEx) {
-                                    expired = true;
-                                    response.getWriter().write("Your session expired.");
-                                } catch (Exception e) {
-                                    response.getWriter().write("An error ocurred while loading this page.");
-                                }
+                                </form>
+                                <% if(!denied.equals("null")){ %>
+                                <p><span style="color: red;"><%= denied %></span></p>
+                                    <% } %>
+                                    <%  } else { %>
+                                <form action="ViewPostServlet" method="get">
+                                    <input type="hidden" name="postId" value="${object.id}">
+                                    <c:choose>
+                                        <c:when test="${object.available}">
+                                            <button type="submit" class="btn btn-primary">Ver publicación</button>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span>No disponible</span>
+                                            <p class="card-text">Fecha de devolución: <fmt:formatDate value="${object.lastReturnDate}" pattern="dd-MM-yyyy" /></p>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </form>
+                                <%
+                                    }
+                            } catch (ExpiredJwtException expiredEx) {
+                                expired = true;
+                                response.getWriter().write("Your session expired.");
+                            } catch (Exception e) {
+                                response.getWriter().write("An error ocurred while loading this page.");
                             }
-                                    %>
+                        }
+                                %>
                             </div>
                         </div>
                     </div>
@@ -138,7 +139,11 @@
         </form>
     </div>
 </div>
-
+<script>
+    function submitForm(postId) {
+        document.getElementById('editForm' + postId).submit();
+    }
+</script>
 <jsp:include page="footer.jsp" />
 </body>
 </html>
