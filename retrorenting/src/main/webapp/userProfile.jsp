@@ -18,15 +18,11 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <p class="card-text"><strong>Nombre:</strong> Lionel</p>
-                    <p class="card-text"><strong>Apellido:</strong> Messi</p>
-                    <p class="card-text"><strong>Correo Electrónico:</strong> juan@example.com</p>
-                    <p class="card-text"><strong>Fecha de Nacimiento:</strong> 10 de Enero de 1990</p>
-                    <p class="card-text"><strong>Dirección:</strong> Calle Principal, 123, Escalera B, Piso 2, Puerta 4</p>
-                    <p class="card-text"><strong>Código Postal:</strong> 12345</p>
-                    <p class="card-text"><strong>Ciudad:</strong> Ciudad de Ejemplo</p>
-                    <p class="card-text"><strong>Región:</strong> Región de Ejemplo</p>
-                    <p class="card-text"><strong>País:</strong> País de Ejemplo</p>
+                    <p class="card-text"><strong>Nombre:</strong> ${user.name}</p>
+                    <p class="card-text"><strong>Apellido:</strong> ${user.surname}</p>
+                    <p class="card-text"><strong>Ciudad:</strong> ${address.city}</p>
+                    <p class="card-text"><strong>País:</strong> ${address.country}</p>
+
 
                     <div class="mt-4">
                         <form action="UploadPostServlet" method="get">

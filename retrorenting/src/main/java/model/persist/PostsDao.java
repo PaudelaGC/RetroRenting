@@ -41,7 +41,7 @@ public class PostsDao {
     // Listar todos los posts
     public List<Post> listPosts() {
         List<Post> posts = new ArrayList<>();
-        String query = "SELECT id, title, image, price, duration, available, idUser FROM posts;";
+        String query = "SELECT id, title, image, price, duration, available, idUser, lastRentDate, lastReturnDate FROM posts;";
         try (Connection conn = dbConnect.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 Post post = new Post();
@@ -51,6 +51,8 @@ public class PostsDao {
                 post.setPrice(rs.getDouble("price"));
                 post.setDuration(rs.getInt("duration"));
                 post.setAvailable(rs.getBoolean("available"));
+                post.setLastRentDate(rs.getDate("lastRentDate"));
+                post.setLastReturnDate(rs.getDate("lastReturnDate"));
                 posts.add(post);
             }
         } catch (SQLException ex) {

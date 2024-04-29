@@ -68,8 +68,8 @@
     <div class="mt-4">
         <form action="UserProfileServlet" method="get">
             <input type="hidden" name="profile" value="self">
-
-            <button type="submit" class="btn btn-secondary">Atr·s</button>
+            <input type="hidden" name="userId" value="${userId}">
+            <button type="submit" class="btn btn-secondary">Atr√°s</button>
         </form>
     </div>
 </div>
