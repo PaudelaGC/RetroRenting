@@ -38,7 +38,7 @@
             expired = true;
             response.getWriter().write("Your session expired.");
     %>
-    <form action="LoginServlet" method="get">
+    <form action="LoginServlet2" method="get">
         <input type="hidden" name="postId" value="${post.id}">
         <input type="hidden" name="userId" value="${user.id}">
         <%
@@ -46,7 +46,7 @@
             response.getWriter().write("An error ocurred while loading this page.");
         }
     } else {%>
-        <form action="LoginServlet" method="get">
+        <form action="LoginServlet2" method="get">
             <input type="hidden" name="postId" value="${post.id}">
             <input type="hidden" name="userId" value="${user.id}">
             <% } %>
@@ -67,7 +67,7 @@
             } catch (ExpiredJwtException expiredEx) {
             expired = true;            response.getWriter().write("Your session expired.");
             %>
-            <form action="LoginServlet" method="get">
+            <form action="LoginServlet2" method="get">
 
                 <input type="hidden" name="postId" value="${post.id}">
                 <%
@@ -75,7 +75,7 @@
                     response.getWriter().write("An error ocurred while loading this page.");
                 }
             } else {%>
-                <form action="LoginServlet" method="get">
+                <form action="LoginServlet2" method="get">
 
                     <input type="hidden" name="postId" value="${post.id}">
                     <% } %>

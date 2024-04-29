@@ -24,20 +24,8 @@
                     <input type="text" class="form-control" id="precio" name="precio" placeholder="Ingrese el precio" required>
                 </div>
                 <div class="mb-3">
-                    <label for="periodo" class="form-label">Periodo:</label>
-                    <select class="form-select" id="periodo" name="periodo" required>
-                        <option value="diario">Diario</option>
-                        <option value="semanal">Semanal</option>
-                        <option value="mensual">Mensual</option>
-                        <option value="anual">Anual</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="disponibilidad" class="form-label">Disponibilidad:</label>
-                    <select class="form-select" id="disponibilidad" name="disponibilidad" required>
-                        <option value="si">Sí</option>
-                        <option value="no">No</option>
-                    </select>
+                    <label for="duracion" class="form-label">Duracion (en días):</label>
+                    <input type="text" class="form-control" id="duracion" name="duracion" placeholder="Ingrese la duracion del alquiler" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Subir Publicación</button>
             </form>

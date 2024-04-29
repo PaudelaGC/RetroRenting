@@ -11,8 +11,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
+import model.Address;
 import model.Post;
+import model.User;
+import model.persist.AddressDao;
 import model.persist.PostsDao;
 import model.persist.UsersDao;
 
@@ -23,15 +27,10 @@ import model.persist.UsersDao;
 @WebServlet(name = "LoginServlet2", urlPatterns = {"/LoginServlet2"})
 public class LoginServlet2 extends HttpServlet {
 
-    private UsersDao userDao;
-    private PostsDao postDao;
+    UsersDao userDao = new UsersDao();
+    PostsDao postDao = new PostsDao();
+    AddressDao addressDao = new AddressDao();
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        userDao = new UsersDao();
-        postDao = new PostsDao();
-    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -96,8 +95,21 @@ public class LoginServlet2 extends HttpServlet {
             response.getWriter().write(token);
             if (user.length() != 0) {
                 Post selectedPost = postDao.findPostById(Integer.parseInt(postId));
+                User userToLoad = userDao.getUserById(Integer.parseInt(user));
+                Address address = addressDao.findAddressById(userToLoad.getIdAddress());
+                List<Post> posts = postDao.listPosts();
+                List<Post> postsFromUser = new ArrayList<>();
+                for (Post post : posts) {
+                    if (post.getIdUser() == Integer.parseInt(user)) {
+                        postsFromUser.add(post);
+                    }
+                }
+                request.setAttribute("postsList", postsFromUser);
                 request.setAttribute("post", selectedPost);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("userPostProfile.jsp");
+                request.setAttribute("user", userToLoad);
+                request.setAttribute("address", address);
+                request.setAttribute("userId", user);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("userProfile.jsp");
                 dispatcher.forward(request, response);
             } else if (postId.length() != 0) {
                 Post selectedPost = postDao.findPostById(Integer.parseInt(postId));

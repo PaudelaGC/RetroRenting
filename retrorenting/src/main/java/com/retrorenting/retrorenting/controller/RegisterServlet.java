@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -137,7 +138,22 @@ public class RegisterServlet extends HttpServlet {
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
             if (user.length() != 0) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("userPostProfile.jsp");
+                Post selectedPost = postDao.findPostById(Integer.parseInt(postId));
+                User userToLoad = userDao.getUserById(Integer.parseInt(user));
+                Address address = addressDao.findAddressById(userToLoad.getIdAddress());
+                List<Post> posts = postDao.listPosts();
+                List<Post> postsFromUser = new ArrayList<>();
+                for (Post post : posts) {
+                    if (post.getIdUser() == Integer.parseInt(user)) {
+                        postsFromUser.add(post);
+                    }
+                }
+                request.setAttribute("postsList", postsFromUser);
+                request.setAttribute("post", selectedPost);
+                request.setAttribute("user", userToLoad);
+                request.setAttribute("address", address);
+                request.setAttribute("userId", user);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("userProfile.jsp");
                 dispatcher.forward(request, response);
             } else if (postId.length() != 0) {
                 Post selectedPost = postDao.findPostById(Integer.parseInt(postId));
