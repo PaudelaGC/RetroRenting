@@ -21,7 +21,7 @@
 
 <jsp:include page="header.jsp" />
 <jsp:include page="nav.jsp" />
-<div class="container mt-4">
+<div class="container mt-4 antesFooter">
     <h1>Modificar Publicación</h1>
     <form action="UpdatePostServlet" method="post">
         <div class="mb-3">
@@ -37,18 +37,27 @@
             <input type="text" class="form-control" id="price" name="price" placeholder="${post.price}" >
             <% if(!denied1.equals("null")){ %>
             <p><span style="color: red;"><%= denied1 %></span></p>
-            <% } %>
+                <% } %>
         </div>
         <div class="mb-3">
             <label for="duration" class="form-label">Duración (en días):</label>
             <input type="text" class="form-control" id="duration" name="duration" placeholder="${post.duration}" >
             <% if(!denied2.equals("null")){ %>
             <p><span style="color: red;"><%= denied2 %></span></p>
-            <% } %>
+                <% } %>
         </div>
-        <input type="hidden" name="postId" value="${post.id}">
-        <input type="hidden" name="userId" value="<%= userId %>">
-        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <span>
+            <input type="hidden" name="postId" value="${post.id}">
+            <input type="hidden" name="userId" value="<%= userId %>">
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </span>
+    </form>
+    <form action="UpdatePostServlet" method="post">
+        <span style="color: red;">
+            <input type="hidden" name="postId" value="${post.id}">
+            <input type="hidden" name="userId" value="<%= userId %>">
+            <button type="submit" class="btn btn-primary">ELIMINAR PUBLICACIÓN</button>
+        </span>
     </form>
 </div>
 <jsp:include page="footer.jsp" />
