@@ -15,6 +15,10 @@
 <% 
                 String userId = request.getParameter("userId");
                 String token = response.getHeader("Authorization");
+                String denied = (String) request.getAttribute("denied");
+                if(denied == null){
+                denied = "null";
+                }
                 boolean expired = false;
 %>
 <div class="container mt-5 antesFooter">
@@ -68,6 +72,9 @@
         </div>
         <section class="container">
             <h2>Publicaciones</h2>
+            <% if(!denied.equals("null")){ %>
+            <p><span style="color: red;">You can't modify posts that have been already accepted!</span></p>
+            <% } %>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                 <c:forEach items="${postsList}" var="object">
                     <div class="col">
@@ -77,11 +84,26 @@
                                 <h5 class="card-title">${object.title}</h5>
                                 <p class="card-text">${object.price}€</p>
                                 <p class="card-text">${object.duration} dias</p>
+                                <% 
+                                if (token != null && token.startsWith("Bearer ")) {
+                                    try {
+                                        session.setAttribute("token", token.substring(7));
+                                        String jwtToken = token.substring(7);
+                                        Claims claims = Jwts.parser().setSigningKey("83ykdhjflkdlDH338JDLHD23Djk$32234").parseClaimsJws(jwtToken).getBody();
+                                        String selfUserId = claims.getSubject();
+                                        if(selfUserId.equals(userId)){
+                                %>
+                                <form action="UpdatePostServlet" method="get">
+                                    <input type="hidden" name="postId" value="${object.id}">
+                                    <input type="hidden" name="userId" value="<%= selfUserId %>">
+                                    <button type="submit" class="btn btn-primary">Editar publicación</button>
+                                </form>
+                                <%  } else { %>
                                 <form action="ViewPostServlet" method="get">
                                     <input type="hidden" name="postId" value="${object.id}">
                                     <c:choose>
                                         <c:when test="${object.available}">
-                                            <button type="submit" class="btn btn-primary">Ver Publicación</button>
+                                            <button type="submit" class="btn btn-primary">Ver publicación</button>
                                         </c:when>
                                         <c:otherwise>
                                             <span>No disponible</span>
@@ -89,6 +111,16 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </form>
+                                <%
+                                    }
+                            } catch (ExpiredJwtException expiredEx) {
+                                expired = true;
+                                response.getWriter().write("Your session expired.");
+                            } catch (Exception e) {
+                                response.getWriter().write("An error ocurred while loading this page.");
+                            }
+                        }
+                                %>
                             </div>
                         </div>
                     </div>
@@ -107,7 +139,6 @@
         </form>
     </div>
 </div>
-
 <jsp:include page="footer.jsp" />
 </body>
 </html>
