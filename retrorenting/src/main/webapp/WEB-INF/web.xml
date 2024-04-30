@@ -8,6 +8,10 @@
         <servlet-name>LoginServlet2</servlet-name>
         <servlet-class>com.retrorenting.retrorenting.controller.LoginServlet2</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdatePostServlet</servlet-name>
+        <servlet-class>com.retrorenting.retrorenting.controller.UpdatePostServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>LoginServlet2</servlet-name>
         <url-pattern>/LoginServlet2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePostServlet</servlet-name>
+        <url-pattern>/UpdatePostServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>
