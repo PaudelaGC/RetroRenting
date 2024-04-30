@@ -5,44 +5,47 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-        <jsp:include page="header.jsp" />
-        <jsp:include page="nav.jsp" />
-        <div class="container mt-4">
-            <h1>Subir Publicación</h1>
-            <form action="UploadPostOkServlet" method="post">
-                <div class="mb-3">
-                    <label for="titulo" class="form-label">Título:</label>
-                    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Ingrese el título" required>
-                </div>
-                <div class="mb-3">
-                    <label for="descripcion" class="form-label">Descripción:</label>
-                    <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese la descripción" required></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="precio" class="form-label">Precio:</label>
-                    <input type="text" class="form-control" id="precio" name="precio" placeholder="Ingrese el precio" required>
-                </div>
-                <div class="mb-3">
-                    <label for="periodo" class="form-label">Periodo:</label>
-                    <select class="form-select" id="periodo" name="periodo" required>
-                        <option value="diario">Diario</option>
-                        <option value="semanal">Semanal</option>
-                        <option value="mensual">Mensual</option>
-                        <option value="anual">Anual</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="disponibilidad" class="form-label">Disponibilidad:</label>
-                    <select class="form-select" id="disponibilidad" name="disponibilidad" required>
-                        <option value="si">Sí</option>
-                        <option value="no">No</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Subir Publicación</button>
-            </form>
+<%  String userId = request.getParameter("userId");
+    String denied1 = (String) request.getAttribute("denied1");
+    String denied2 = (String) request.getAttribute("denied2");
+    if(denied1 == null){
+    denied1 = "null";
+    }
+    if(denied2 == null){
+    denied2 = "null";
+    }%>
+<jsp:include page="header.jsp" />
+<jsp:include page="nav.jsp" />
+<div class="container mt-4 antesFooter">
+    <h1>Subir Publicación</h1>
+    <form action="UploadPostServlet" method="post">
+        <div class="mb-3">
+            <label for="title" class="form-label">Título:</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Ingrese el título" required>
         </div>
-        <jsp:include page="footer.jsp" />
+        <div class="mb-3">
+            <label for="description" class="form-label">Descripción:</label>
+            <textarea class="form-control" id="description" name="description" placeholder="Ingrese la descripción" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Precio:</label>
+            <input type="text" class="form-control" id="price" name="price" placeholder="Ingrese el precio" required>
+            <% if(!denied1.equals("null")){ %>
+            <p><span style="color: red;"><%= denied1 %></span></p>
+                <% } %>
+        </div>
+        <div class="mb-3">
+            <label for="duration" class="form-label">Duracion (en días):</label>
+            <input type="text" class="form-control" id="duration" name="duration" placeholder="Ingrese la duracion del alquiler" required>
+            <% if(!denied2.equals("null")){ %>
+            <p><span style="color: red;"><%= denied2 %></span></p>
+                <% } %>
+        </div>
+        <input type="hidden" name="userId" value="<%= userId%>">
+        <button type="submit" class="btn btn-primary">Subir Publicación</button>
+    </form>
+</div>
+<jsp:include page="footer.jsp" />
 
-    </body>
+</body>
 </html>

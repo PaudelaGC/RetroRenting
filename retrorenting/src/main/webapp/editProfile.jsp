@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
         <jsp:include page="header.jsp" />
         <jsp:include page="nav.jsp" />
-        <div class="container mt-4">
+        <div class="container mt-4 antesFooter">
             <h1>Editar Perfil</h1>
             <form action="SaveProfileEditedServlet" method="post">
                 <div class="mb-3">
@@ -27,8 +27,26 @@
                     <input disabled type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="1990-01-10" required>
                 </div>
                 <div class="mb-3">
-                    <label for="direccion" class="form-label">Dirección:</label>
-                    <input type="text" class="form-control" id="direccion" name="direccion" value="Calle Principal, 123, Escalera B, Piso 2, Puerta 4" required>
+                    <label for="calle" class="form-label">Calle:</label>
+                    <input type="text" class="form-control" id="calle" name="calle" placeholder="Calle" required>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="numero" class="form-label">Número:</label>
+                        <input type="text" class="form-control" id="numero" name="numero" placeholder="Número" required>
+                    </div>
+                    <div class="col">
+                        <label for="bloque" class="form-label">Bloque:</label>
+                        <input type="text" class="form-control" id="bloque" name="bloque" placeholder="Bloque">
+                    </div>
+                    <div class="col">
+                        <label for="puerta" class="form-label">Puerta:</label>
+                        <input type="text" class="form-control" id="puerta" name="puerta" placeholder="Puerta">
+                    </div>
+                    <div class="col">
+                        <label for="piso" class="form-label">Piso:</label>
+                        <input type="text" class="form-control" id="piso" name="piso" placeholder="Piso">
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="codigo_postal" class="form-label">Código Postal:</label>

@@ -14,9 +14,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Post;
+import model.Request;
 import model.persist.AddressDao;
 import model.persist.ModelView;
 import model.persist.PostsDao;
+import model.persist.RequestsDao;
 import model.persist.UsersDao;
 
 /**
@@ -30,6 +32,7 @@ public class DeletedAccountServlet extends HttpServlet {
     PostsDao postDao = new PostsDao();
     UsersDao userDao = new UsersDao();
     AddressDao addressDao = new AddressDao();
+    RequestsDao requestDao = new RequestsDao();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,6 +54,8 @@ public class DeletedAccountServlet extends HttpServlet {
         for (Post post : posts) {
             postDao.deletePost(post.getId());
         }
+        List<Request> allRequests = requestDao.listRequests();
+        requestDao.updateRequestToDeleted(userId);
         int userAddress = userDao.getUserById(userId).getIdAddress();
         userDao.deleteUser(userId);
         addressDao.deleteAddress(userAddress);

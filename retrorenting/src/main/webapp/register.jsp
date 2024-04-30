@@ -22,7 +22,7 @@
 <jsp:include page="header.jsp" />   
 <jsp:include page="nav.jsp" />
 
-<div class="container">
+<div class="container antesFooter">
     <h2 class="mt-5 mb-4">Registro de Usuario</h2>
 
     <form action="RegisterServlet" method="post">

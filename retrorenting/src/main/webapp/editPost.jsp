@@ -9,7 +9,7 @@
         <jsp:include page="nav.jsp" />
         <h2>Editar Publicación</h2>
 
-        <form action="/guardar_edicion" method="post">
+        <form action="/guardar_edicion" method="post" class="antesFooter">
           <div>
             <label for="titulo">Título:</label>
             <input type="text" id="titulo" name="titulo" value="Título de la Publicación Actual" required>

@@ -13,7 +13,7 @@
     <body>
         <%@ include file="header.jsp" %>
         <%@ include file="nav.jsp" %>
-        <section class="container">
+        <section class="container antesFooter">
             <h2>Publicaciones</h2>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                 <c:forEach items="${postsList}" var="object">
