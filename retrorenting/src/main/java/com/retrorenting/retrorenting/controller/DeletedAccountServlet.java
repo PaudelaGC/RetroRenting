@@ -45,6 +45,7 @@ public class DeletedAccountServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
@@ -59,7 +60,8 @@ public class DeletedAccountServlet extends HttpServlet {
         int userAddress = userDao.getUserById(userId).getIdAddress();
         userDao.deleteUser(userId);
         addressDao.deleteAddress(userAddress);
-        
+        posts = postDao.listPosts();
+        request.setAttribute("postsList", posts);
         RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
         dispatcher.forward(request, response);
     }

@@ -76,6 +76,9 @@
             <p><span style="color: red;">You can't modify posts that have been already accepted!</span></p>
             <% } %>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                <c:if test="${postList == null}">
+                    <p>No hay publicaciones por el momento.</p>
+                </c:if>
                 <c:forEach items="${postsList}" var="object">
                     <div class="col">
                         <div class="card" style="width: 18rem; ${object.available ? '' : 'filter: grayscale(100%);'}">
@@ -186,15 +189,15 @@
     </div>
 
     <script>
-    function confirmDeletion() {
-        var confirmationText = document.getElementById('confirmationInput').value;
-        if(confirmationText === "BORRAR CUENTA") {
-            // Si la frase es correcta, envía el formulario de eliminación
-            document.getElementById('deleteForm').submit();
-        } else {
-            alert('La frase ingresada es incorrecta.');
+        function confirmDeletion() {
+            var confirmationText = document.getElementById('confirmationInput').value;
+            if (confirmationText === "BORRAR CUENTA") {
+                // Si la frase es correcta, envía el formulario de eliminación
+                document.getElementById('deleteForm').submit();
+            } else {
+                alert('La frase ingresada es incorrecta.');
+            }
         }
-    }
     </script>
 </div>
 <jsp:include page="footer.jsp" />
