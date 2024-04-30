@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
         <jsp:include page="header.jsp" />
         <jsp:include page="nav.jsp" />
-        <div class="container mt-4">
+        <div class="container mt-4 antesFooter">
             <h1>Editar Perfil</h1>
             <form action="SaveProfileEditedServlet" method="post">
                 <div class="mb-3">

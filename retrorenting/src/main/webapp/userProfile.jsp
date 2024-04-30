@@ -17,7 +17,7 @@
                 String token = response.getHeader("Authorization");
                 boolean expired = false;
 %>
-<div class="container mt-5">
+<div class="container mt-5 antesFooter">
     <h2 class="mb-4">Perfil de Usuario</h2>
 
     <div class="card">
