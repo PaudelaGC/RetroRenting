@@ -9,3 +9,72 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .antesFooter{
     margin-bottom: 100px;
 }
+/* Estilos para el cuerpo de la página */
+body {
+    background-color: #FF63D8; /* rosa */
+    color: #000000; /* Negro */
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos para la barra de navegación */
+.navbar {
+    background-color: #21EF80; /* Verde */
+}
+
+.navbar-toggler-icon {
+    color: #FFFFFF; /* Blanco */
+}
+
+.nav-link {
+    color: #FFFFFF; /* Blanco */
+}
+
+.nav-link:hover {
+    color: #5F4B8B; /* Morado intenso */
+}
+
+/* Estilos para los botones */
+.btn-primary {
+    background-color: #fecc01; /* Amarillo Retro */
+    border-color: #fecc01; /* Amarillo retro */
+}
+
+.btn-primary:hover {
+    background-color: #010028; /* Azul logo */
+    border-color: #010028; /* Azul Logo */
+}
+
+/* Estilos para los cards */
+.card {
+    background-color: #E0E0E0; /* Gris claro */
+    margin-bottom: 20px;
+    border: 1px solid #ff0101;
+    box-shadow: 0 12px 12px #00C49C;
+}
+
+.card-title {
+    color: #5F4B8B;
+}
+
+.card-text {
+    color: #000000; /* Negro */
+}
+
+/* Estilos para el footer */
+footer {
+    background-color: #000000; /* Negro */
+    color: #FFFFFF; /* Blanco */
+    text-align: center;
+}
+
+/* Estilos para los íconos de redes sociales en el footer */
+footer a {
+    color: #FFFFFF; /* Blanco */
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+/* Estilos para los íconos de redes sociales en el footer al pasar el mouse por encima */
+footer a:hover {
+    color: #A178BE; /* Morado suave */
+}
