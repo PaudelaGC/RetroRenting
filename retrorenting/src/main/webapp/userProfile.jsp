@@ -76,7 +76,7 @@
             <p><span style="color: red;">You can't modify posts that have been already accepted!</span></p>
             <% } %>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-                <c:if test="${postList == null}">
+                <c:if test="${postsList eq '[]'}">
                     <p>No hay publicaciones por el momento.</p>
                 </c:if>
                 <c:forEach items="${postsList}" var="object">

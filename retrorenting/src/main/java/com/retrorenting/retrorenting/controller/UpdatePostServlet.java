@@ -161,7 +161,7 @@ public class UpdatePostServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("userProfile.jsp");
             dispatcher.forward(request, response);
         } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("uploadPost.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("updatePost.jsp");
             dispatcher.forward(request, response);
         }
     }
