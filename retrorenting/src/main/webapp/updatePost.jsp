@@ -9,6 +9,7 @@
     // Verificar si se enviaron mensajes de error desde el servlet
     String denied1 = (String) request.getAttribute("denied1");
     String denied2 = (String) request.getAttribute("denied2");
+    String userId = request.getParameter("userId");
     if (denied1 == null) {
         denied1 = "null";
     }
@@ -46,6 +47,7 @@
             <% } %>
         </div>
         <input type="hidden" name="postId" value="${post.id}">
+        <input type="hidden" name="userId" value="<%= userId %>">
         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     </form>
 </div>

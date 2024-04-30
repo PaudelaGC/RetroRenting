@@ -120,6 +120,7 @@ public class UpdatePostServlet extends HttpServlet {
             response.getWriter().write(token);
         }
         int postId = Integer.parseInt(request.getParameter("postId"));
+        String userId = request.getParameter("userId");
         Post postToModify = postDao.findPostById(postId);
         boolean denied = false;
         if (!request.getParameter("title").equals("")) {
@@ -155,7 +156,7 @@ public class UpdatePostServlet extends HttpServlet {
             }
             request.setAttribute("postsList", postsFromUser);
             request.setAttribute("user", user);
-            request.setAttribute("userId", postToModify.getIdUser());
+            request.setAttribute("userId", userId);
             request.setAttribute("address", address);
             RequestDispatcher dispatcher = request.getRequestDispatcher("userProfile.jsp");
             dispatcher.forward(request, response);
