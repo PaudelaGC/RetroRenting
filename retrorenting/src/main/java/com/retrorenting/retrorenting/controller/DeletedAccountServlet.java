@@ -27,7 +27,7 @@ import model.persist.UsersDao;
  */
 @WebServlet(name = "DeletedAccountServlet", urlPatterns = {"/DeletedAccountServlet"})
 public class DeletedAccountServlet extends HttpServlet {
-    
+
     ModelView MV = new ModelView();
     PostsDao postDao = new PostsDao();
     UsersDao userDao = new UsersDao();
@@ -45,21 +45,28 @@ public class DeletedAccountServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
         }
         int userId = Integer.parseInt(request.getParameter("userId"));
+        List<Request> allRequests = requestDao.listRequests();
+        for (Request req : allRequests) {
+            if (req.getIdUser() == userId || postDao.findPostById(req.getIdPost()).getIdUser() == userId) {
+                requestDao.deleteRequest(req.getId());
+            }
+        }
         List<Post> posts = MV.listPostsByUser(userId);
         for (Post post : posts) {
             postDao.deletePost(post.getId());
         }
-        List<Request> allRequests = requestDao.listRequests();
-        requestDao.updateRequestToDeleted(userId);
         int userAddress = userDao.getUserById(userId).getIdAddress();
         userDao.deleteUser(userId);
         addressDao.deleteAddress(userAddress);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("deletedAccount.jsp");
+        posts = postDao.listPosts();
+        request.setAttribute("postsList", posts);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
         dispatcher.forward(request, response);
     }
 

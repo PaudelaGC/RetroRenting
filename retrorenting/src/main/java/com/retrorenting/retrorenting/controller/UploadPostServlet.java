@@ -4,6 +4,8 @@
  */
 package com.retrorenting.retrorenting.controller;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -17,6 +19,7 @@ import java.util.List;
 import model.Address;
 import model.Post;
 import model.persist.AddressDao;
+import model.persist.ModelView;
 import model.persist.PostsDao;
 import model.persist.UsersDao;
 
@@ -26,10 +29,11 @@ import model.persist.UsersDao;
  */
 @WebServlet(name = "UploadPostServlet", urlPatterns = {"/UploadPostServlet"})
 public class UploadPostServlet extends HttpServlet {
-    
+
     PostsDao postDao = new PostsDao();
     AddressDao addressDao = new AddressDao();
     UsersDao userDao = new UsersDao();
+    ModelView MV = new ModelView();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,7 +53,7 @@ public class UploadPostServlet extends HttpServlet {
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
         }
-        request.setAttribute("userId", Integer.parseInt(request.getParameter("userId")));
+        request.setAttribute("userId", Integer.valueOf(request.getParameter("userId")));
         RequestDispatcher dispatcher = request.getRequestDispatcher("uploadPost.jsp");
         dispatcher.forward(request, response);
     }
@@ -83,12 +87,19 @@ public class UploadPostServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         String token = (String) session.getAttribute("token");
+        String selfUserId = "";
         boolean denied = false;
         if (token != null) {
+            Claims claims = Jwts.parser().setSigningKey("83ykdhjflkdlDH338JDLHD23Djk$32234").parseClaimsJws(token).getBody();
+            selfUserId = claims.getSubject();
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
         }
-        int userId = Integer.parseInt(request.getParameter("userId"));
+        String userId = request.getParameter("userId");
+        int userIdInt = Integer.parseInt(userId);
+        if (selfUserId.equals(userId)) {
+            request.setAttribute("profile", "self");
+        }
         request.setAttribute("userId", userId);
         String title = request.getParameter("title");
         String description = request.getParameter("description");
@@ -106,18 +117,15 @@ public class UploadPostServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("uploadPost.jsp");
             dispatcher.forward(request, response);
         } else {
-            Post newPost = new Post(userId, title, description, Double.parseDouble(price), Integer.parseInt(duration));
+            Post newPost = new Post(userIdInt, title, description, Double.parseDouble(price), Integer.parseInt(duration));
             postDao.addPost(newPost);
-            Address address = addressDao.findAddressById(userId);
-            List<Post> posts = postDao.listPosts();
-            List<Post> postsFromUser = new ArrayList<>();
-            for(Post post : posts){
-                if(post.getIdUser() == userId){
-                    postsFromUser.add(post);
-                }
+            Address address = addressDao.findAddressById(userDao.getUserById(userIdInt).getIdAddress());
+            List<Post> posts = MV.listPostsByUser(userIdInt);
+            if (selfUserId.equals(userId)) {
+                request.setAttribute("profile", "self");
             }
-            request.setAttribute("postsList", postsFromUser);
-            request.setAttribute("user", userDao.getUserById(userId));
+            request.setAttribute("postsList", posts);
+            request.setAttribute("user", userDao.getUserById(userIdInt));
             request.setAttribute("address", address);
             RequestDispatcher dispatcher = request.getRequestDispatcher("userProfile.jsp");
             dispatcher.forward(request, response);

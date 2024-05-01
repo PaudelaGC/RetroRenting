@@ -141,15 +141,11 @@ public class UsersDao {
 
     public boolean editUser(User user) {
         boolean result = false;
-        String query = "UPDATE users SET name = ?, surname = ?, email = ?, password = ?, birthdate = ?, idAddress = ? WHERE id = ?;";
+        String query = "UPDATE users SET name = ?, surname = ? WHERE id = ?;";
         try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, user.getName());
             stmt.setString(2, user.getSurname());
-            stmt.setString(3, user.getEmail());
-            stmt.setString(4, user.getPassword());
-            stmt.setDate(5, new java.sql.Date(user.getBirthdate().getTime()));
-            stmt.setInt(6, user.getIdAddress()); // Asignar directamente el idAddress
-            stmt.setInt(7, user.getId());
+            stmt.setInt(3, user.getId());
             result = stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();

@@ -88,13 +88,28 @@ public class PostsDao {
     // Actualizar un post
     public boolean updatePost(Post post) {
         boolean result = false;
-        String query = "UPDATE posts SET title = ?, description = ?, price = ?, duration = ? WHERE id = ?;";
+        String query = "UPDATE posts SET title = ?, description = ?, price = ?, duration = ?, available = ?, lastRentDate = ?, lastReturnDate = ? WHERE id = ?;";
         try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, post.getTitle());
             stmt.setString(2, post.getDescription());
             stmt.setDouble(3, post.getPrice());
             stmt.setInt(4, post.getDuration());
-            stmt.setInt(5, post.getId());
+            stmt.setBoolean(5, post.isAvailable());
+            if(post.getLastRentDate() != null){
+            java.util.Date utilDate1 = post.getLastRentDate();
+            java.sql.Date sqlDate1 = new java.sql.Date(utilDate1.getTime());
+            stmt.setDate(6, sqlDate1);
+            }else{
+                stmt.setDate(6, null);
+            }
+            if(post.getLastReturnDate() != null){
+            java.util.Date utilDate2 = post.getLastReturnDate();
+            java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
+            stmt.setDate(7, sqlDate2);
+            }else{
+                stmt.setDate(7, null);
+            }
+            stmt.setInt(8, post.getId());
             result = stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
