@@ -16,7 +16,7 @@
     }%>
 <jsp:include page="header.jsp" />
 <jsp:include page="nav.jsp" />
-<div class="container mt-4">
+<div class="container mt-4 antesFooter">
     <h1>Subir Publicación</h1>
     <form action="UploadPostServlet" method="post">
         <div class="mb-3">

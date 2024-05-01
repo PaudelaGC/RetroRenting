@@ -10,7 +10,7 @@
 <%@ page import="java.util.Date" %>
 <jsp:include page="header.jsp" />
 <jsp:include page="nav.jsp" />
-<div class="container mt-4">
+<div class="container mt-4 antesFooter">
     <h2>Lista de Peticiones</h2>
     <section>
         <h3>Peticiones Recibidas</h3>

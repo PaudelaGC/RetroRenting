@@ -17,6 +17,7 @@ import java.util.List;
 import model.Address;
 import model.Post;
 import model.Request;
+import model.User;
 import model.persist.AddressDao;
 import model.persist.PostsDao;
 import model.persist.RequestsDao;
@@ -94,10 +95,7 @@ public class UpdatePostServlet extends HttpServlet {
             dispatcher.forward(request, response);
         } else {
             Post postToModify = postDao.findPostById(postId);
-            request.setAttribute("title", postToModify.getTitle());
-            request.setAttribute("description", postToModify.getDescription());
-            request.setAttribute("price", (double) postToModify.getPrice());
-            request.setAttribute("duration", postToModify.getDuration());
+            request.setAttribute("post", postToModify);
             RequestDispatcher dispatcher = request.getRequestDispatcher("updatePost.jsp");
             dispatcher.forward(request, response);
         }
@@ -114,7 +112,58 @@ public class UpdatePostServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        String token = (String) session.getAttribute("token");
+        if (token != null) {
+            response.addHeader("Authorization", "Bearer " + token);
+            response.getWriter().write(token);
+        }
+        int postId = Integer.parseInt(request.getParameter("postId"));
+        String userId = request.getParameter("userId");
+        Post postToModify = postDao.findPostById(postId);
+        boolean denied = false;
+        if (!request.getParameter("title").equals("")) {
+            postToModify.setTitle(request.getParameter("title"));
+        }
+        if (!request.getParameter("description").equals("")) {
+            postToModify.setDescription(request.getParameter("description"));
+        }
+        if (!request.getParameter("price").equals("")) {
+            if (Double.parseDouble(request.getParameter("price")) < 1) {
+                denied = true;
+                request.setAttribute("denied1", "El precio debe ser como mínimo 1€!");
+            }
+            postToModify.setPrice(Double.parseDouble(request.getParameter("price")));
+        }
+        if (!request.getParameter("duration").equals("")) {
+            if (Integer.parseInt(request.getParameter("duration")) < 1) {
+                denied = true;
+                request.setAttribute("denied2", "La duración del alquilar debe ser como mínimo 1 dia!");
+            }
+            postToModify.setDuration(Integer.parseInt(request.getParameter("duration")));
+        }
+        if (!denied) {
+            postDao.updatePost(postToModify);
+            User user = userDao.getUserById(postToModify.getIdUser());
+            Address address = addressDao.findAddressById(user.getIdAddress()); // Obtén la dirección usando AddressDao
+            List<Post> posts = postDao.listPosts();
+            List<Post> postsFromUser = new ArrayList<>();
+            for (Post post : posts) {
+                if (post.getIdUser() == postToModify.getIdUser()) {
+                    postsFromUser.add(post);
+                }
+            }
+            request.setAttribute("postsList", postsFromUser);
+            request.setAttribute("user", user);
+            request.setAttribute("userId", userId);
+            request.setAttribute("address", address);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("userProfile.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("updatePost.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     /**

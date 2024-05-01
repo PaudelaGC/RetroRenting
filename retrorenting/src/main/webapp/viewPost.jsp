@@ -60,7 +60,7 @@
             Claims claims = Jwts.parser().setSigningKey("83ykdhjflkdlDH338JDLHD23Djk$32234").parseClaimsJws(jwtToken).getBody();
             String userId = claims.getSubject();
         %>
-        <form action="PaymentFormServlet" method="get">
+        <form action="PaymentFormServlet" method="get" class="antesFooter">
             <input type="hidden" name="postId" value="${post.id}">
 
             <%

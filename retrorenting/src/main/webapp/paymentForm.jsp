@@ -67,7 +67,7 @@
             <p><span style="color: red;"><%= denied2 %></span></p>
                 <% } %>
         </form>
-        <form action="ViewPostServlet" method="get">
+        <form action="ViewPostServlet" method="get" class="antesFooter">
             <input type="hidden" name="postId" value="${post.id}">
             <button type="submit">Atrás</button>
         </form>
