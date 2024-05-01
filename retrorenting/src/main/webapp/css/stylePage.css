@@ -29,12 +29,18 @@ h1{
      background-color: #fdc800;
      border-radius: 25px;
      margin-bottom: 20px;
+     
+
 }
 
 /* Estilos para la barra de navegación */
+nav{
+     height: 80px;
+
+     
+}
 .navbar {
     background-color: #8488f4; /* Azul */
-    margin-bottom: 20px;
 }
 
 .navbar-toggler-icon {
@@ -70,6 +76,7 @@ h1{
 
 .card-title {
     color: #5F4B8B;
+    height: 65px;
 }
 
 .card-text {
@@ -79,8 +86,12 @@ h1{
 /* Estilos para el footer */
 footer {
     background-color: #000000; /* Negro */
+    background-image: url(images/fotoFooter2.jpg);
+    background-repeat:no-repeat;
+    background-position: 0 35px;
     color: #FFFFFF; /* Blanco */
     text-align: center;
+     background-size: cover;
 }
 
 /* Estilos para los íconos de redes sociales en el footer */
