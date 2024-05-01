@@ -15,14 +15,11 @@
             Claims claims = Jwts.parser().setSigningKey("83ykdhjflkdlDH338JDLHD23Djk$32234").parseClaimsJws(jwtToken).getBody();
             String userId = claims.getSubject();
 %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Success</title>
-    </head>
-    <body>
-        <h1>Bienvenido a la página de éxito</h1>
+<jsp:include page="header.jsp" />
+<jsp:include page="nav.jsp" />
+        <h1 class="text-center">Bienvenido a la página de éxito</h1>
+        <jsp:include page="footer.jsp" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
 </html>
 <%

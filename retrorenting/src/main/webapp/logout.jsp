@@ -5,14 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Has cerrado tu sessión correctamente</h1>
+<jsp:include page="header.jsp" />
+<jsp:include page="nav.jsp" />
+        <h1 class="text-center">Has cerrado tu sessión correctamente</h1>
         <form action="home" method="get">
             <button type="submit">Home</button>
         </form>

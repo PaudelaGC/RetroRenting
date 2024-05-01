@@ -23,7 +23,7 @@
 <jsp:include page="nav.jsp" />
 
 <div class="container antesFooter">
-    <h2 class="mt-5 mb-4">Registro de Usuario</h2>
+    <h1 class="mt-5 mb-4 text-center">Registro de Usuario</h1>
 
     <form action="RegisterServlet" method="post">
         <div class="mb-3">
@@ -106,6 +106,7 @@
 </div>
 
 <jsp:include page="footer.jsp" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 
 </body>

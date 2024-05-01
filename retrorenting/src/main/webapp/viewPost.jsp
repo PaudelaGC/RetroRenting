@@ -15,9 +15,13 @@
 <jsp:include page="header.jsp" />
 <jsp:include page="nav.jsp" />
 <div class=" container antesFooter ">
-    <div class="card_post_info card">
-        <h1>${post.title}</h1>
-            <div class=" mt-5 mb-4">
+   <div>
+        
+    
+    <h1 class="text-center">${post.title}</h1>
+       <div class="card_post_info card container">
+        
+            <div class=" container mt-5 mb-4">
                 <h2>Usuario: ${user.name} ${user.surname}</h2>
                 <p>${post.description}</p>
                 <p>${post.price}€</p>
@@ -51,7 +55,7 @@
             response.getWriter().write("An error ocurred while loading this page.");
         }
     } else {%>
-        <form action="LoginServlet2" method="get">
+        <form style="margin-left: 30px; display: inline-block;" action="LoginServlet2" method="get">
             <input type="hidden" name="postId" value="${post.id}">
             <input type="hidden" name="userId" value="${user.id}">
             <% } %>
@@ -80,13 +84,15 @@
                     response.getWriter().write("An error ocurred while loading this page.");
                 }
             } else {%>
-                <form action="LoginServlet2" method="get">
+                <form  style="display: inline-block;" action="LoginServlet2" method="get">
 
                     <input type="hidden" name="postId" value="${post.id}">
                     <% } %>
                     <button type="submit" class="btn btn-primary">Solicitar</button>
                 </form>
                 </div>
+                </div>
                 <jsp:include page="footer.jsp" />
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
                 </body>
                 </html>

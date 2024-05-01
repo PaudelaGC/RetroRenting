@@ -8,10 +8,11 @@
 
         <jsp:include page="header.jsp" />
         <jsp:include page="nav.jsp" />
-        <h1>Se ha registrado de manera exitosa</h1>
+        <h1 class="text-center">Se ha registrado de manera exitosa</h1>
         <form action="UserProfileServlet" method="get">
                 <button type="submit">Ver Mi Perfil</button>
         </form>
          <jsp:include page="footer.jsp" />
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
 </html>
