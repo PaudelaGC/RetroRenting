@@ -49,14 +49,14 @@
                             <input type="hidden" name="userId" value="<%= userId%>">
                             <button type="submit" class="btn btn-primary me-3">Publicar</button>
                         </form>
-                        <form action="EditProfileServlet" method="get">
+<!--                        <form action="EditProfileServlet" method="get">
                             <input type="hidden" name="userId" value="<%= userId%>">
                             <button type="submit" class="btn btn-secondary me-3">Editar Mi Perfil</button>
                         </form>
                         <form action="RequestManagerServlet" method="get">
                             <input type="hidden" name="userId" value="<%= userId%>">
                             <button type="submit" class="btn btn-info me-3">Ver Peticiones</button>
-                        </form>
+                        </form>-->
                         <%      }
                             } catch (ExpiredJwtException expiredEx) {
                                 expired = true;
@@ -129,7 +129,7 @@
         </section>
     </div>
 
-    <div class="mt-4">
+<!--    <div class="mt-4">
         <form action="SignOutServlet" method="get">
             <button type="submit" class="btn btn-danger me-3">CERRAR SESION</button>
         </form>
@@ -137,7 +137,7 @@
             <button type="submit" class="btn btn-danger">ELIMINAR CUENTA</button>
             <input type="hidden" name="userId" value="<%= userId %>">
         </form>
-    </div>
+    </div>-->
 </div>
 <jsp:include page="footer.jsp" />
 </body>

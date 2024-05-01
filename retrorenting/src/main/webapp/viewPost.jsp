@@ -14,13 +14,19 @@
 %>
 <jsp:include page="header.jsp" />
 <jsp:include page="nav.jsp" />
-<h1>${post.title}</h1>
-<div>
-    <h2>Usuario: ${user.name} ${user.surname}</h2>
-    <p>${post.description}</p>
-    <p>${post.price}€</p>
-    <p>${post.duration} días</p>
-</div>
+<div class=" container antesFooter ">
+    <div class="card_post_info card">
+        <h1>${post.title}</h1>
+            <div class=" mt-5 mb-4">
+                <h2>Usuario: ${user.name} ${user.surname}</h2>
+                <p>${post.description}</p>
+                <p>${post.price}€</p>
+                <p>${post.duration} días</p>
+                <img src="${post.image}" alt="imagen del Producto"/>
+            </div>
+        
+    </div>
+
 <%
         if (token != null && token.startsWith("Bearer ")) {
             try {
@@ -50,7 +56,7 @@
             <input type="hidden" name="postId" value="${post.id}">
             <input type="hidden" name="userId" value="${user.id}">
             <% } %>
-            <button type="submit">Ver Perfil del Usuario</button>
+            <button type="submit" class="btn btn-primary">Ver Perfil del Usuario</button>
         </form>
         <%
     if (token != null && token.startsWith("Bearer ")) {
@@ -60,7 +66,7 @@
             Claims claims = Jwts.parser().setSigningKey("83ykdhjflkdlDH338JDLHD23Djk$32234").parseClaimsJws(jwtToken).getBody();
             String userId = claims.getSubject();
         %>
-        <form action="PaymentFormServlet" method="get" class="antesFooter">
+        <form action="PaymentFormServlet" method="get">
             <input type="hidden" name="postId" value="${post.id}">
 
             <%
@@ -79,8 +85,9 @@
 
                     <input type="hidden" name="postId" value="${post.id}">
                     <% } %>
-                    <button type="submit">Solicitar</button>
+                    <button type="submit" class="btn btn-primary">Solicitar</button>
                 </form>
+                </div>
                 <jsp:include page="footer.jsp" />
                 </body>
                 </html>
