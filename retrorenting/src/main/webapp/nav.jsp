@@ -15,7 +15,7 @@
     profile = "";
     }
 %>      
-<nav class="navbar navbar-expand-lg navbar-light ">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -23,7 +23,7 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <form class="form-inline" action="home" method="get">
-                    <button class="btn btn-link nav-link" type="submit"><i class="fas fa-home"></i> Home</button>
+                    <button class="btn btn-link nav-link" type="submit"><i class="fas fa-home"></i> Inicio</button>
                 </form>
             </li>
             <li class="nav-item">
@@ -62,20 +62,16 @@
                                     <% }else if(token != null && token.startsWith("Bearer ") && !expired){ %>
                                     Tu perfil
                                     <% } else{ %>
-                                    Log in/Sign up
+                                    Iniciar sesión/Registrarse
                                     <% } %>
                                 </button>
                             </form>
                             </li>
                             <li class="nav-item">
-                                <form class="form-inline" action="SearchServlet" method="get">
-                                    <div class="row g-3 align-items-center">
-                                        <div class="col-auto">
-                                            <input type="text" class="form-control" name="query" placeholder="Search...">
-                                        </div>
-                                        <div class="col-auto">
-                                            <button class="btn btn-primary" type="submit">Search</button>
-                                        </div>
+                                <form class="form-inline my-2 my-lg-0" action="SearchServlet" method="get">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control mr-sm-2" style="width: 400px;" name="query" placeholder="Escribe una palabra clave (ej: pokémon)..." required>
+                                        <button class="btn btn-primary my-2 my-sm-0" type="submit">Buscar</button>
                                     </div>
                                 </form>
                             </li>

@@ -14,12 +14,15 @@
         <%@ include file="header.jsp" %>
         <%@ include file="nav.jsp" %>
         <section class="container antesFooter">
-            <h2>Publicaciones</h2>
+            <h2>Publicaciones ${searchResult}</h2>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                <c:if test="${postsList eq '[]'}">
+                    <p>No se ha encontrado ninguna publicación.</p>
+                </c:if>
                 <c:forEach items="${postsList}" var="object">
                     <div class="col">
                         <div class="card" style="width: 18rem; ${object.available ? '' : 'filter: grayscale(100%);'}">
-                            <img src="css/images/retrorentingIcon.jpg" class="card-img-top" style="${object.available ? '' : 'filter: grayscale(100%);'}" alt="...">
+                            <img src="css/images/${object.image}" class="card-img-top" style="${object.available ? '' : 'filter: grayscale(100%);'}" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">${object.title}</h5>
                                 <p class="card-text">${object.price}€</p>
