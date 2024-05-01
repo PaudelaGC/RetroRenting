@@ -1,9 +1,3 @@
-<%-- 
-    Document   : header
-    Created on : 16 abr. 2024, 9:51:57
-    Author     : 39348
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="io.jsonwebtoken.Claims, io.jsonwebtoken.Jwts, io.jsonwebtoken.ExpiredJwtException" %>
 <%@ page import="java.util.Date" %>

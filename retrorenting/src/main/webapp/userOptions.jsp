@@ -1,9 +1,3 @@
-<%-- 
-    Document   : userOptions
-    Created on : 1 may. 2024, 12:03:07
-    Author     : 39348
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp" />   
 <jsp:include page="nav.jsp" />
@@ -16,30 +10,19 @@
                 }
                 boolean expired = false;
 %>
-
 <div class="container divUserOptions">
-            <h1 class="text-center">Opciones</h1>
-            <form action="EditProfileServlet" method="get">
-                <input type="hidden" name="userId" value="<%= userId%>">
-                <button type="submit" class="btn btn-secondary me-3">Editar Mi Perfil</button>
-            </form>
-            <form action="RequestManagerServlet" method="get">
-                            <input type="hidden" name="userId" value="<%= userId%>">
-                            <button type="submit" class="btn btn-info me-3">Ver Peticiones</button>
-            </form>
-<!--            <form action="SignOutServlet" method="get">
-                <button type="submit" class="btn btn-danger me-3">CERRAR SESION</button>
-            </form>
-            <form action="DeletedAccountServlet" method="post">
-                <button type="submit" class="btn btn-danger">ELIMINAR CUENTA</button>
-                <input type="hidden" name="userId" value="<%= userId %>">
-            </form>-->
-            <!-- Botón que activa el modal de cierre de sesión -->
+    <h1 class="text-center">Opciones</h1>
+    <form action="EditProfileServlet" method="get">
+        <input type="hidden" name="userId" value="<%= userId%>">
+        <button type="submit" class="btn btn-secondary me-3">Editar Mi Perfil</button>
+    </form>
+    <form action="RequestManagerServlet" method="get">
+        <input type="hidden" name="userId" value="<%= userId%>">
+        <button type="submit" class="btn btn-info me-3">Ver Peticiones</button>
+    </form>
     <button style="width: 100%; margin-bottom: 10px;" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logoutModal">
         CERRAR SESIÓN
     </button>
-
-    <!-- Modal para logout -->
     <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -48,7 +31,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Estas seguro de que quieres cerrar sesion?</p>
+                    <p>¿Estas seguro de que quieres cerrar sesión?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
@@ -59,13 +42,9 @@
             </div>
         </div>
     </div>
-
-    <!-- Botón que activa el modal de eliminación de cuenta -->
     <button style="width: 100%;margin-bottom: 10px;" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
         ELIMINAR CUENTA
     </button>
-
-    <!-- Modal para eliminación de cuenta -->
     <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -79,7 +58,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <!-- Formulario que será enviado si la confirmación es correcta -->
                     <form id="deleteForm" action="DeletedAccountServlet" method="post" style="display: none;">
                         <input type="hidden" name="userId" value="<%= userId %>">
                         <button type="submit" class="btn btn-danger">Confirmar Eliminación</button>
@@ -102,8 +80,14 @@
         }
     </script>
 </div>
+<<<<<<< HEAD
+
+<jsp:include page="footer.jsp" />
+</body>
+=======
     
     <jsp:include page="footer.jsp" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
+>>>>>>> main
 </html>
