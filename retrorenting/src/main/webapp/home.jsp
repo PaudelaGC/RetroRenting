@@ -19,7 +19,7 @@
                 <c:forEach items="${postsList}" var="object">
                     <div class="col">
                         <div class="card" style="width: 18rem; ${object.available ? '' : 'filter: grayscale(100%);'}">
-                            <img src="css/images/retrorentingIcon.jpg" class="card-img-top" style="${object.available ? '' : 'filter: grayscale(100%);'}" alt="...">
+                            <img src="css/images/${object.image}" class="card-img-top" style="${object.available ? '' : 'filter: grayscale(100%);'}" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">${object.title}</h5>
                                 <p class="card-text">${object.price}€</p>

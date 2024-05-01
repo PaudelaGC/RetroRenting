@@ -27,7 +27,7 @@ public class Post {
         this.idUser = idUser;
         this.title = title;
         this.description = description;
-        this.image = "default";
+        this.image = "retrorentingIcon.jpg";
         this.price = price;
         this.duration = duration;
         this.available = true;

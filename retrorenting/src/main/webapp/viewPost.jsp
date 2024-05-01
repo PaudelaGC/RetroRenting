@@ -22,7 +22,7 @@
                 <p>${post.description}</p>
                 <p>${post.price}€</p>
                 <p>${post.duration} días</p>
-                <img src="${post.image}" alt="imagen del Producto"/>
+                <img src="css/images/${post.image}" alt="imagen del Producto"/>
             </div>
         
     </div>
