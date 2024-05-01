@@ -5,68 +5,70 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-        <jsp:include page="header.jsp" />
-        <jsp:include page="nav.jsp" />
-        <div class="container mt-4 antesFooter">
-            <h1>Editar Perfil</h1>
-            <form action="SaveProfileEditedServlet" method="post">
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" value="Juan" required>
-                </div>
-                <div class="mb-3">
-                    <label for="apellido" class="form-label">Apellido:</label>
-                    <input type="text" class="form-control" id="apellido" name="apellido" value="Pérez" required>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Correo Electrónico:</label>
-                    <input disabled type="email" class="form-control" id="email" name="email" value="juan@example.com" required>
-                </div>
-                <div class="mb-3">
-                    <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento:</label>
-                    <input disabled type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="1990-01-10" required>
-                </div>
-                <div class="mb-3">
-                    <label for="calle" class="form-label">Calle:</label>
-                    <input type="text" class="form-control" id="calle" name="calle" placeholder="Calle" required>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">
-                        <label for="numero" class="form-label">Número:</label>
-                        <input type="text" class="form-control" id="numero" name="numero" placeholder="Número" required>
-                    </div>
-                    <div class="col">
-                        <label for="bloque" class="form-label">Bloque:</label>
-                        <input type="text" class="form-control" id="bloque" name="bloque" placeholder="Bloque">
-                    </div>
-                    <div class="col">
-                        <label for="puerta" class="form-label">Puerta:</label>
-                        <input type="text" class="form-control" id="puerta" name="puerta" placeholder="Puerta">
-                    </div>
-                    <div class="col">
-                        <label for="piso" class="form-label">Piso:</label>
-                        <input type="text" class="form-control" id="piso" name="piso" placeholder="Piso">
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="codigo_postal" class="form-label">Código Postal:</label>
-                    <input type="text" class="form-control" id="codigo_postal" name="codigo_postal" value="12345" required>
-                </div>
-                <div class="mb-3">
-                    <label for="ciudad" class="form-label">Ciudad:</label>
-                    <input type="text" class="form-control" id="ciudad" name="ciudad" value="Ciudad de Ejemplo" required>
-                </div>
-                <div class="mb-3">
-                    <label for="region" class="form-label">Región:</label>
-                    <input type="text" class="form-control" id="region" name="region" value="Región de Ejemplo">
-                </div>
-                <div class="mb-3">
-                    <label for="pais" class="form-label">País:</label>
-                    <input type="text" class="form-control" id="pais" name="pais" value="País de Ejemplo" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-            </form>
+<jsp:include page="header.jsp" />
+<jsp:include page="nav.jsp" />
+<% String userId = request.getParameter("userId"); %>
+<div class="container mt-4 antesFooter">
+    <h1>Editar Perfil</h1>
+    <form action="EditProfileServlet" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nombre:</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="${user.name}" >
         </div>
-        <jsp:include page="footer.jsp" />
-    </body>
+        <div class="mb-3">
+            <label for="surname" class="form-label">Apellido:</label>
+            <input type="text" class="form-control" id="surname" name="surname" placeholder="${user.surname}" >
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Correo Electrónico:</label>
+            <input disabled type="email" class="form-control" id="email" name="email" placeholder="${user.email}" >
+        </div>
+        <div class="mb-3">
+            <label for="birthdate" class="form-label">Fecha de Nacimiento:</label>
+            <input disabled type="date" class="form-control" id="birthdate" name="birthdate" placeholder="${user.birthdate}" >
+        </div>
+        <div class="mb-3">
+            <label for="street" class="form-label">Calle:</label>
+            <input type="text" class="form-control" id="street" name="street" placeholder="${address.street}" >
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="number" class="form-label">Número:</label>
+                <input type="text" class="form-control" id="number" name="number" placeholder="${address.number}" >
+            </div>
+            <div class="col">
+                <label for="block" class="form-label">Bloque:</label>
+                <input type="text" class="form-control" id="block" name="block" placeholder="${address.block}">
+            </div>
+            <div class="col">
+                <label for="door" class="form-label">Puerta:</label>
+                <input type="text" class="form-control" id="door" name="door" placeholder="${address.door}">
+            </div>
+            <div class="col">
+                <label for="floor" class="form-label">Piso:</label>
+                <input type="text" class="form-control" id="floor" name="floor" placeholder="${address.floor}">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="postalCode" class="form-label">Código Postal:</label>
+            <input type="text" class="form-control" id="postalCode" name="postalCode" placeholder="${address.postalCode}" >
+        </div>
+        <div class="mb-3">
+            <label for="city" class="form-label">Ciudad:</label>
+            <input type="text" class="form-control" id="city" name="city" placeholder="${address.city}" >
+        </div>
+        <div class="mb-3">
+            <label for="state" class="form-label">Región:</label>
+            <input type="text" class="form-control" id="state" name="state" placeholder="${address.state}">
+        </div>
+        <div class="mb-3">
+            <label for="country" class="form-label">País:</label>
+            <input type="text" class="form-control" id="country" name="country" placeholder="${address.country}" >
+        </div>
+        <input type="hidden" name="userId" value="<%= userId%>">
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </form>
+</div>
+<jsp:include page="footer.jsp" />
+</body>
 </html>

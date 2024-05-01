@@ -32,7 +32,6 @@
 <form action="UserProfileServlet" method="get">
     <input type="hidden" name="userId" value="${user.id}">
     <input type="hidden" name="postId" value="${post.id}">
-
     <%
             } catch (ExpiredJwtException expiredEx) {
             expired = true;
