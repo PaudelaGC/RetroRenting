@@ -46,11 +46,11 @@
             response.getWriter().write("Ha ocurrido un error al cargar la página.");
         }
     } else {%>
-        <form style="margin-left: 30px; display: inline-block;" action="LoginServlet2" method="get">
+        <form class="marginDerecha" style=" display: inline-block;" action="LoginServlet2" method="get">
             <input type="hidden" name="postId" value="${post.id}">
             <input type="hidden" name="userId" value="${user.id}">
             <% } %>
-            <button type="submit" class="btn btn-primary">Ver Perfil del Usuario</button>
+            <button type="submit" class="btn btn-primary ">Ver Perfil del Usuario</button>
         </form>
         <%
     if (token != null && token.startsWith("Bearer ")) {
@@ -73,11 +73,12 @@
                         response.getWriter().write("Ha ocurrido un error al cargar la página.");
                     }
                 } else { %>
-                    <form action="LoginServlet2" method="get">
+                
+                    <form class="marginDerecha" action="LoginServlet2" method="get">
 
                     <input type="hidden" name="postId" value="${post.id}">
                     <% } %>
-                    <button type="submit" class="btn btn-primary">Solicitar</button>
+                    <button type="submit" class="btn btn-primary marginDerecha">Solicitar</button>
                 </form>
                 </div>
                 </div>

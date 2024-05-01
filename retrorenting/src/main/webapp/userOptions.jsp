@@ -80,7 +80,6 @@
         }
     </script>
 </div>
-<<<<<<< HEAD
 
 <jsp:include page="footer.jsp" />
 </body>

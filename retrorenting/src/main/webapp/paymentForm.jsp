@@ -39,7 +39,7 @@
                         response.getWriter().write("An error ocurred while loading this page.");
                     }
                 } else {%>
-            <form action="ViewPostServlet" method="get">
+            <form style ="margin-bottom:10px;" action="ViewPostServlet" method="get">
                 <input type="hidden" name="postId" value="${post.id}">
                 <% } %>
                 <div class="mb-3">

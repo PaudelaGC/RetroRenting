@@ -111,3 +111,11 @@ footer a:hover {
     width: 18rem;
     height: 18rem;
 }
+.marginDerecha{
+    margin-left: 30px;
+    margin-bottom: 10px;
+}
+.marginAbajo{
+    margin-bottom: 10px;
+    
+}
