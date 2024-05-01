@@ -51,13 +51,28 @@
             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
         </span>
     </form>
-    <form action="DeletePostServlet" method="post">
-        <span style="color: red;">
-            <input type="hidden" name="postId" value="${post.id}">
-            <input type="hidden" name="userId" value="<%= userId %>">
-            <button type="submit" class="btn btn-primary">ELIMINAR PUBLICACIÓN</button>
-        </span>
-    </form>
+    <button type="submit" class="btn btn-primary" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logoutModal">ELIMINAR PUBLICACIÓN</button>
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Confirma la eliminación de la publicación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estas seguro de que quieres elimnar esta publicación?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <form action="DeletePostServlet" method="post">
+                        <input type="hidden" name="postId" value="${post.id}">
+                        <input type="hidden" name="userId" value="<%= userId %>">
+                        <button type="submit" class="btn btn-primary">Si</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <jsp:include page="footer.jsp" />
 </body>
