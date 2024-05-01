@@ -6,7 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    // Verificar si se enviaron mensajes de error desde el servlet
     String denied1 = (String) request.getAttribute("denied1");
     String denied2 = (String) request.getAttribute("denied2");
     String userId = request.getParameter("userId");

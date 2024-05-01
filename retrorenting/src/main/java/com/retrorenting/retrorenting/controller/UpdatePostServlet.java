@@ -21,6 +21,7 @@ import model.Post;
 import model.Request;
 import model.User;
 import model.persist.AddressDao;
+import model.persist.ModelView;
 import model.persist.PostsDao;
 import model.persist.RequestsDao;
 import model.persist.UsersDao;
@@ -36,6 +37,7 @@ public class UpdatePostServlet extends HttpServlet {
     RequestsDao requestDao = new RequestsDao();
     UsersDao userDao = new UsersDao();
     AddressDao addressDao = new AddressDao();
+    ModelView MV = new ModelView();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -160,17 +162,11 @@ public class UpdatePostServlet extends HttpServlet {
             postDao.updatePost(postToModify);
             User user = userDao.getUserById(postToModify.getIdUser());
             Address address = addressDao.findAddressById(user.getIdAddress());
-            List<Post> posts = postDao.listPosts();
-            List<Post> postsFromUser = new ArrayList<>();
-            for (Post post : posts) {
-                if (post.getIdUser() == postToModify.getIdUser()) {
-                    postsFromUser.add(post);
-                }
-            }
+            List<Post> posts = MV.listPostsByUser(Integer.parseInt(userId));
             if (selfUserId.equals(userId)) {
                 request.setAttribute("profile", "self");
             }
-            request.setAttribute("postsList", postsFromUser);
+            request.setAttribute("postsList", posts);
             request.setAttribute("user", user);
             request.setAttribute("userId", userId);
             request.setAttribute("address", address);

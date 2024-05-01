@@ -73,7 +73,7 @@ public class Address {
         return door;
     }
     
-    public void setDoor(){
+    public void setDoor(String door){
         this.door = door;
     }
     
