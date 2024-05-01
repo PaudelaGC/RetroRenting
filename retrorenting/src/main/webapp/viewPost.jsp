@@ -8,54 +8,60 @@
 %>
 <jsp:include page="header.jsp" />
 <jsp:include page="nav.jsp" />
-<div class="container antesFooter mt-5">
+<div class=" container antesFooter mt-5">
+    <h1 class="text-center">${post.title}</h1>
     <div class="card_post_info card d-flex flex-column justify-content-center align-items-center"> <!-- Agregamos clases flex para centrar vertical y horizontalmente -->
-        <h1>${post.title}</h1>
-        <div class="mt-5 mb-4">
-            <h2>Usuario: ${user.name} ${user.surname}</h2>
-            <p>${post.description}</p>
-            <p>${post.price}€</p>
-            <p>${post.duration} días</p>
-            <img src="css/images/${post.image}" alt="imagen del Producto" class="img-fluid"> <!-- Agregamos la clase img-fluid para que la imagen sea responsiva -->
-        </div>
+
+            <div class=" container mt-5 mb-4">
+                <h2>Usuario: ${user.name} ${user.surname}</h2>
+                <p>${post.description}</p>
+                <p>${post.price}€</p>
+                <p>${post.duration} días</p>
+                <img src="css/images/${post.image}" alt="imagen del Producto" class="img-fluid"> <!-- Agregamos la clase img-fluid para que la imagen sea responsiva -->
+            </div>
+        
     </div>
 
-    <% if (token != null && token.startsWith("Bearer ")) {
+<%
+        if (token != null && token.startsWith("Bearer ")) {
+            try {
+                session.setAttribute("token", token.substring(7));
+                String jwtToken = token.substring(7);
+                Claims claims = Jwts.parser().setSigningKey("83ykdhjflkdlDH338JDLHD23Djk$32234").parseClaimsJws(jwtToken).getBody();
+                String userId = claims.getSubject();
+%>
+<form action="UserProfileServlet" method="get">
+    <input type="hidden" name="userId" value="${user.id}">
+    <input type="hidden" name="postId" value="${post.id}">
+    <%
+            } catch (ExpiredJwtException expiredEx) {
+            expired = true;
+            response.getWriter().write("Tu sesión ha expirado.");
+    %>
+    <form action="LoginServlet2" method="get">
+        <input type="hidden" name="postId" value="${post.id}">
+        <input type="hidden" name="userId" value="${user.id}">
+        <%
+        } catch (Exception e) {
+            response.getWriter().write("Ha ocurrido un error al cargar la página.");
+        }
+    } else {%>
+        <form style="margin-left: 30px; display: inline-block;" action="LoginServlet2" method="get">
+            <input type="hidden" name="postId" value="${post.id}">
+            <input type="hidden" name="userId" value="${user.id}">
+            <% } %>
+            <button type="submit" class="btn btn-primary">Ver Perfil del Usuario</button>
+        </form>
+        <%
+    if (token != null && token.startsWith("Bearer ")) {
         try {
             session.setAttribute("token", token.substring(7));
             String jwtToken = token.substring(7);
             Claims claims = Jwts.parser().setSigningKey("83ykdhjflkdlDH338JDLHD23Djk$32234").parseClaimsJws(jwtToken).getBody();
             String userId = claims.getSubject();
-    %>
-    <form action="UserProfileServlet" method="get">
-        <input type="hidden" name="userId" value="${user.id}">
-        <input type="hidden" name="postId" value="${post.id}">
-        <% } catch (ExpiredJwtException expiredEx) {
-        expired = true;
-        response.getWriter().write("Tu sesión ha expirado.");
         %>
-        <form action="LoginServlet2" method="get">
+        <form action="PaymentFormServlet" method="get">
             <input type="hidden" name="postId" value="${post.id}">
-            <input type="hidden" name="userId" value="${user.id}">
-            <% } catch (Exception e) {
-                response.getWriter().write("Ha ocurrido un error al cargar la página.");
-            }
-        } else { %>
-            <form action="LoginServlet2" method="get">
-                <input type="hidden" name="postId" value="${post.id}">
-                <input type="hidden" name="userId" value="${user.id}">
-                <% } %>
-                <button type="submit" class="btn btn-primary">Ver Perfil del Usuario</button>
-            </form>
-            <% if (token != null && token.startsWith("Bearer ")) {
-                try {
-                    session.setAttribute("token", token.substring(7));
-                    String jwtToken = token.substring(7);
-                    Claims claims = Jwts.parser().setSigningKey("83ykdhjflkdlDH338JDLHD23Djk$32234").parseClaimsJws(jwtToken).getBody();
-                    String userId = claims.getSubject();
-            %>
-            <form action="PaymentFormServlet" method="get">
-                <input type="hidden" name="postId" value="${post.id}">
 
                 <% } catch (ExpiredJwtException expiredEx) {
                 expired = true; response.getWriter().write("Tu sesión ha expirado.");
@@ -69,12 +75,14 @@
                 } else { %>
                     <form action="LoginServlet2" method="get">
 
-                        <input type="hidden" name="postId" value="${post.id}">
-                        <% } %>
-                        <button type="submit" class="btn btn-primary">Solicitar</button>
-                    </form>
-                    </div>
-                    <jsp:include page="footer.jsp" />
-                    </body>
-                    </html>
+                    <input type="hidden" name="postId" value="${post.id}">
+                    <% } %>
+                    <button type="submit" class="btn btn-primary">Solicitar</button>
+                </form>
+                </div>
+                </div>
+                <jsp:include page="footer.jsp" />
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+                </body>
+                </html>
 

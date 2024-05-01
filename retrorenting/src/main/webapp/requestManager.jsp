@@ -5,9 +5,9 @@
 <jsp:include page="header.jsp" />
 <jsp:include page="nav.jsp" />
 <div class="container mt-4 antesFooter">
-    <h2>Lista de Peticiones</h2>
+    <h1 class="text-center">Lista de Peticiones</h1>
     <section>
-        <h3>Peticiones Recibidas</h3>
+        <h2>Peticiones Recibidas</h2>
         <ul class="list-group mb-4">
             <c:if test="${othersRequests == null}">
                 <p>No tienes peticiones recibidas por el momento.</p>
@@ -40,7 +40,7 @@
         </ul>
     </section>
     <section>
-        <h3>Peticiones Enviadas</h3>
+        <h2>Peticiones Enviadas</h2>
         <ul class="list-group">
             <c:if test="${myRequests == null}">
                 <p>No tienes peticiones recibidas por el momento.</p>
@@ -71,6 +71,7 @@
         </form>
     </div>
 </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <jsp:include page="footer.jsp" />
 </body>
 </html>

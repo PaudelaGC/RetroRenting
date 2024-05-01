@@ -6,6 +6,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : 16 abr. 2024, 9:41:19
     Author     : 39348
 */
+@font-face {
+    font-family: 'Arcade';
+    src: url('ARCADE_N.TTF') format('truetype');
+    /* Puedes añadir más formatos de fuente aquí si los tienes disponibles */
+}
 .antesFooter{
     margin-bottom: 100px;
 }
@@ -16,9 +21,20 @@ body {
     font-family: Arial, sans-serif;
 }
 
+
+h1{
+    font-family: 'Arcade', Arial, sans-serif;
+    color:#2e36a1;
+     box-shadow: 12px 12px 12px 12px #f60209 ;
+     background-color: #fdc800;
+     border-radius: 25px;
+     margin-bottom: 20px;
+}
+
 /* Estilos para la barra de navegación */
 .navbar {
     background-color: #8488f4; /* Azul */
+    margin-bottom: 20px;
 }
 
 .navbar-toggler-icon {
@@ -85,4 +101,8 @@ footer a:hover {
 .divUserOptions form button{
     width: 100%;
     margin-bottom: 10px;
+}
+.cardPublicacion img{
+    width: 18rem;
+    height: 18rem;
 }
