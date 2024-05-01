@@ -1,9 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : 16 abr. 2024, 9:47:12
-    Author     : Andy
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String denied = (String) request.getAttribute("denied");
@@ -33,7 +27,7 @@
                     <input type="hidden" name="userId" value="${userId}">
                     <button type="submit" class="btn btn-primary">Ingresar</button>
                     <% if(!denied.equals("null")){ %>
-                    <p><span style="color: red;">Login credentials invalid</span></p>
+                    <p><span style="color: red;">Correo o contraseña incorrectos</span></p>
                     <% } %>
                 </div>
             </form>
