@@ -60,6 +60,41 @@ public class PostsDao {
         }
         return posts;
     }
+    
+    public List<Post> searchPostsWithKeywords(String keyword) {
+    List<Post> posts = new ArrayList<>();
+    String query = "SELECT id, idUser, title, image, price, duration, available, idUser, lastRentDate, lastReturnDate " +
+                   "FROM posts " +
+                   "WHERE title LIKE ? OR description LIKE ?";
+    try (Connection conn = dbConnect.getConnection(); 
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+        // Establecer los parámetros de la consulta con los valores proporcionados
+        String searchTerm = "%" + keyword + "%";
+        stmt.setString(1, searchTerm);
+        stmt.setString(2, searchTerm);
+        
+        // Ejecutar la consulta
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Post post = new Post();
+                post.setId(rs.getInt("id"));
+                post.setIdUser(rs.getInt("idUser"));
+                post.setTitle(rs.getString("title"));
+                post.setImage(rs.getString("image"));
+                post.setPrice(rs.getDouble("price"));
+                post.setDuration(rs.getInt("duration"));
+                post.setAvailable(rs.getBoolean("available"));
+                post.setLastRentDate(rs.getDate("lastRentDate"));
+                post.setLastReturnDate(rs.getDate("lastReturnDate"));
+                posts.add(post);
+            }
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return posts;
+}
+
 
     // Buscar un post por ID
     public Post findPostById(int id) {

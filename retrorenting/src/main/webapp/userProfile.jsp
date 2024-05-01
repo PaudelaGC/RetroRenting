@@ -73,7 +73,7 @@
         <section class="container">
             <h2>Publicaciones</h2>
             <% if(!denied.equals("null")){ %>
-            <p><span style="color: red;">You can't modify posts that have been already accepted!</span></p>
+            <p><span style="color: red;">¡No puedes modificar publicaciones con peticiones aceptadas!</span></p>
             <% } %>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                 <c:if test="${postsList eq '[]'}">

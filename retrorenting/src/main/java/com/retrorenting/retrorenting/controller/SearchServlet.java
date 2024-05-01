@@ -19,10 +19,10 @@ import model.persist.PostsDao;
 
 /**
  *
- * @author 39348
+ * @author Mi Pc
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/HomeServlet"})
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "SearchServlet", urlPatterns = {"/SearchServlet"})
+public class SearchServlet extends HttpServlet {
 
     PostsDao postDao = new PostsDao();
 
@@ -40,8 +40,15 @@ public class HomeServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
-            dispatcher.include(request, response);
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet SearchServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet SearchServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -57,11 +64,12 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         String token = (String) session.getAttribute("token");
-        List<Post> posts = postDao.listPosts();
+        String query = request.getParameter("query");
+        List<Post> posts = postDao.searchPostsWithKeywords(query);
         request.setAttribute("postsList", posts);
+        request.setAttribute("searchResult", " que puedan contener la(s) palabra(s): " + query);
         if (token != null) {
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);

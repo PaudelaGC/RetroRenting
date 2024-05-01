@@ -70,7 +70,7 @@
                             <li class="nav-item">
                                 <form class="form-inline my-2 my-lg-0" action="SearchServlet" method="get">
                                     <div class="input-group">
-                                        <input type="text" class="form-control mr-sm-2" style="width: 400px;" name="query" placeholder="Escribe una palabra clave (ej: pokémon)...">
+                                        <input type="text" class="form-control mr-sm-2" style="width: 400px;" name="query" placeholder="Escribe una palabra clave (ej: pokémon)..." required>
                                         <button class="btn btn-primary my-2 my-sm-0" type="submit">Buscar</button>
                                     </div>
                                 </form>
