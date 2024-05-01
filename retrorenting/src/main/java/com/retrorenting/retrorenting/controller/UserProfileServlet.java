@@ -4,6 +4,8 @@
  */
 package com.retrorenting.retrorenting.controller;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -59,53 +61,38 @@ public class UserProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-
-        // Obtención del parámetro 'profile' y manejo de la sesión/token
-        String profile = request.getParameter("profile");
-        if (profile != null && profile.equals("self")) {
-            request.setAttribute("profile", profile);
-        }
         String token = (String) session.getAttribute("token");
+        String selfUserId = "";
         if (token != null) {
+            Claims claims = Jwts.parser().setSigningKey("83ykdhjflkdlDH338JDLHD23Djk$32234").parseClaimsJws(token).getBody();
+            selfUserId = claims.getSubject();
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
         }
-
-        // Obtención del ID del usuario desde los parámetros o desde el token si es necesario
-        String userIdStr = request.getParameter("userId"); // Obtener el userId como parámetro
-
-        int userId;
-        try {
-            userId = Integer.parseInt(userIdStr);
-        } catch (NumberFormatException e) {
-            response.sendRedirect("login.jsp"); // Redirigir si el ID no es válido
-            return;
+        String userId = request.getParameter("userId");
+        int userIdInt = Integer.parseInt(userId);
+        if (selfUserId.equals(userId)) {
+            request.setAttribute("profile", "self");
         }
-
-        // Búsqueda del usuario en la base de datos
         UsersDao userDao = new UsersDao();
-        User user = userDao.getUserById(userId);
-
+        User user = userDao.getUserById(userIdInt);
         if (user != null) {
-            Address address = addressDao.findAddressById(user.getIdAddress()); // Obtén la dirección usando AddressDao
+            Address address = addressDao.findAddressById(user.getIdAddress());
             List<Post> posts = postDao.listPosts();
             List<Post> postsFromUser = new ArrayList<>();
-            for(Post post : posts){
-                if(post.getIdUser() == userId){
+            for (Post post : posts) {
+                if (post.getIdUser() == userIdInt) {
                     postsFromUser.add(post);
                 }
             }
             request.setAttribute("postsList", postsFromUser);
             request.setAttribute("user", user);
-            request.setAttribute("address", address); // Envía el objeto Address como un atributo separado
-
+            request.setAttribute("address", address);
         } else {
             request.setAttribute("errorMessage", "Usuario no encontrado.");
-            response.sendRedirect("login.jsp"); // Redirigir si el usuario no se encuentra
+            response.sendRedirect("login.jsp");
             return;
         }
-
-        // Enviar a la página de perfil
         RequestDispatcher dispatcher = request.getRequestDispatcher("userProfile.jsp");
         dispatcher.forward(request, response);
     }

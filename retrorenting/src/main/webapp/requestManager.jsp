@@ -52,22 +52,26 @@
                 <p>No tienes peticiones recibidas por el momento.</p>
             </c:if>
             <c:forEach items="${myRequests}" var="request">
-                <li class="list-group-item d-flex justify-content-between align-items-center" >
-                    <span class="info">Título del ítem: ${request['itemTitle']}</span>  <span class="fw-bold">Estado: ${request['status']}</span>
-                    <form action="RequestManagerServlet" method="post">
-                        <c:if test = "${request['status'] eq 'Accepted'}">
-                            <input type="hidden" name="pay" value="${request['id']}">
-                            <input type="hidden" name="userId" value="${userId}">
-                            <button type="submit" class="btn btn-primary btn-sm">Pagar</button>
-                        </c:if>
-                    </form>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="info">Título del ítem: ${request['itemTitle']}</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <form action="RequestManagerServlet" method="post">
+                            <c:if test="${request['status'] eq 'Accepted'}">
+                                <input type="hidden" name="pay" value="${request['id']}">
+                                <input type="hidden" name="userId" value="${userId}">
+                                <button type="submit" class="btn btn-primary btn-sm me-2">Pagar</button>
+                            </c:if>
+                        </form>
+                        <span style="margin-left: 10px;">Estado: ${request['status']}</span>
+                    </div>
                 </li>
             </c:forEach>
         </ul>
     </section>
     <div class="mt-4">
         <form action="UserProfileServlet" method="get">
-            <input type="hidden" name="profile" value="self">
             <input type="hidden" name="userId" value="${userId}">
             <button type="submit" class="btn btn-secondary">Atrás</button>
         </form>

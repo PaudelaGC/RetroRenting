@@ -4,6 +4,8 @@
  */
 package com.retrorenting.retrorenting.controller;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -65,12 +67,16 @@ public class UpdatePostServlet extends HttpServlet {
         boolean denied = false;
         HttpSession session = request.getSession();
         String token = (String) session.getAttribute("token");
+        String selfUserId = "";
         if (token != null) {
+            Claims claims = Jwts.parser().setSigningKey("83ykdhjflkdlDH338JDLHD23Djk$32234").parseClaimsJws(token).getBody();
+            selfUserId = claims.getSubject();
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
         }
-        int userId = Integer.parseInt(request.getParameter("userId"));
-        request.setAttribute("userId", userId);
+        String userId = request.getParameter("userId");
+        int userIdInt = Integer.parseInt(userId);
+        request.setAttribute("userId", userIdInt);
         int postId = Integer.parseInt(request.getParameter("postId"));
         List<Request> allRequests = requestDao.listRequests();
         for (Request req : allRequests) {
@@ -80,16 +86,19 @@ public class UpdatePostServlet extends HttpServlet {
             }
         }
         if (denied) {
-            Address address = addressDao.findAddressById(userId);
+            Address address = addressDao.findAddressById(userIdInt);
             List<Post> posts = postDao.listPosts();
             List<Post> postsFromUser = new ArrayList<>();
             for (Post post : posts) {
-                if (post.getIdUser() == userId) {
+                if (post.getIdUser() == userIdInt) {
                     postsFromUser.add(post);
                 }
             }
+            if (selfUserId.equals(userId)) {
+                request.setAttribute("profile", "self");
+            }
             request.setAttribute("postsList", postsFromUser);
-            request.setAttribute("user", userDao.getUserById(userId));
+            request.setAttribute("user", userDao.getUserById(userIdInt));
             request.setAttribute("address", address);
             RequestDispatcher dispatcher = request.getRequestDispatcher("userProfile.jsp");
             dispatcher.forward(request, response);
@@ -115,12 +124,16 @@ public class UpdatePostServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         String token = (String) session.getAttribute("token");
+        String selfUserId = "";
         if (token != null) {
+            Claims claims = Jwts.parser().setSigningKey("83ykdhjflkdlDH338JDLHD23Djk$32234").parseClaimsJws(token).getBody();
+            selfUserId = claims.getSubject();
             response.addHeader("Authorization", "Bearer " + token);
             response.getWriter().write(token);
         }
-        int postId = Integer.parseInt(request.getParameter("postId"));
         String userId = request.getParameter("userId");
+        request.setAttribute("userId", userId);
+        int postId = Integer.parseInt(request.getParameter("postId"));
         Post postToModify = postDao.findPostById(postId);
         boolean denied = false;
         if (!request.getParameter("title").equals("")) {
@@ -146,13 +159,16 @@ public class UpdatePostServlet extends HttpServlet {
         if (!denied) {
             postDao.updatePost(postToModify);
             User user = userDao.getUserById(postToModify.getIdUser());
-            Address address = addressDao.findAddressById(user.getIdAddress()); // Obtén la dirección usando AddressDao
+            Address address = addressDao.findAddressById(user.getIdAddress());
             List<Post> posts = postDao.listPosts();
             List<Post> postsFromUser = new ArrayList<>();
             for (Post post : posts) {
                 if (post.getIdUser() == postToModify.getIdUser()) {
                     postsFromUser.add(post);
                 }
+            }
+            if (selfUserId.equals(userId)) {
+                request.setAttribute("profile", "self");
             }
             request.setAttribute("postsList", postsFromUser);
             request.setAttribute("user", user);

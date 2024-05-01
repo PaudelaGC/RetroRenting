@@ -4,8 +4,11 @@
  */
 package com.retrorenting.retrorenting.controller;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.Address;
 import model.Post;
 import model.Request;
 import model.persist.AddressDao;
@@ -23,16 +27,16 @@ import model.persist.UsersDao;
 
 /**
  *
- * @author 39348
+ * @author Mi Pc
  */
-@WebServlet(name = "DeletedAccountServlet", urlPatterns = {"/DeletedAccountServlet"})
-public class DeletedAccountServlet extends HttpServlet {
+@WebServlet(name = "DeletePostServlet", urlPatterns = {"/DeletePostServlet"})
+public class DeletePostServlet extends HttpServlet {
 
     ModelView MV = new ModelView();
+    RequestsDao requestDao = new RequestsDao();
     PostsDao postDao = new PostsDao();
     UsersDao userDao = new UsersDao();
     AddressDao addressDao = new AddressDao();
-    RequestsDao requestDao = new RequestsDao();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,29 +49,19 @@ public class DeletedAccountServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
+
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet DeletePostServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet DeletePostServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        int userId = Integer.parseInt(request.getParameter("userId"));
-        List<Request> allRequests = requestDao.listRequests();
-        for (Request req : allRequests) {
-            if (req.getIdUser() == userId || postDao.findPostById(req.getIdPost()).getIdUser() == userId) {
-                requestDao.deleteRequest(req.getId());
-            }
-        }
-        List<Post> posts = MV.listPostsByUser(userId);
-        for (Post post : posts) {
-            postDao.deletePost(post.getId());
-        }
-        int userAddress = userDao.getUserById(userId).getIdAddress();
-        userDao.deleteUser(userId);
-        addressDao.deleteAddress(userAddress);
-        posts = postDao.listPosts();
-        request.setAttribute("postsList", posts);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
-        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -96,7 +90,37 @@ public class DeletedAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        String token = (String) session.getAttribute("token");
+        String selfUserId = "";
+        if (token != null) {
+            Claims claims = Jwts.parser().setSigningKey("83ykdhjflkdlDH338JDLHD23Djk$32234").parseClaimsJws(token).getBody();
+            selfUserId = claims.getSubject();
+            response.addHeader("Authorization", "Bearer " + token);
+            response.getWriter().write(token);
+        }
+        String userId = request.getParameter("userId");
+        int userIdInt = Integer.parseInt(userId);
+        if (selfUserId.equals(userId)) {
+            request.setAttribute("profile", "self");
+        }
+        request.setAttribute("userId", userId);
+        int postId = Integer.parseInt(request.getParameter("postId"));
+        List<Request> allRequests = requestDao.listRequests();
+        for (Request req : allRequests) {
+            if (req.getIdPost() == postId) {
+                requestDao.deleteRequest(req.getId());
+            }
+        }
+        postDao.deletePost(postId);
+        List<Post> posts = MV.listPostsByUser(userIdInt);
+        Address address = addressDao.findAddressById(userDao.getUserById(userIdInt).getIdAddress());
+        request.setAttribute("postsList", posts);
+        request.setAttribute("user", userDao.getUserById(userIdInt));
+        request.setAttribute("address", address);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("userProfile.jsp");
+        dispatcher.forward(request, response);
     }
 
     /**

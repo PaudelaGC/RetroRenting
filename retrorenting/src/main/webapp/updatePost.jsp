@@ -52,7 +52,7 @@
             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
         </span>
     </form>
-    <form action="UpdatePostServlet" method="post">
+    <form action="DeletePostServlet" method="post">
         <span style="color: red;">
             <input type="hidden" name="postId" value="${post.id}">
             <input type="hidden" name="userId" value="<%= userId %>">

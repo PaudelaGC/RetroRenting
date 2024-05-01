@@ -101,20 +101,6 @@ public class RequestsDao {
         return result;
     }
 
-    public boolean updateRequestToDeleted(int id) {
-        boolean result = false;
-        String query = "UPDATE requests SET idStatus = ?, idUser = ? WHERE idUser = ?;";
-        try (Connection conn = dbConnect.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, 5);
-            stmt.setInt(2, -1);
-            stmt.setInt(3, id);
-            result = stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
     // Eliminar un request
     public boolean deleteRequest(int id) {
         boolean result = false;
