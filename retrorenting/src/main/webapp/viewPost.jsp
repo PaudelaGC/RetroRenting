@@ -14,19 +14,16 @@
 %>
 <jsp:include page="header.jsp" />
 <jsp:include page="nav.jsp" />
-<div class=" container antesFooter ">
-   <div>
-        
-    
+<div class=" container antesFooter mt-5">
     <h1 class="text-center">${post.title}</h1>
-       <div class="card_post_info card container">
-        
+    <div class="card_post_info card d-flex flex-column justify-content-center align-items-center"> <!-- Agregamos clases flex para centrar vertical y horizontalmente -->
+
             <div class=" container mt-5 mb-4">
                 <h2>Usuario: ${user.name} ${user.surname}</h2>
                 <p>${post.description}</p>
                 <p>${post.price}€</p>
                 <p>${post.duration} días</p>
-                <img src="${post.image}" alt="imagen del Producto"/>
+                <img src="css/images/${post.image}" alt="imagen del Producto" class="img-fluid"> <!-- Agregamos la clase img-fluid para que la imagen sea responsiva -->
             </div>
         
     </div>
@@ -72,11 +69,10 @@
         <form action="PaymentFormServlet" method="get">
             <input type="hidden" name="postId" value="${post.id}">
 
-            <%
-            } catch (ExpiredJwtException expiredEx) {
-            expired = true;            response.getWriter().write("Your session expired.");
-            %>
-            <form action="LoginServlet2" method="get">
+                <% } catch (ExpiredJwtException expiredEx) {
+                expired = true; response.getWriter().write("Your session expired.");
+                %>
+                <form action="LoginServlet2" method="get">
 
                 <input type="hidden" name="postId" value="${post.id}">
                 <%
@@ -96,3 +92,4 @@
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
                 </body>
                 </html>
+

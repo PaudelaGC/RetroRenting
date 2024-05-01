@@ -27,7 +27,7 @@
     <div class="card">
         <div class="row g-0">
             <div class="col-md-4">
-                <img src="css/images/messi.jpeg" class="img-fluid" alt="Imagen de perfil">
+                <img src="css/images/default.png" class="img-fluid" alt="Imagen de perfil">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
@@ -73,7 +73,7 @@
         <section class="container">
             <h2>Publicaciones</h2>
             <% if(!denied.equals("null")){ %>
-            <p><span style="color: red;">You can't modify posts that have been already accepted!</span></p>
+            <p><span style="color: red;">¡No puedes modificar publicaciones con peticiones aceptadas!</span></p>
             <% } %>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                 <c:if test="${postsList eq '[]'}">
@@ -82,7 +82,7 @@
                 <c:forEach items="${postsList}" var="object">
                     <div class="col">
                         <div class="card" style="width: 18rem; ${object.available ? '' : 'filter: grayscale(100%);'}">
-                            <img src="css/images/retrorentingIcon.jpg" class="card-img-top" style="${object.available ? '' : 'filter: grayscale(100%);'}" alt="...">
+                            <img src="css/images/${object.image}" class="card-img-top" style="${object.available ? '' : 'filter: grayscale(100%);'}" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">${object.title}</h5>
                                 <p class="card-text">${object.price}€</p>

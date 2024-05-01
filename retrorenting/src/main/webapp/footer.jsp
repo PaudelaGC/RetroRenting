@@ -1,8 +1,8 @@
-<footer class="bg-dark text-light p-4 fixed-bottom">
+<footer class="bg-dark text-light p-1 fixed-bottom">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <p>&copy; 2024 Tienda Virtual. Todos los derechos reservados.</p>
+                <p>&copy; 2024 RetroRenting. Todos los derechos reservados.</p>
             </div>
             <div class="col-md-6">
                 <ul class="list-unstyled d-flex justify-content-end">
@@ -14,3 +14,4 @@
         </div>
     </div>
 </footer>
+
