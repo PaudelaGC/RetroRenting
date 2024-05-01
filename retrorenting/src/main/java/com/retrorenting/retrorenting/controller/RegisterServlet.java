@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.retrorenting.retrorenting.controller;
 
 import com.password4j.BcryptFunction;
@@ -28,10 +24,6 @@ import model.persist.UsersDao;
 import model.persist.AddressDao;
 import model.persist.PostsDao;
 
-/**
- *
- * @author 39348
- */
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
 public class RegisterServlet extends HttpServlet {
 
@@ -39,28 +31,10 @@ public class RegisterServlet extends HttpServlet {
     AddressDao addressDao = new AddressDao();
     PostsDao postDao = new PostsDao();
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -72,14 +46,6 @@ public class RegisterServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -88,7 +54,6 @@ public class RegisterServlet extends HttpServlet {
         String apellido = request.getParameter("apellido");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String hashedPassword = "";
         String fechaNacimientoStr = request.getParameter("fecha_nacimiento");
         String calle = request.getParameter("calle");
         String numero = request.getParameter("numero");
@@ -101,13 +66,12 @@ public class RegisterServlet extends HttpServlet {
         String pais = request.getParameter("pais");
         Integer existingUser = userDao.searchUserByEmail(email);
         boolean wrongRegister = false;
-        int idAddress = -1;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date fechaNacimiento = null;
         try {
             fechaNacimiento = dateFormat.parse(fechaNacimientoStr);
         } catch (ParseException e) {
-            e.printStackTrace(); // Manejar el error en caso de que la fecha no se pueda analizar correctamente
+
         }
         java.sql.Date sqlDate = new java.sql.Date(fechaNacimiento.getTime());
         if (existingUser != -1) {
@@ -125,12 +89,12 @@ public class RegisterServlet extends HttpServlet {
         BcryptFunction bcrypt = BcryptFunction.getInstance(Bcrypt.B, 12);
         Hash hash = Password.hash(password)
                 .with(bcrypt);
-        hashedPassword = hash.getResult();
+        String hashedPassword = hash.getResult();
         String user = request.getParameter("userId");
         String postId = request.getParameter("postId");
         if (!wrongRegister) {
             Address newAddress = new Address(existingUser, calle, numero, bloque, puerta, piso, codigoPostal, ciudad, estado, pais);
-            idAddress = addressDao.addAddress(newAddress);
+            int idAddress = addressDao.addAddress(newAddress);
             User newUser = new User(nombre, apellido, email, hashedPassword, sqlDate, idAddress);
             userDao.addUser(newUser);
             TokenService tokenService = new TokenService();
@@ -177,26 +141,15 @@ public class RegisterServlet extends HttpServlet {
     }
 
     private boolean isUserOver18(Date fechaNacimiento) {
-        // Obtener la fecha actual
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-
-        // Restar 18 años a la fecha actual
         cal.add(Calendar.YEAR, -18);
         Date dateMinus18Years = cal.getTime();
-
-        // Comparar la fecha de nacimiento con la fecha hace 18 años
         return fechaNacimiento.before(dateMinus18Years);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }

@@ -1,9 +1,3 @@
-<%-- 
-    Document   : modifyPost
-    Created on : 19 abr. 2024, 15:00:00
-    Author     : 39348
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String denied1 = (String) request.getAttribute("denied1");
@@ -16,8 +10,6 @@
         denied2 = "null";
     }
 %>
-
-
 <jsp:include page="header.jsp" />
 <jsp:include page="nav.jsp" />
 <div class="container mt-4 antesFooter">
@@ -60,7 +52,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Estas seguro de que quieres elimnar esta publicación?</p>
+                    <p>¿Estas seguro de que quieres eliminar esta publicación?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>

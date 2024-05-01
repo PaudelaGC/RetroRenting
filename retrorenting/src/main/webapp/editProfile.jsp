@@ -1,9 +1,3 @@
-<%-- 
-    Document   : editProfile
-    Created on : 16 abr. 2024, 9:58:04
-    Author     : 39348
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp" />
 <jsp:include page="nav.jsp" />

@@ -1,9 +1,3 @@
-<%-- 
-    Document   : requestManager
-    Created on : 16 abr. 2024, 10:18:13
-    Author     : 39348
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="io.jsonwebtoken.Claims, io.jsonwebtoken.Jwts, io.jsonwebtoken.ExpiredJwtException" %>
@@ -21,13 +15,13 @@
             <c:forEach items="${othersRequests}" var="request">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
-                        <span class="info">Título del ítem:</span> ${request['itemTitle']} <!-- Título del ítem -->
+                        <span class="info">Título del ítem:</span> ${request['itemTitle']}
                     </div>
                     <div>
-                        <span class="info">Solicitante:</span> ${request['userRequester']} <!-- Quién lo pide -->
+                        <span class="info">Solicitante:</span> ${request['userRequester']}
                     </div>
                     <div>
-                        <span class="info">Fecha de la petición:</span> ${request['date']} <!-- Fecha de la petición -->
+                        <span class="info">Fecha de la petición:</span> ${request['date']}
                     </div>
                     <div>
                         <form action="RequestManagerServlet" method="post" class="d-inline">

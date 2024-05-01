@@ -1,9 +1,3 @@
-<%-- 
-    Document   : uploadPost
-    Created on : 19 abr. 2024, 14:24:17
-    Author     : 39348
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%  String userId = request.getParameter("userId");
     String denied1 = (String) request.getAttribute("denied1");

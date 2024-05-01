@@ -1,9 +1,3 @@
-<%-- 
-    Document   : payForm
-    Created on : 16 abr. 2024, 9:59:17
-    Author     : 39348
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="io.jsonwebtoken.Claims, io.jsonwebtoken.Jwts, io.jsonwebtoken.ExpiredJwtException" %>
 <%@ page import="java.util.Date" %>
@@ -35,13 +29,13 @@
     <%
             } catch (ExpiredJwtException expiredEx) {
             expired = true;
-            response.getWriter().write("Your session expired.");
+            response.getWriter().write("Tu sesión ha expirado.");
     %>
     <form action="ViewPostServlet" method="get">
         <input type="hidden" name="postId" value="${post.id}">
         <%
                 } catch (Exception e) {
-                    response.getWriter().write("An error ocurred while loading this page.");
+                    response.getWriter().write("Se ha producido un error al cargar la página.");
                 }
             } else {%>
         <form action="ViewPostServlet" method="get">

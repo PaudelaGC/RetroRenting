@@ -1,9 +1,3 @@
-<%-- 
-    Document   : detalleProducto
-    Created on : 16 abr. 2024, 9:51:26
-    Author     : 39348
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String emailError = (String) request.getAttribute("emailError");

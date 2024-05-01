@@ -1,9 +1,3 @@
-<%-- 
-    Document   : viewPost
-    Created on : 20 abr. 2024, 16:02:53
-    Author     : 39348
---%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ page import="io.jsonwebtoken.Claims, io.jsonwebtoken.Jwts, io.jsonwebtoken.ExpiredJwtException" %>
@@ -38,13 +32,13 @@
         <input type="hidden" name="postId" value="${post.id}">
         <% } catch (ExpiredJwtException expiredEx) {
         expired = true;
-        response.getWriter().write("Your session expired.");
+        response.getWriter().write("Tu sesión ha expirado.");
         %>
         <form action="LoginServlet2" method="get">
             <input type="hidden" name="postId" value="${post.id}">
             <input type="hidden" name="userId" value="${user.id}">
             <% } catch (Exception e) {
-                response.getWriter().write("An error ocurred while loading this page.");
+                response.getWriter().write("Ha ocurrido un error al cargar la página.");
             }
         } else { %>
             <form action="LoginServlet2" method="get">
@@ -64,13 +58,13 @@
                 <input type="hidden" name="postId" value="${post.id}">
 
                 <% } catch (ExpiredJwtException expiredEx) {
-                expired = true; response.getWriter().write("Your session expired.");
+                expired = true; response.getWriter().write("Tu sesión ha expirado.");
                 %>
                 <form action="LoginServlet2" method="get">
 
                     <input type="hidden" name="postId" value="${post.id}">
                     <% } catch (Exception e) {
-                        response.getWriter().write("An error ocurred while loading this page.");
+                        response.getWriter().write("Ha ocurrido un error al cargar la página.");
                     }
                 } else { %>
                     <form action="LoginServlet2" method="get">
