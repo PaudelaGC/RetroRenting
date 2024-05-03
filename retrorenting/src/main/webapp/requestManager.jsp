@@ -52,7 +52,7 @@
                     </div>
                     <div class="d-flex align-items-center">
                         <form action="RequestManagerServlet" method="post">
-                            <c:if test="${request['status'] eq 'Accepted'}">
+                            <c:if test="${request['status'] eq 'Aceptado'}">
                                 <input type="hidden" name="pay" value="${request['id']}">
                                 <input type="hidden" name="userId" value="${userId}">
                                 <button type="submit" class="btn btn-primary btn-sm me-2">Pagar</button>

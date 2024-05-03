@@ -127,7 +127,7 @@ public class RequestManagerServlet extends HttpServlet {
             requestSummary.put("date", requestEntry.getRequestDate());
             if (requestEntry.getIdUser() == requesterId) {
                 myRequests.add(requestSummary);
-            } else if (requesterId == userDao.searchUser(postDao.findPostById(requestEntry.getIdPost()).getIdUser()).getId() && requestSummary.get("status").equals("Pending")) {
+            } else if (requesterId == userDao.searchUser(postDao.findPostById(requestEntry.getIdPost()).getIdUser()).getId() && requestSummary.get("status").equals("Pendiente")) {
                 othersRequests.add(requestSummary);
             }
         }
